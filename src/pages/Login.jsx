@@ -35,11 +35,11 @@ export default function Login() {
             class="shadow-md border w-full h-12 px-3 py-2 rounded-md"
           />
           <div className="mt-8 flex flex-col gap-3">
-            <button class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3 py-1 rounded text-lg focus:outline-none shadow">
+            <button class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow">
               Login Now
             </button>
-            <button class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 py-1 rounded text-lg focus:outline-none shadow">
-              <img src={googleLogo} className="w-6 h-6" />
+            <button class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
+              <img src={googleLogo} className="w-6 h-6" alt="google logo"/>
               or Sign In with Google
             </button>
             <Link to="/register" className="w-full text-left">
