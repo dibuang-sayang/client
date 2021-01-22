@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-// import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Login, Register, Home } from './pages';
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-          <Route path="/">
-            <Register />
-          </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/" component={Home} />
         </Switch>
       </div>
     </Router>
