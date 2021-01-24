@@ -25,23 +25,15 @@ export default function Home() {
           />
           {dummyData.map((el, i) => {
             return (
-              <Marker
-                position={el.lokasi}
-                key={i}
-                onClick={() => {
-                  console.log('tes');
-                }}
-              ></Marker>
+              <Marker position={el.lokasi} key={i}>
+                <Popup>
+                  <div>{el.nama}</div>
+                </Popup>
+              </Marker>
             );
           })}
-          {displayPop && (
-            <Popup
-              position={displayPop.lokasi}
-              onClose={() => setDisplayPop(null)}
-            >
-              <div>{displayPop.nama}</div>
-            </Popup>
-          )}
+          {/* {displayPop && (
+          )} */}
         </MapContainer>
       </div>
     </div>
