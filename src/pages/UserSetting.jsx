@@ -1,7 +1,9 @@
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 export default function UserSetting() {
+  const position = [-6.260676036065346, 106.78161619719772];
   return (
-    <div className="flex w-full justify-center mt-12">
-      <div className="w-11/12">
+    <div className="flex w-full justify-center mt-24">
+      <div className="flex flex-row w-11/12">
         <div className="w-1/2">
           <span className="text-2xl font-bold font-custom">
             Select Your Role
@@ -66,7 +68,42 @@ export default function UserSetting() {
             </div>
           </div>
         </div>
-        <div className="w-1/2"></div>
+        <div className="w-1/2 flex flex-col justify-center px-3">
+          <span className="text-2xl font-bold font-custom">
+            Input Your Location
+          </span>
+          <div className="w-full">
+            <MapContainer
+              center={position}
+              zoom={13}
+              scrollWheelZoom={false}
+              className="testes"
+            >
+              <TileLayer
+                className="w-full h-full"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={position}>
+                <Popup>
+                  <div>Posisi Kamu</div>
+                </Popup>
+              </Marker>
+              );
+            </MapContainer>
+            <div className="w-full flex flex-col">
+              <span className="text-justify w-full text-sm">
+                We are aware that location search may result in an inacurate
+                position of your pin. If it happen, choose the closest location
+                to you.
+              </span>
+              <span className="text-justify w-full text-sm">
+                Pro Tip: Write your precise address on Address input to make
+                sure your address is accurate
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

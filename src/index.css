@@ -11,7 +11,7 @@
 .leaflet-container {
   /* height: 80vh;
   width: 100%; */
-  @apply h-96 w-3/4;
+  @apply h-96 w-full;
 }
 
 /* body {
