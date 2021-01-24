@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Hero, ProductHomepage } from '../components';
 import dummyData from '../assets/dummy-data-pengepul.json';
 import { axios } from '../config';
+import { FooterBar } from '../components';
 
 export default function Home() {
   const [position, setPosition] = useState();
@@ -21,7 +22,6 @@ export default function Home() {
         {[...Array(3)].map((el, i) => {
           return <ProductHomepage key={i} />;
         })}
-        {position}
       </div>
       {/* Map Display */}
       <div className="box-border w-full flex justify-center my-8">
@@ -46,6 +46,7 @@ export default function Home() {
           </MapContainer>
         )}
       </div>
+      <FooterBar />
     </div>
   );
 }
