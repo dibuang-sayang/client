@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client';
-import client from './config/graphql';
+import { client } from './config';
 import './index.css';
 
 // sentry tinggal dinyalain
