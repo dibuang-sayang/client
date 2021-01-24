@@ -80,7 +80,7 @@ export default function Navbar() {
                   Tentang Kami
                 </NavLink>
                 <NavLink
-                  to="/tentang-kami"
+                  to="/kontak"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Kontak
