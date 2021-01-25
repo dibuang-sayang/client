@@ -9,8 +9,9 @@ import {
   Market,
   Cart,
   ChatBoard,
+  Chatbox,
 } from './pages';
-import { Navbar, FooterBar } from './components';
+import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { requireLogin } from './config';
 
@@ -21,6 +22,7 @@ function App() {
       <div className="">
         <GuardProvider guards={[requireLogin]}>
           <Switch>
+            <Route path="/chatbox" component={Chatbox} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/pasar" component={Market} />

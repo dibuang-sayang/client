@@ -1,6 +1,7 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
+import { signUpWithEmailPassword } from '../config/firestore'
 import { user } from "../query/index"
 import { useMutation } from "@apollo/client"
 
@@ -20,7 +21,6 @@ export default function Register() {
       ...inputUser, 
       [e.target.name] : e.target.value
     })
-
   }
 
   const handleClickRegisterButton = (e) => {
@@ -32,7 +32,7 @@ export default function Register() {
     }).then(res => {
       if(res.data.register){
         console.log(res.data);
-        console.log("ada data dong");
+        signUpWithEmailPassword(inputUser.email, inputUser.password)
       }else {
         console.log(res.errors);
       }
@@ -40,6 +40,9 @@ export default function Register() {
     .catch(err => console.log(err), "<<<<< ini error")
   }
 
+  useEffect(() => {
+  }, [])
+  
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068673464238130/dumpsite.png';
   
@@ -70,7 +73,7 @@ export default function Register() {
             name="firstName"
             onChange = {handleChangeInputUser}
             value = {inputUser.firstName}
-            // placeholder="John"
+            placeholder="Budi"
             autoComplete="off"
             required = {true}
             className="shadow-md border w-full h-12 px-3 py-2 rounded-md"
@@ -83,7 +86,7 @@ export default function Register() {
             name="lastName"
             onChange = {handleChangeInputUser}
             value = {inputUser.lastName}
-            placeholder="Doe"
+            placeholder="Anduk"
             autoComplete="off"
             className="shadow-md border w-full h-12 px-3 py-2 rounded-md"
           />
@@ -116,7 +119,7 @@ export default function Register() {
             className="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
             onClick = {handleClickRegisterButton}
             >
-              Register Now
+                Register Now
             </button>
             <button className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
               <img src={googleLogo} className="w-6 h-6" alt="logo google "/>

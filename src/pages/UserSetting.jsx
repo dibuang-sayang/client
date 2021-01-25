@@ -18,7 +18,7 @@ export default function UserSetting() {
 
               <div class="py-5 text-center">
                 <a
-                  href="#"
+                  href="/"
                   class="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Penyumbang
@@ -37,7 +37,7 @@ export default function UserSetting() {
 
               <div class="py-5 text-center">
                 <a
-                  href="#"
+                  href="/"
                   class="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Pengepul
@@ -56,7 +56,7 @@ export default function UserSetting() {
 
               <div class="py-5 text-center">
                 <a
-                  href="#"
+                  href="/"
                   class="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Pengrajin
