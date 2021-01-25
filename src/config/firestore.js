@@ -6,10 +6,10 @@ const firebaseConfig = {
   apiKey: "AIzaSyAgftFKHYsA3YvlqU1v5-h4BQZSI93kco0",
   authDomain: "dibuangsayang-chatbox.firebaseapp.com",
   projectId: "dibuangsayang-chatbox",
-  databaseURL: "https://dibuangsayang-chatbox.firebaseio.com"
-  // storageBucket: "dibuangsayang-chatbox.appspot.com",
-  // messagingSenderId: "1027265599817",
-  // appId: "1:1027265599817:web:5dd6d20a2c1c8b4f7fa298"
+  databaseURL: "https://dibuangsayang-chatbox.firebaseio.com",
+  storageBucket: "dibuangsayang-chatbox.appspot.com",
+  messagingSenderId: "1027265599817",
+  appId: "1:1027265599817:web:5dd6d20a2c1c8b4f7fa298"
 }
 
 
@@ -25,12 +25,13 @@ export const db = firebase.firestore();
 export function signUpWithEmailPassword(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log(user)
+      // console.log(user, 'dari signup firestore')
+      saveUserToFirestore(user)
     })
     .catch((error) => {
       const errorCode = error.code
       const errorMsg = error.messaging
-      console.log(errorCode, errorMsg, 'apasih errornya')
+      console.log(error, errorCode, errorMsg, 'apasih errornya')
     })
 }
 
@@ -59,3 +60,15 @@ export function signOutFirebase() {
     console.log(error, 'happened')
   });
 }
+
+export function saveUserToFirestore({user}) {
+  console.log(user, 'masuk')
+  const userRef = db.collection('users')
+  userRef.doc(user.email).set({
+    uid: user.uid,
+    email: user.email,
+  })
+  console.log(userRef, 'userref')
+}
+
+export function writeData() {}
