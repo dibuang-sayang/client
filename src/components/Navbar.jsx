@@ -1,8 +1,10 @@
+
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { CartPopup } from '../components';
 import { useQuery } from '@apollo/client'
 import { user } from '../query'
+import { signOutFirebase} from '../config/firestore'
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -12,6 +14,7 @@ export default function Navbar() {
   const doLogout = () => {
     console.log('hit');
     console.log(data.getCurrentUser);
+    signOutFirebase()
     localStorage.clear();
   };
 
