@@ -53,7 +53,7 @@ function App() {
             <Route path="/kontak" component={Contact} />
             <Route path="/keranjang" component={Cart} />
             <Route path="/chat" component={ChatBoard} />
-            <GuardedRoute path="/user/:id/setting" component={UserSetting} />
+            <Route path="/user/setting" component={UserSetting} />
             <Route path="/" exact component={Home} />
           </Switch>
         </GuardProvider>
