@@ -45,15 +45,15 @@ function App() {
       <div className="">
         <GuardProvider guards={[requireLogin]}>
           <Switch>
-            <Route path="/chatbox" component={Chatbox} />
+            <GuardedRoute path="/chatbox" component={Chatbox} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/pasar" component={Market} />
+            <GuardedRoute path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
-            <Route path="/keranjang" component={Cart} />
-            <Route path="/chat" component={ChatBoard} />
-            <Route path="/user/setting" component={UserSetting} />
+            <GuardedRoute path="/keranjang" component={Cart} />
+            <GuardedRoute path="/chat" component={ChatBoard} />
+            <GuardedRoute path="/user/setting" component={UserSetting} />
             <Route path="/" exact component={Home} />
           </Switch>
         </GuardProvider>

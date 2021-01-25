@@ -1,6 +1,6 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { user } from '../query'
 import { signInWithGoogle } from '../config/firestore'
 import { signInWithEmailPassword } from '../config/firestore'
@@ -8,13 +8,15 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 
-export default function Login() {
+export default function Login(props) {
   const history = useHistory()
   const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all'})
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
   })
+
+
   const changeHandler = (e) => {
     const name = e.target.name
     const value = e.target.value
@@ -24,7 +26,7 @@ export default function Login() {
       [name]: value
     })
   }
-
+  console.log(props);
   const submitHandler = (e) => {
     e.preventDefault()
     loginUser({
@@ -35,8 +37,7 @@ export default function Login() {
       if (res.data.loginUser) {
         signInWithEmailPassword(loginData.email, loginData.password)
         localStorage.setItem('token', res.data.loginUser.token)
-        // history.push('/')
-        return 
+        history.push('/')         
       }else if( res.errors ){
         throw res.errors[0]
       }
