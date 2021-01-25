@@ -14,6 +14,7 @@ export default function Home() {
       setPosition([data.data.lat, data.data.lon]);
     });
   }, [position]);
+  
   return (
     <div>
       <Hero />
