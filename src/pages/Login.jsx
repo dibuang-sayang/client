@@ -48,7 +48,7 @@ export default function Login() {
     try {
       const data = await signInWithGoogle()
       console.log(data)
-      history.push('/')
+      // history.push('/')
     } catch(err) { 
       console.log(err, 'error gsignin')
     }
