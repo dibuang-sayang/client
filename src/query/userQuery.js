@@ -20,5 +20,5 @@ mutation register($inputUser: UserData) {
 }
 `;
 
-const user = { LOGIN_USER, REGISTER_USER}
+const user = {REGISTER_USER, LOGIN_USER}
 export default user
