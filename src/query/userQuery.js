@@ -38,5 +38,44 @@ const GET_CURRENT_USER = gql`
   }
 `
 
-const user = {REGISTER_USER, LOGIN_USER, FIND_USER_BY_ID, GET_CURRENT_USER}
+const FIND_ALL_USER = gql`
+  query findAllUser {
+    users {
+      firstName
+      lastName
+      email
+    }
+  }
+`;
+
+const EDIT_USER = gql`
+  mutation editUser($inputUser: UserData) {
+    editUser(data: $inputUser) {
+      id
+      firstName
+      lastName
+      email
+      role
+    }
+  }
+`;
+
+const DELETE_USER = gql`
+  mutation deleteUser {
+    deleteUser {
+      msg
+    }
+  }
+`;
+
+const user = {
+  REGISTER_USER, 
+  LOGIN_USER, 
+  FIND_USER_BY_ID, 
+  GET_CURRENT_USER,
+  FIND_ALL_USER,
+  EDIT_USER,
+  DELETE_USER
+}
+
 export default user
