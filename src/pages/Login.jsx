@@ -34,7 +34,8 @@ export default function Login() {
       if (res.data.loginUser) {
         signInWithEmailPassword(loginData.email, loginData.password)
         localStorage.setItem('token', res.data.loginUser.token)
-        history.push('/')
+        // history.push('/')
+        return 
       }else if( res.errors ){
         throw res.errors[0]
       }

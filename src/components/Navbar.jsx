@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { CartPopup } from '../components';
+import { useQuery } from '@apollo/client'
+import { user } from '../query'
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const {data, error, loading} = useQuery(user.GET_CURRENT_USER)
 
   const doLogout = () => {
     console.log('hit');
+    console.log(data.getCurrentUser);
     localStorage.clear();
   };
 
@@ -91,7 +95,7 @@ export default function Navbar() {
                   to="/kontak"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Kontak
+                  {data.getCurrentUser && data.getCurrentUser.email}
                 </NavLink>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import {currentUser} from "../cache"
+import {currentUserVar} from "../cache"
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
@@ -9,7 +9,7 @@ const client = new ApolloClient({
         fields: {
           getCurrentUser: {
             read: () => {
-              return currentUser()
+              return currentUserVar()
             }
           }
         }
