@@ -1,17 +1,22 @@
+
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { signOutFirebase} from '../config/firestore'
 import { CartPopup } from '../components';
+import { useQuery } from '@apollo/client'
+import { user } from '../query'
+import { signOutFirebase} from '../config/firestore'
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const {data, error, loading} = useQuery(user.GET_CURRENT_USER)
 
   const doLogout = () => {
     console.log('hit');
+    console.log(data.getCurrentUser);
     signOutFirebase()
-    localStorage.clear()
-  }
+    localStorage.clear();
+  };
 
   return (
     <nav className="bg-green-500 w-full fixed top-0 z-50">
@@ -93,7 +98,7 @@ export default function Navbar() {
                   to="/kontak"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Kontak
+                  {data.getCurrentUser && data.getCurrentUser.email}
                 </NavLink>
               </div>
             </div>

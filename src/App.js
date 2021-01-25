@@ -14,8 +14,31 @@ import {
 import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { requireLogin } from './config';
+import { user } from './query'
+import { useQuery } from '@apollo/client'
+import React, { useEffect } from 'react'
+import { currentUserVar } from './cache'
 
 function App() {
+
+  const {data: currentLoginUser, error, loading} = useQuery(user.FIND_USER_BY_ID, {
+    context: {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    },
+    onCompleted: () =>{ 
+      console.log('sukses')
+    }
+  })
+
+  useEffect(() => {
+    if(currentLoginUser){
+      console.log(currentLoginUser.user);
+      currentUserVar(currentLoginUser.user)
+    }else console.log("tidak ada yang login");
+  }, [currentLoginUser])
+
   return (
     <Router>
       <Navbar />

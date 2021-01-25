@@ -4,9 +4,12 @@ import { Hero, ProductHomepage } from '../components';
 import dummyData from '../assets/dummy-data-pengepul.json';
 import { axios } from '../config';
 import { FooterBar } from '../components';
+import { useQuery } from '@apollo/client'
+import { user } from '../query'
 
 export default function Home() {
   const [position, setPosition] = useState();
+  const {data, error, loading} = useQuery(user.GET_CURRENT_USER)
 
   useEffect(() => {
     axios.get('http://ip-api.com/json/?fields=61439').then((data) => {
@@ -17,7 +20,7 @@ export default function Home() {
       //   setPosition([data.data.lat, data.data.lon]);
       // } 
         setPosition([data.data.lat, data.data.lon]);
-    });
+    }).catch(err => console.log(err))
   }, [position]);
   
   return (
