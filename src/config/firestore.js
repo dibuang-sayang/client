@@ -35,4 +35,14 @@ export function signUpWithEmailPassword(email, password) {
     })
 }
 
-// export function loginWith
+export function signInWithEmailPassword(email, password) {
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      console.log(user, 'user signed in')
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage, 'apasih errornya di login')
+    });
+}
