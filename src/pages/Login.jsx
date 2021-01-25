@@ -1,12 +1,11 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { user } from '../query';
 import { signInWithGoogle } from '../config/firestore';
 import { signInWithEmailPassword } from '../config/firestore';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { noBar } from '../cache';
 
 export default function Login(props) {
   const history = useHistory();

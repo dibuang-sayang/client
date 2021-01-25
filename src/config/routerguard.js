@@ -1,5 +1,3 @@
-import React from 'react';
-
 const requireLogin = (to, from, next) => {
   if (localStorage.getItem('token')) {
     next();

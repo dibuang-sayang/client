@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -8,14 +8,13 @@ import {
 } from 'react-leaflet';
 import { Hero, ProductHomepage } from '../components';
 import dummyData from '../assets/dummy-data-pengepul.json';
-import { axios } from '../config';
 import { FooterBar } from '../components';
-import { useQuery } from '@apollo/client';
-import { user } from '../query';
+// import { useQuery } from '@apollo/client';
+// import { user } from '../query';
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
-  const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
+  // const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
 
   const LocationMarker = () => {
     const map = useMapEvents({

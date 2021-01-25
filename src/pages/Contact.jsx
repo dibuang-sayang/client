@@ -15,7 +15,10 @@ export default function Contact() {
           <div className="flex flex-wrap -m-2">
             <div className="p-2 w-1/2">
               <div className="relative">
-                <label for="name" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="name"
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Name
                 </label>
                 <input
@@ -28,7 +31,10 @@ export default function Contact() {
             </div>
             <div className="p-2 w-1/2">
               <div className="relative">
-                <label for="email" className="leading-7 text-sm text-gray-600">
+                <label
+                  htmlFor="email"
+                  className="leading-7 text-sm text-gray-600"
+                >
                   Email
                 </label>
                 <input
@@ -42,7 +48,7 @@ export default function Contact() {
             <div className="p-2 w-full">
               <div className="relative">
                 <label
-                  for="message"
+                  htmlFor="message"
                   className="leading-7 text-sm text-gray-600"
                 >
                   Message
@@ -60,7 +66,9 @@ export default function Contact() {
               </button>
             </div>
             <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-              <a className="text-indigo-500" href="/">admin@dibuangsayang.tech</a>
+              <a className="text-indigo-500" href="/">
+                admin@dibuangsayang.tech
+              </a>
               <p className="leading-normal my-5">
                 49 Smith St.
                 <br />

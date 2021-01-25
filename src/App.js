@@ -21,19 +21,16 @@ import { currentUserVar } from './cache';
 
 function App() {
   const location = useLocation();
-  const { data: currentLoginUser, error, loading } = useQuery(
-    user.FIND_USER_BY_ID,
-    {
-      context: {
-        headers: {
-          token: localStorage.getItem('token'),
-        },
+  const { data: currentLoginUser } = useQuery(user.FIND_USER_BY_ID, {
+    context: {
+      headers: {
+        token: localStorage.getItem('token'),
       },
-      onCompleted: () => {
-        console.log('sukses');
-      },
-    }
-  );
+    },
+    onCompleted: () => {
+      console.log('sukses');
+    },
+  });
 
   useEffect(() => {
     if (currentLoginUser) {

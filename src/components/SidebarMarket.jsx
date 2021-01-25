@@ -3,10 +3,7 @@ export default function SidebarMarket() {
     <div className="flex w-full p-4">
       <ul className="flex flex-col w-full">
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -24,7 +21,7 @@ export default function SidebarMarket() {
             <span className="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto">
               3
             </span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
           <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600">
@@ -47,10 +44,7 @@ export default function SidebarMarket() {
           </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -65,13 +59,10 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Manager</span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -86,13 +77,10 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Tasks</span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -110,13 +98,10 @@ export default function SidebarMarket() {
             <span className="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto">
               1k
             </span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-green-400">
               <svg
                 fill="none"
@@ -131,7 +116,7 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Add new</span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
           <span className="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase">
@@ -139,10 +124,7 @@ export default function SidebarMarket() {
           </span>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -157,13 +139,10 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Profile</span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -181,13 +160,10 @@ export default function SidebarMarket() {
             <span className="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto">
               10
             </span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-gray-400">
               <svg
                 fill="none"
@@ -203,13 +179,10 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Settings</span>
-          </a>
+          </div>
         </li>
         <li className="my-px">
-          <a
-            href="#"
-            className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+          <div className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
             <span className="flex items-center justify-center text-lg text-red-400">
               <svg
                 fill="none"
@@ -224,7 +197,7 @@ export default function SidebarMarket() {
               </svg>
             </span>
             <span className="ml-3">Logout</span>
-          </a>
+          </div>
         </li>
       </ul>
     </div>
