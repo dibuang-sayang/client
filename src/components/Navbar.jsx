@@ -161,7 +161,7 @@ export default function Navbar() {
                     Chat Dashboard
                   </a>
                   <Link
-                    href="/user/setting"
+                    to="/user/setting"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     role="menuitem"
                   >
