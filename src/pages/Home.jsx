@@ -50,7 +50,7 @@ export default function Home() {
           whenCreated={(map) => {
             map.locate();
           }}
-          style={{ height: '35rem' }}
+          style={{ height: '35rem', zIndex: 0 }}
         >
           <TileLayer
             className="w-full h-full"

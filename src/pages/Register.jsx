@@ -4,12 +4,17 @@ import { useState, useEffect } from 'react';
 import { signUpWithEmailPassword } from '../config/firestore';
 import { user } from '../query/index';
 import { useMutation } from '@apollo/client';
+import Select from 'react-select';
 
 export default function Register() {
   const [registerNewUser] = useMutation(user.REGISTER_USER, {
     errorPolicy: 'all',
   });
-
+  const roleOption = [
+    { value: 'anggota', label: 'Anggota' },
+    { value: 'pengepul', label: 'Pengepul' },
+    { value: 'pengrajin', label: 'Pengrajin' },
+  ];
   const [inputUser, setInputUser] = useState({
     firstName: '',
     lastName: '',
@@ -112,6 +117,10 @@ export default function Register() {
               autoComplete="off"
               className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             />
+            <div className="w-full text-left">
+              <label htmlFor="roles">Role</label>
+            </div>
+            <Select options={roleOption} className="mt-2" />
             <div className="mt-8 flex flex-col gap-3">
               <button
                 className="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
