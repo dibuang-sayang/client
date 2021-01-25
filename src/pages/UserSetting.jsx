@@ -3,7 +3,7 @@ export default function UserSetting() {
   const position = [-6.260676036065346, 106.78161619719772];
   return (
     <div className="flex w-full justify-center mt-24">
-      <div className="flex flex-row w-11/12">
+      <div className="flex flex-row w-11/12 gap-3">
         <div className="w-1/2">
           <span className="text-2xl font-bold font-custom">
             Select Your Role
@@ -68,40 +68,108 @@ export default function UserSetting() {
             </div>
           </div>
         </div>
-        <div className="w-1/2 flex flex-col justify-center px-3">
+        <div className="w-1/2 flex flex-col justify-center px-3 gap-4">
           <span className="text-2xl font-bold font-custom">
-            Input Your Location
+            Complete Your Information
           </span>
-          <div className="w-full">
-            <MapContainer
-              center={position}
-              zoom={13}
-              scrollWheelZoom={false}
-              className="testes"
-            >
-              <TileLayer
-                className="w-full h-full"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={position}>
-                <Popup>
-                  <div>Posisi Kamu</div>
-                </Popup>
-              </Marker>
-              );
-            </MapContainer>
-            <div className="w-full flex flex-col">
-              <span className="text-justify w-full text-sm">
-                We are aware that location search may result in an inacurate
-                position of your pin. If it happen, choose the closest location
-                to you.
-              </span>
-              <span className="text-justify w-full text-sm">
-                Pro Tip: Write your precise address on Address input to make
-                sure your address is accurate
-              </span>
-            </div>
+
+          <div class="w-ful">
+            <form className="w-full">
+              <div class="grid grid-cols-1 gap-6 mt-4">
+                <div>
+                  <label
+                    class="text-gray-700 dark:text-gray-200"
+                    for="username"
+                  >
+                    Alamat
+                  </label>
+                  <input
+                    id="username"
+                    type="text"
+                    class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="text-gray-700 dark:text-gray-200"
+                    for="emailAddress"
+                  >
+                    Nomor Telepon
+                  </label>
+                  <input
+                    id="emailAddress"
+                    type="email"
+                    class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="text-gray-700 dark:text-gray-200"
+                    for="password"
+                  >
+                    Latitude
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    class="text-gray-700 dark:text-gray-200"
+                    for="passwordConfirmation"
+                  >
+                    Longitude
+                  </label>
+                  <input
+                    id="passwordConfirmation"
+                    type="password"
+                    class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  />
+                </div>
+              </div>
+              <div className="flex w-full justify-center flex-col mt-4">
+                <MapContainer
+                  center={position}
+                  zoom={13}
+                  scrollWheelZoom={false}
+                  className="testes"
+                >
+                  <TileLayer
+                    className="w-full h-full"
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={position}>
+                    <Popup>
+                      <div>Posisi Kamu</div>
+                    </Popup>
+                  </Marker>
+                  );
+                </MapContainer>
+                <div className="w-full flex flex-col">
+                  <span className="text-justify w-full text-sm">
+                    We are aware that location search may result in an inacurate
+                    position of your pin. If it happen, choose the closest
+                    location to you.
+                  </span>
+                  <span className="text-justify w-full text-sm">
+                    Pro Tip: Write your precise address on Address input to make
+                    sure your address is accurate
+                  </span>
+                </div>
+              </div>
+
+              <div class="flex justify-end mt-6">
+                <button class="bg-gray-700 text-white py-2 px-4 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                  Update Account Information
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
