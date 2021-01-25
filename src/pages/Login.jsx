@@ -33,7 +33,6 @@ export default function Login() {
       console.log(res, 'respsonse')
       if(res.data.loginUser){
         console.log('success');
-        // console.log(res.data.loginUser.token);
         localStorage.setItem('token', res.data.loginUser.token)
         history.push('/')
       }else if( res.errors ){
