@@ -45,7 +45,7 @@ export default function Home() {
         <MapContainer
           center={position}
           zoom={13}
-          scrollWheelZoom={true}
+          scrollWheelZoom={false}
           whenCreated={(map) => {
             map.locate();
           }}
