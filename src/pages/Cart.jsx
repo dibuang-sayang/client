@@ -21,23 +21,23 @@ export default function Cart() {
             <tbody>
               <tr>
                 <td className="hidden pb-4 md:table-cell">
-                  <a href="#">
+                  <div>
                     <img
                       src="https://limg.app/i/Calm-Cormorant-Catholic-Pinball-Blaster-yM4oub.jpeg"
                       className="w-20 rounded"
                       alt="Thumbnail"
                     />
-                  </a>
+                  </div>
                 </td>
                 <td>
-                  <a href="#">
+                  <div>
                     <p className="mb-2 md:ml-4">Earphone</p>
                     <form action="" method="POST">
                       <button type="submit" className="text-gray-700 md:ml-4">
                         <small>(Remove item)</small>
                       </button>
                     </form>
-                  </a>
+                  </div>
                 </td>
                 <td className="justify-center md:justify-end md:flex mt-6">
                   <div className="w-20 h-10">
@@ -63,13 +63,13 @@ export default function Cart() {
               </tr>
               <tr>
                 <td className="hidden pb-4 md:table-cell">
-                  <a href="#">
+                  <div>
                     <img
                       src="https://limg.app/i/Cute-Constrictor-Super-Sexy-Military-Enforcer-W7mvBp.png"
                       className="w-20 rounded"
                       alt="Thumbnail"
                     />
-                  </a>
+                  </div>
                 </td>
                 <td>
                   <p className="mb-2 md:ml-4">Tesla Model 3</p>
@@ -103,13 +103,13 @@ export default function Cart() {
               </tr>
               <tr>
                 <td className="hidden pb-4 md:table-cell">
-                  <a href="#">
+                  <div>
                     <img
                       src="https://limg.app/i/Successful-Spider-Biblical-Mutant---Total-War-lKoE7D.jpeg"
                       className="w-20 rounded"
                       alt="Thumbnail"
                     />
-                  </a>
+                  </div>
                 </td>
                 <td>
                   <p className="mb-2 md:ml-4">Bic 4 colour pen</p>
@@ -151,7 +151,7 @@ export default function Cart() {
               </div>
               <div className="p-4">
                 <p className="mb-4 italic">
-                  If you have a coupon code, please enter it in the box below
+                  If you have div coupon code, please enter it in the box below
                 </p>
                 <div className="justify-center md:flex">
                   <form action="" method="POST">
@@ -266,7 +266,7 @@ export default function Cart() {
                     17,859.3€
                   </div>
                 </div>
-                <a href="#">
+                <div>
                   <button className="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none">
                     <svg
                       aria-hidden="true"
@@ -283,7 +283,7 @@ export default function Cart() {
                     </svg>
                     <span className="ml-2 mt-5px">Procceed to checkout</span>
                   </button>
-                </a>
+                </div>
               </div>
             </div>
           </div>

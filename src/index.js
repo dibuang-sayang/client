@@ -4,6 +4,7 @@ import App from './App';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './config';
 import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 // sentry tinggal dinyalain
 // import * as Sentry from "@sentry/react"
@@ -21,7 +22,9 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
