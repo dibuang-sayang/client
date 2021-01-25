@@ -74,13 +74,13 @@ export default function Navbar() {
                   Pasar
                 </NavLink>
                 <NavLink
-                  to="/pasar"
+                  to="/tentang-kami"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Tentang Kami
                 </NavLink>
                 <NavLink
-                  to="/pasar"
+                  to="/kontak"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Kontak

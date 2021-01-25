@@ -3,7 +3,12 @@ import backgroundVideo from '../assets/tes.mp4';
 export default function Hero() {
   return (
     <div className="mb-16 mt-16 relative overflow-y-hidden">
-      <video autoPlay loop muted class="absolute top-0 right-0 w-screen z-0">
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute top-0 right-0 w-screen z-0"
+      >
         <source
           src={backgroundVideo}
           type="video/webm"
