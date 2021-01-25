@@ -1,5 +1,30 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useQuery } from '@apollo/client'
+import { user } from '../query'
+import React, {useState, useEffect} from 'react'
+
 export default function UserSetting() {
+
+  const [localData, setLocalData] = useState({})
+
+  const {data: currentLoginUser, error, loading} = useQuery(user.FIND_USER_BY_ID, {
+    context: {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    },
+    onCompleted: () =>{ 
+      console.log('sukses')
+    }
+  })
+
+  useEffect(() => {
+    if(currentLoginUser?.user){
+      console.log(currentLoginUser);
+      setLocalData(currentLoginUser.user)
+    }
+  }, [currentLoginUser])
+
   const position = [-6.260676036065346, 106.78161619719772];
   return (
     <div className="flex w-full justify-center mt-24">
