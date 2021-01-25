@@ -20,5 +20,23 @@ mutation register($inputUser: UserData) {
 }
 `;
 
-const user = {REGISTER_USER, LOGIN_USER}
+const FIND_USER_BY_ID = gql`
+  query findById {
+    user {
+      id
+      firstName
+      lastName
+      email
+      role
+    }
+  }
+`;
+
+const GET_CURRENT_USER = gql`
+  query getCurrentUser {
+    getCurrentUser @client
+  }
+`
+
+const user = {REGISTER_USER, LOGIN_USER, FIND_USER_BY_ID, GET_CURRENT_USER}
 export default user

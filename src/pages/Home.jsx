@@ -11,7 +11,12 @@ export default function Home() {
   useEffect(() => {
     axios.get('http://ip-api.com/json/?fields=61439').then((data) => {
       // console.log(data.data.lat);
-      setPosition([data.data.lat, data.data.lon]);
+      // if (!data) {
+      //   setPosition([6.2088, 106.8456])
+      // } else {
+      //   setPosition([data.data.lat, data.data.lon]);
+      // } 
+        setPosition([data.data.lat, data.data.lon]);
     });
   }, [position]);
   
