@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -150,6 +150,20 @@ export default function Navbar() {
                   >
                     Sign out
                   </a>
+                  <Link
+                    to="/register"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
+                    register
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    role="menuitem"
+                  >
+                    login
+                  </Link>
                 </div>
               )}
             </div>
