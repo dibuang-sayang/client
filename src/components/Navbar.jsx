@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-
+import { signOutFirebase} from '../config/firestore'
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
   const doLogout = () => {
     console.log('hit');
+    signOutFirebase()
     localStorage.clear()
   }
 

@@ -2,6 +2,7 @@ import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client'
 import { user } from '../query'
+import { signInWithGoogle } from '../config/firestore'
 import { signInWithEmailPassword } from '../config/firestore'
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -42,6 +43,18 @@ export default function Login() {
     .catch( err => console.log(err, 'err'))
   }
 
+  const googleSignIn = async () => {
+    try {
+      const data = await signInWithGoogle()
+      console.log(data)
+      history.push('/')
+    } catch(err) { 
+      console.log(err, 'error gsignin')
+    }
+  }
+
+  useEffect(() => {
+  }, [])
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png';
@@ -85,7 +98,7 @@ export default function Login() {
               class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow">
               Login Now
             </button>
-            <button class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
+            <button class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow" onClick={() => googleSignIn()}> 
               <img src={googleLogo} className="w-6 h-6" alt="google logo"/>
               or Sign In with Google
             </button>
