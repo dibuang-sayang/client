@@ -30,7 +30,7 @@ export default function FooterBar() {
         <div className="flex flex-col items-center justify-between mt-6 md:flex-row">
           <div>
             <span
-              href="#"
+              href="/"
               className=" flex flex-row text-xl font-bold text-gray-800 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
             >
               <img
