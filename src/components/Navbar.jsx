@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { signOutFirebase} from '../config/firestore'
 import { CartPopup } from '../components';
 
 export default function Navbar() {
@@ -8,8 +9,9 @@ export default function Navbar() {
 
   const doLogout = () => {
     console.log('hit');
-    localStorage.clear();
-  };
+    signOutFirebase()
+    localStorage.clear()
+  }
 
   return (
     <nav className="bg-green-500 w-full fixed top-0 z-50">
