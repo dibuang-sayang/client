@@ -1,7 +1,49 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client'
+import { user } from '../query'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+
 
 export default function Login() {
+  const history = useHistory()
+  const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all'})
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const changeHandler = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    setLoginData({
+      ...loginData,
+      [name]: value
+    })
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    loginUser({
+      variables: loginData
+    })
+    .then( res => {
+      console.log(res, 'respsonse')
+      if(res.data.loginUser){
+        console.log('success');
+        // console.log(res.data.loginUser.token);
+        localStorage.setItem('token', res.data.loginUser.token)
+        history.push('/')
+      }else if( res.errors ){
+        throw res.errors[0]
+      }
+    })
+    .catch( err => console.log(err, 'err'))
+  }
+
+
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png';
   return (
@@ -15,17 +57,19 @@ export default function Login() {
         </div>
         <div class="w-3/4 text-center">
           <div className="w-full text-left">
-            <label htmlFor="username">Email</label>
+            <label htmlFor="email">Email</label>
           </div>
           <input
-            type="text"
-            name="username"
-            placeholder="username"
+            type="email"
+            name="email"
+            placeholder="email"
             autocomplete="off"
             class="shadow-md border w-full h-12 px-3 py-2 rounded-md"
+            value={loginData.email}
+            onChange={(e) => changeHandler(e)}
           />
           <div className="w-full text-left">
-            <label htmlFor="username">Password</label>
+            <label htmlFor="password">Password</label>
           </div>
           <input
             type="password"
@@ -33,9 +77,13 @@ export default function Login() {
             placeholder="password"
             autocomplete="off"
             class="shadow-md border w-full h-12 px-3 py-2 rounded-md"
+            value={loginData.password}
+            onChange={(e) => changeHandler(e)}
           />
           <div className="mt-8 flex flex-col gap-3">
-            <button class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow">
+            <button
+              onClick={(e) => submitHandler(e)} 
+              class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow">
               Login Now
             </button>
             <button class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
