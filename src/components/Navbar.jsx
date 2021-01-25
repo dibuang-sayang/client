@@ -3,6 +3,12 @@ import { NavLink, Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+
+  const doLogout = () => {
+    console.log('hit');
+    localStorage.clear()
+  }
+
   return (
     <nav className="bg-green-500 w-full fixed top-0 z-50">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -143,13 +149,15 @@ export default function Navbar() {
                   >
                     Settings
                   </a>
-                  <a
-                    href="/"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    role="menuitem"
-                  >
-                    Sign out
-                  </a>
+                  <div onClick={doLogout}>
+                    <Link
+                      to="/"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      role="menuitem"
+                    >
+                      Sign out
+                    </Link>
+                  </div>
                   <Link
                     to="/register"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
