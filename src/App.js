@@ -50,7 +50,7 @@ function App() {
             <GuardedRoute path="/chatbox" component={Chatbox} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <GuardedRoute path="/pasar" component={Market} />
+            <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
             <GuardedRoute path="/keranjang" component={Cart} />
