@@ -6,6 +6,7 @@ import { signInWithGoogle } from '../config/firestore';
 import { signInWithEmailPassword } from '../config/firestore';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { noBar } from '../cache';
 
 export default function Login(props) {
   const history = useHistory();
@@ -46,7 +47,6 @@ export default function Login(props) {
         if (res.data.loginUser) {
           signInWithEmailPassword(loginData.email, loginData.password);
           localStorage.setItem('token', res.data.loginUser.token);
-          return;
           history.push('/');
         } else if (res.errors) {
           throw res.errors[0];
@@ -64,8 +64,6 @@ export default function Login(props) {
       console.log(err, 'error gsignin');
     }
   };
-
-  useEffect(() => {}, []);
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png';
@@ -87,7 +85,7 @@ export default function Login(props) {
             name="email"
             placeholder="email"
             autocomplete="off"
-            class="shadow-md border w-full h-12 px-3 py-2 rounded-md"
+            class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             value={loginData.email}
             onChange={(e) => changeHandler(e)}
           />
@@ -99,7 +97,7 @@ export default function Login(props) {
             name="password"
             placeholder="password"
             autocomplete="off"
-            class="shadow-md border w-full h-12 px-3 py-2 rounded-md"
+            class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             value={loginData.password}
             onChange={(e) => changeHandler(e)}
           />

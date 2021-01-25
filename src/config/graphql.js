@@ -1,20 +1,20 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import {currentUserVar} from "../cache"
+import { currentUserVar, noBar } from '../cache';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
   cache: new InMemoryCache({
     typePolicies: {
-      Query:{
+      Query: {
         fields: {
           getCurrentUser: {
             read: () => {
-              return currentUserVar()
-            }
-          }
-        }
-      }
-    }
+              return currentUserVar();
+            },
+          },
+        },
+      },
+    },
   }),
 });
 

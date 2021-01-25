@@ -1,28 +1,37 @@
 import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from 'react-leaflet';
 import { Hero, ProductHomepage } from '../components';
 import dummyData from '../assets/dummy-data-pengepul.json';
 import { axios } from '../config';
 import { FooterBar } from '../components';
-import { useQuery } from '@apollo/client'
-import { user } from '../query'
+import { useQuery } from '@apollo/client';
+import { user } from '../query';
 
 export default function Home() {
-  const [position, setPosition] = useState();
-  const {data, error, loading} = useQuery(user.GET_CURRENT_USER)
+  const [position, setPosition] = useState([6.2088, 106.8456]);
+  const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
 
-  useEffect(() => {
-    axios.get('http://ip-api.com/json/?fields=61439').then((data) => {
-      // console.log(data.data.lat);
-      // if (!data) {
-      //   setPosition([6.2088, 106.8456])
-      // } else {
-      //   setPosition([data.data.lat, data.data.lon]);
-      // } 
-        setPosition([data.data.lat, data.data.lon]);
-    }).catch(err => console.log(err))
-  }, [position]);
-  
+  const LocationMarker = () => {
+    const map = useMapEvents({
+      locationfound(e) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
+      },
+    });
+
+    return position === null ? null : (
+      <Marker position={position}>
+        <Popup>You are here</Popup>
+      </Marker>
+    );
+  };
+
   return (
     <div>
       <Hero />
@@ -34,26 +43,31 @@ export default function Home() {
       </div>
       {/* Map Display */}
       <div className="box-border w-full flex justify-center my-8">
-        {position && (
-          <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              className="w-full h-full"
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {dummyData.map((el, i) => {
-              return (
-                <Marker position={el.lokasi} key={i}>
-                  <Popup>
-                    <div>{el.nama}</div>
-                  </Popup>
-                </Marker>
-              );
-            })}
-            {/* {displayPop && (
-          )} */}
-          </MapContainer>
-        )}
+        <MapContainer
+          center={position}
+          zoom={13}
+          scrollWheelZoom={true}
+          whenCreated={(map) => {
+            map.locate();
+          }}
+          style={{ height: '35rem' }}
+        >
+          <TileLayer
+            className="w-full h-full"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {dummyData.map((el, i) => {
+            return (
+              <Marker position={el.lokasi} key={i}>
+                <Popup>
+                  <div>{el.nama}</div>
+                </Popup>
+              </Marker>
+            );
+          })}
+          <LocationMarker />
+        </MapContainer>
       </div>
       <FooterBar />
     </div>
