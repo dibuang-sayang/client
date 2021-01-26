@@ -1,5 +1,5 @@
 import googleLogo from '../assets/img/google.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { signUpWithEmailPassword } from '../config/firestore';
 import { user } from '../query/index';
@@ -7,8 +7,12 @@ import { useMutation } from '@apollo/client';
 import Select from 'react-select';
 
 export default function Register() {
+  const history = useHistory()
   const [registerNewUser] = useMutation(user.REGISTER_USER, {
     errorPolicy: 'all',
+    onCompleted: () => {
+      history.push('/login')
+    }
   });
   const roleOption = [
     { value: 'anggota', label: 'Anggota' },
