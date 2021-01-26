@@ -1,9 +1,11 @@
 import React from "react"
 import { useMutation } from "@apollo/client"
 import { cart } from "../query"
+import { useLocation, useHistory } from 'react-router-dom'
 
 export default function ProductCard({product}) {
-
+    const location = useLocation()
+    const history = useHistory()
     const [addCart] = useMutation(cart.ADD_CART , {
       context : {
         headers : {
@@ -28,6 +30,11 @@ export default function ProductCard({product}) {
       }).then (res =>  console.log(res))
         .catch(err => console.log(err))
     }
+
+    const handleEditProduct = (productId) => {
+      history.push(`/produk/${productId}/edit`)
+    }
+
     return (
         <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
               <div className="block relative h-48 rounded overflow-hidden">
@@ -45,9 +52,12 @@ export default function ProductCard({product}) {
                   {product.name}
                 </h2>
                 <p className="mt-1">Rp.{new Intl.NumberFormat({style :'currency'}).format(product.price)}</p>
-                <button
-                onClick = {() => {handleAddCart(product.id)}}
-                >Add To cart</button>
+                {(location.pathname !== '/office')
+                  ? <button
+                  onClick = {() => {handleAddCart(product.id)}}
+                  >Add To cart</button>
+                  : <button onClick ={ () => {handleEditProduct(product.id)}}>edit product</button>
+                }
               </div>
 
             </div>

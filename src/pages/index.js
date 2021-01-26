@@ -7,3 +7,5 @@ export { default as Contact } from './Contact';
 export { default as Market } from './Market';
 export { default as Cart } from './Cart';
 export { default as ChatBoard } from './ChatBoard';
+export { default as Office } from './Office'
+export { default as EditProduct } from './EditProduct'

@@ -14,17 +14,6 @@ export default function Login(props) {
     email: '',
     password: '',
   });
-  // const checkUserRole = (token) => {
-  //   return useQuery(user.FIND_USER_BY_ID, {
-  //     options: {
-  //       context: {
-  //         headers: {
-  //           token: token,
-  //         },
-  //       },
-  //     },
-  //   });
-  // };
 
   const changeHandler = (e) => {
     const name = e.target.name;
