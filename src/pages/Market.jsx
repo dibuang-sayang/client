@@ -8,10 +8,21 @@ import {
 import { product } from '../query';
 import { useQuery } from '@apollo/client';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Market() {
+<<<<<<< HEAD
   const { loading, error, data: products } = useQuery(product.FIND_ALL_PRODUCT);
   let { path } = useRouteMatch();
+=======
+  const { loading, error, data: products , refetch} = useQuery(product.FIND_ALL_PRODUCT);
+  let { path, url } = useRouteMatch();
+  console.log(path);
+>>>>>>> development
+
+  useEffect(() => {
+    refetch()
+  } , [products])
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error !!!</h1>;

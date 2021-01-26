@@ -5,6 +5,8 @@ import { useQuery } from '@apollo/client';
 import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
 import ClickAwayListener from 'react-click-away-listener';
+import { currentUserVar } from '../cache';
+ 
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -17,6 +19,7 @@ export default function Navbar() {
     console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
+    currentUserVar({})
   };
   const goToCart = () => {
     history.push('/keranjang');
@@ -154,7 +157,7 @@ export default function Navbar() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="https://api.hello-avatar.com/adorables/face"
                     alt=""
                   />
                 </button>
