@@ -9,6 +9,7 @@ import {
   Market,
   Cart,
   ChatBoard,
+  OfficeList
   Office,
   EditProduct
 } from './pages';
@@ -63,9 +64,11 @@ function App() {
             <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
+            
             <GuardedRoute path="/keranjang" component={Cart} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
+            <GuardedRoute path="/office-list" component= {OfficeList}/>
             <GuardedRoute path="/office" component={Office}/>
             <GuardedRoute path="/produk/:id/edit" component={EditProduct}/>
             <Route path="/" exact component={Home} />
