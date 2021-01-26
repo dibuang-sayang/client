@@ -6,7 +6,7 @@ import {
   Popup,
   useMapEvents,
 } from 'react-leaflet';
-import { Hero, ProductHomepage } from '../components';
+import { Hero, ProductHomepage, ChatBox } from '../components';
 import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
@@ -93,6 +93,7 @@ export default function Home() {
           <LocationMarker />
         </MapContainer>
       </div>
+      <ChatBox />
       <FooterBar />
     </div>
   );
