@@ -16,6 +16,7 @@ export default function Market() {
   console.log(path);
 
   useEffect(() => {
+
     refetch()
   } , [products])
 

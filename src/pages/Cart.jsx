@@ -3,6 +3,7 @@ import { cart } from "../query"
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { useEffect , useState} from "react"
 import { checkOutVar } from "../cache"
+import Swal from "sweetalert2"
 
 export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0)
@@ -19,6 +20,10 @@ export default function Cart() {
   useEffect(()=> {
     if(checkOutData) {
       checkOutVar(checkOutData.checkOut.msg)
+      const checkOutMessage = JSON.parse(checkOutData.checkOut.msg)
+      console.log(checkOutMessage.invoice_url);
+      Swal.fire(
+        {text : `silahkan proses pembayaran anda : ${window.moveTo( checkOutMessage.invoice_url)}`} )
       setTotalPrice(0)
       refetch()
     }
