@@ -1,20 +1,25 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 import { CartPopup } from '../components';
 import { useQuery } from '@apollo/client';
 import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
+import ClickAwayListener from 'react-click-away-listener';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
+  const history = useHistory();
 
   const doLogout = () => {
     console.log('hit');
     console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
+  };
+  const goToCart = () => {
+    history.push('/keranjang');
   };
 
   return (
@@ -105,7 +110,7 @@ export default function Navbar() {
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button className="bg-transparent p-1 rounded-full text-gray-600 focus:border-transparent focus:outline-none">
-              <div className="ml-3 relative">
+              <div className="ml-3 relative" onClick={goToCart}>
                 <span className="sr-only">View notifications</span>
                 <svg
                   className="w-6 h-6"
@@ -116,9 +121,6 @@ export default function Navbar() {
                   onMouseEnter={() => {
                     setShowCart(!showCart);
                   }}
-                  onMouseLeave={() => {
-                    setShowCart(!showCart);
-                  }}
                 >
                   <path
                     strokeLinecap="round"
@@ -127,7 +129,19 @@ export default function Navbar() {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                {showCart && <CartPopup />}
+                {showCart && (
+                  <ClickAwayListener
+                    onClickAway={() => {
+                      setShowCart(!showCart);
+                    }}
+                  >
+                    <CartPopup
+                      onMouseLeave={() => {
+                        setShowCart(!showCart);
+                      }}
+                    />
+                  </ClickAwayListener>
+                )}
               </div>
             </button>
             <div className="ml-3 relative">
@@ -147,11 +161,14 @@ export default function Navbar() {
               </div>
 
               {showMenu && (
-                <div
+                <ClickAwayListener
                   className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
+                  onClickAway={() => {
+                    setShowMenu(!showMenu);
+                  }}
                 >
                   <a
                     href="/"
@@ -190,7 +207,7 @@ export default function Navbar() {
                   >
                     login
                   </Link>
-                </div>
+                </ClickAwayListener>
               )}
             </div>
           </div>
