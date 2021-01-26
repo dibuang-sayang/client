@@ -1,49 +1,34 @@
-import React, { useState, useEffect} from 'react'
-import { useQuery } from '@apollo/client'
-import { office as OfficeQuery, user } from '../query'
-import { ProductCard } from '../components'
-import { useHistory } from 'react-router-dom'
+import { Switch, useRouteMatch } from 'react-router-dom';
+import {
+  OfficeHome,
+  ProductAdd,
+  SidebarOffice,
+  ProductEdit,
+  FooterBar,
+} from '../components';
+import { GuardedRoute } from 'react-router-guards';
 
 export default function Office() {
+  const { path, url } = useRouteMatch();
 
-  const history = useHistory()
-  const { data, error, loading, refetch } = useQuery(OfficeQuery.GET_OFFICE_BY_ID, {
-    errorPolicy: 'all',
-    context: {
-      headers: {
-        token: localStorage.getItem('token'),
-      },
-    },
-  })
-
-  const {data: currentUser, loading: loadingCurrentUser} = useQuery(user.GET_CURRENT_USER)
-
-  const goToAddProduct = () => {
-    history.push('/pasar/produk/add')
-  }
-
-  useEffect(() => {
-    refetch()
-  }, [refetch])
-
-  if(loading || loadingCurrentUser){
-    return <div>loadng...</div>
-  }
   return (
-    <div className="mt-20">
-      {/* {data && JSON.stringify(data, null, 2)} */}
-      {/* {JSON.stringify(currentUser)} */}
-      <div className="flex flex-col justify-center my-20">
-        <div className="flex row">
-          Toko {currentUser.getCurrentUser.firstName}
-          <button className="bg-green-400 py-2 px-4 rounded" onClick={goToAddProduct}> tambah kan produk baru ? </button>
+    <section className="text-gray-600 body-font">
+      <div className="flex flex-row my-20">
+        <div className="w-3/12 bg-gray-200">
+          <SidebarOffice />
         </div>
-        <div className="flex row">
-          {data.office.Products.map(Product => {
-            return <ProductCard key={Product.id} product={Product}/>
-          })}
+        <div className="w-9/12 container px-5 py-24 mx-auto">
+          <Switch>
+            <GuardedRoute
+              path={`${path}/produk/:id/edit`}
+              component={ProductEdit}
+            />
+            <GuardedRoute path={`${path}/produk/add`} component={ProductAdd} />
+            <GuardedRoute path={path} component={OfficeHome} />
+          </Switch>
         </div>
       </div>
-    </div>
-  )
+      <FooterBar />
+    </section>
+  );
 }

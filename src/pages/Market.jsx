@@ -16,8 +16,7 @@ export default function Market() {
   const { loading, error, data: products, refetch } = useQuery(
     product.FIND_ALL_PRODUCT
   );
-  let { path, url } = useRouteMatch();
-  console.log(path);
+  const { path, url } = useRouteMatch();
 
   useEffect(() => {
     refetch();

@@ -12,3 +12,5 @@ export { default as ProductAdd } from './ProductAdd';
 export { default as ChatBox } from './Chatbox';
 export { default as OfficeTabel } from './OfficeTable';
 export { default as ProductEdit } from './ProductEdit';
+export { default as OfficeHome } from './OfficeHome';
+export { default as SidebarOffice } from './SideBarOffice';
