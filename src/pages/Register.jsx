@@ -73,8 +73,9 @@ export default function Register() {
         password: inputUser.password
       },
     }).then( (res) => {
+      console.log(inputUser.role, 'ini rolee');
       localStorage.setItem('token', res.data.loginUser.token);
-      if(loginUser.role === 'anggota'){
+      if(inputUser.role === 'anggota'){
         history.push('/')
       }else{
         history.push('/user/setting')
