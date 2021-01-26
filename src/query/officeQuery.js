@@ -50,6 +50,7 @@ const GET_OFFICE_BY_ID = gql`
                 role
             }
             Products {
+                id
                 name
                 price
                 category

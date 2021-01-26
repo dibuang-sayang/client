@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 export default function Office() {
 
   const history = useHistory()
-  const { data, error, loading } = useQuery(OfficeQuery.GET_OFFICE_BY_ID, {
+  const { data, error, loading, refetch } = useQuery(OfficeQuery.GET_OFFICE_BY_ID, {
     errorPolicy: 'all',
     context: {
       headers: {
@@ -22,6 +22,9 @@ export default function Office() {
     history.push('/pasar/produk/add')
   }
 
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   if(loading || loadingCurrentUser){
     return <div>loadng...</div>
