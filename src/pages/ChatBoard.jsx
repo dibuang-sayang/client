@@ -85,11 +85,11 @@ export default function Chatboard() {
       </div>
     );
   return (
-    <div className="flex h-screen antialiased text-gray-800 mt-20">
+    <div className="flex h-screen antialiased text-gray-800 pt-20">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
         <div className="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
           <div className="flex flex-row items-center justify-center h-12 w-full">
-            <div className="flex items-center justify-center rounded-2xl text-indigo-700 bg-indigo-100 h-10 w-10">
+            <div className="flex items-center justify-center rounded-2xl text-green-500 bg-gray-100 h-10 w-10">
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -105,9 +105,9 @@ export default function Chatboard() {
                 ></path>
               </svg>
             </div>
-            <div className="ml-2 font-bold text-2xl">QuickChat</div>
+            <div className="ml-2 font-bold text-2xl">Chat</div>
           </div>
-          <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
+          {/* <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
             <div className="h-20 w-20 rounded-full border overflow-hidden">
               <img
                 src="https://avatars3.githubusercontent.com/u/2763884?s=128"
@@ -123,12 +123,12 @@ export default function Chatboard() {
               </div>
               <div className="leading-none ml-1 text-xs">Active</div>
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col mt-8">
             <div className="flex flex-row items-center justify-between text-xs">
               <span className="font-bold">Active Conversations</span>
               <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
-                4
+                {chats.length}
               </span>
             </div>
             <div
@@ -136,7 +136,7 @@ export default function Chatboard() {
                 'flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto '
               }
             >
-              {chats.map((chat) => {
+              {chats.map((chat, i) => {
                 const isActive = getReceiver(chat) === receiver;
                 console.log(getReceiver(chat), 'ini getre');
                 console.log(receiver, 'ini recv');
@@ -146,11 +146,12 @@ export default function Chatboard() {
                     onClick={() => handleReceiver(getReceiver(chat))}
                     className={
                       isActive
-                        ? 'flex flex-row items-center hover:bg-gray-100 rounded-xl p-2 bg-gray-500'
-                        : 'flex flex-row items-center hover:bg-gray-100 rounded-xl p-2'
+                        ? 'flex flex-row items-center hover:bg-gray-300 rounded-xl p-2 bg-gray-200'
+                        : 'flex flex-row items-center hover:bg-gray-300 rounded-xl p-2'
                     }
+                    key={i}
                   >
-                    <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
+                    <div className="flex items-center justify-center h-8 w-8 bg-green-200 rounded-full">
                       {getReceiver(chat).charAt(0)}
                     </div>
                     <div className="ml-2 text-sm font-semibold">
@@ -167,14 +168,17 @@ export default function Chatboard() {
             <div className="flex flex-col h-full overflow-x-auto mb-4">
               <div className="flex flex-col h-full">
                 <div className="grid grid-cols-12 gap-y-2">
-                  {conversation.map((c) => {
+                  {conversation.map((c, i) => {
                     return c.sender === user.email ? (
-                      <div className="col-start-6 col-end-13 p-3 rounded-lg">
+                      <div
+                        className="col-start-6 col-end-13 p-3 rounded-lg"
+                        key={i}
+                      >
                         <div className="flex items-center justify-start flex-row-reverse">
-                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500 flex-shrink-0">
                             {c.sender.charAt(0).toUpperCase()}
                           </div>
-                          <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                          <div className="relative mr-3 text-sm bg-green-100 py-2 px-4 shadow rounded-xl">
                             <div>{c.message}</div>
                           </div>
                         </div>
@@ -182,7 +186,7 @@ export default function Chatboard() {
                     ) : (
                       <div className="col-start-1 col-end-8 p-3 rounded-lg">
                         <div className="flex flex-row items-center">
-                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500 flex-shrink-0">
                             {c.receiver.charAt(0).toUpperCase()}
                           </div>
                           <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
@@ -245,7 +249,7 @@ export default function Chatboard() {
               <div className="ml-4">
                 <button
                   onClick={sendMessage}
-                  className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                  className="flex items-center justify-center bg-green-500 hover:bg-green-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
                 >
                   <span>Send</span>
                   <span className="ml-2">

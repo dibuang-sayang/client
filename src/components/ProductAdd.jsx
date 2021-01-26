@@ -1,55 +1,51 @@
-import React, {useState, useEffect} from "react"
-import { useMutation } from "@apollo/client"
-import  { product } from "../query"
-import { useHistory } from "react-router-dom"
+import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { product } from '../query';
+import { useHistory } from 'react-router-dom';
 
 export default function ProductAdd() {
-
   const [productInput, setProductInput] = useState({
-    name : "",
-    price : 0,
-    category : "",
-    stock : 0,
-    picture : ""
-  })
+    name: '',
+    price: 0,
+    category: '',
+    stock: 0,
+    picture: '',
+  });
   const [createProduct] = useMutation(product.CREATE_PRODUCT, {
-    context : {
-      headers : {
-        token : localStorage.getItem("token")
-      }
+    context: {
+      headers: {
+        token: localStorage.getItem('token'),
+      },
     },
-    errorPolicy : "all"
-  })
-  const history = useHistory()
+    errorPolicy: 'all',
+  });
+  const history = useHistory();
 
   const changeInputHandler = (e) => {
-
-    let value = e.target.value
-    const name = e.target.name
-    if(name === 'stock' || name === 'price') {
-      value = Number(value) 
+    let value = e.target.value;
+    const name = e.target.name;
+    if (name === 'stock' || name === 'price') {
+      value = Number(value);
     }
     console.log(e.target.value);
     setProductInput({
-      ...productInput, 
-      [name] : value
-    })
+      ...productInput,
+      [name]: value,
+    });
     console.log(productInput);
-  }
+  };
 
   const handleSubmitProduct = () => {
     console.log(productInput);
     createProduct({
-      variables : {
-        inputProduct : productInput
-      }
-    }).then(res => {
-      history.push("/pasar")
+      variables: {
+        inputProduct: productInput,
+      },
+    }).then((res) => {
+      history.push('/pasar');
       console.log(res);
-
-    })
-  }
-
+    });
+  };
 
   return (
     <div className="w-full h-screen flex justify-center">
@@ -67,11 +63,11 @@ export default function ProductAdd() {
             <input
               type="email"
               name="name"
-              onChange = {changeInputHandler}
-              value = {productInput.name}
+              onChange={changeInputHandler}
+              value={productInput.name}
               placeholder="Nama Produk"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
+              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -81,11 +77,11 @@ export default function ProductAdd() {
             <input
               type="number"
               name="price"
-              onChange = {changeInputHandler}
-              value = {productInput.price}
+              onChange={changeInputHandler}
+              value={productInput.price}
               placeholder="Harga"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
+              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -95,11 +91,11 @@ export default function ProductAdd() {
             <input
               type="text"
               name="category"
-              onChange = {changeInputHandler}
-              value = {productInput.category}
+              onChange={changeInputHandler}
+              value={productInput.category}
               placeholder="Kategori"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
+              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -109,11 +105,11 @@ export default function ProductAdd() {
             <input
               type="number"
               name="stock"
-              value = {productInput.stock}
-              onChange = {changeInputHandler}
+              value={productInput.stock}
+              onChange={changeInputHandler}
               placeholder="Stok"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
+              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -123,11 +119,11 @@ export default function ProductAdd() {
             <input
               type="text"
               name="picture"
-              onChange = {changeInputHandler}
-              value = {productInput.picture}
+              onChange={changeInputHandler}
+              value={productInput.picture}
               placeholder="Gambar"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
+              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="w-full flex justify-between mt-3">
@@ -136,12 +132,15 @@ export default function ProductAdd() {
                 Upload Produk
               </button>
             </div>
-            <img src="https://dummyimage.com/400x400/000/fff.jpg&text=+UPLOADED+IMAGE"></img>
+            <img
+              src="https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image"
+              alt=""
+            ></img>
           </div>
           <div className="mt-8 flex justify-center">
-            <button 
-            class="bg-green-600 w-1/2 py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow"
-            onClick = {handleSubmitProduct}
+            <button
+              class="bg-green-600 w-1/2 py-2 font-custom hover:bg-green-800 text-white px-3  rounded text-lg focus:outline-none shadow"
+              onClick={handleSubmitProduct}
             >
               Tambah Produk
             </button>

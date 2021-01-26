@@ -9,19 +9,22 @@ import { currentUserVar } from '../cache';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
-  const [showCart, setShowCart] = useState(false);
-  const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
+  // const [showCart, setShowCart] = useState(false);
+  const { data } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
 
   const doLogout = () => {
     console.log('hit');
-    console.log(data.getCurrentUser);
+    // console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
     currentUserVar({});
   };
   const goToCart = () => {
     history.push('/keranjang');
+  };
+  const goToChat = () => {
+    history.push('/chat');
   };
 
   return (
@@ -105,7 +108,6 @@ export default function Navbar() {
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Kontak
-                  {data.getCurrentUser && data.getCurrentUser.email}
                 </NavLink>
               </div>
             </div>
@@ -114,10 +116,42 @@ export default function Navbar() {
             <button className="bg-transparent p-1 rounded-full text-gray-600 focus:border-transparent focus:outline-none">
               <div
                 className="ml-3 relative text-gray-900 hover:text-white flex flex-row items-center"
+                onClick={goToChat}
+              >
+                <span className="sr-only">View notifications</span>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                  />
+                </svg>
+                {/* {showCart && (
+                  <ClickAwayListener
+                    onClickAway={() => {
+                      setShowCart(!showCart);
+                    }}
+                  >
+                    <CartPopup
+                      onMouseLeave={() => {
+                        setShowCart(!showCart);
+                      }}
+                    />
+                  </ClickAwayListener>
+                )} */}
+              </div>
+            </button>
+            <button className="bg-transparent p-1 rounded-full text-gray-600 focus:border-transparent focus:outline-none">
+              <div
+                className="ml-3 relative text-gray-900 hover:text-white flex flex-row items-center"
                 onClick={goToCart}
-                flex
-                flex-row
-                gap-2
               >
                 <span className="sr-only">View notifications</span>
                 <svg
@@ -214,7 +248,7 @@ export default function Navbar() {
                 <ClickAwayListener
                   className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5"
                   role="menu"
-                  ariaOrientation="vertical"
+                  aria-orientation="vertical"
                   ariaLabelledby="user-menu"
                   onClickAway={() => {
                     setShowMenu(!showMenu);

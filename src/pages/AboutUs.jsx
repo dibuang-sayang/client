@@ -7,7 +7,7 @@ export default function AboutUs() {
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">
               Berkenalan dengan Tim Dibuang Sayang
             </h1>
-            <div className="h-1 w-20 bg-indigo-500 rounded"></div>
+            <div className="h-1 w-20 bg-green-500 rounded"></div>
           </div>
           <p className="lg:w-1/2 w-full leading-relaxed text-gray-500">
             Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
@@ -21,10 +21,10 @@ export default function AboutUs() {
             <div className="bg-gray-100 p-6 rounded-lg">
               <img
                 className="h-40 rounded w-full object-cover object-center mb-6"
-                src="https://dummyimage.com/720x400"
+                src="https://cdn.discordapp.com/attachments/801791591927775257/803689095737507840/output-onlinepngtools.png"
                 alt="content"
               />
-              <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+              <h3 className="tracking-widest text-green-800 text-xs font-medium title-font">
                 Full Stack Developer
               </h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
@@ -40,10 +40,10 @@ export default function AboutUs() {
             <div className="bg-gray-100 p-6 rounded-lg">
               <img
                 className="h-40 rounded w-full object-cover object-center mb-6"
-                src="https://dummyimage.com/721x401"
+                src="https://cdn.discordapp.com/attachments/801791591927775257/803689095737507840/output-onlinepngtools.png"
                 alt="content"
               />
-              <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+              <h3 className="tracking-widest text-green-800 text-xs font-medium title-font">
                 Full Stack Developer
               </h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
@@ -59,10 +59,10 @@ export default function AboutUs() {
             <div className="bg-gray-100 p-6 rounded-lg">
               <img
                 className="h-40 rounded w-full object-cover object-center mb-6"
-                src="https://dummyimage.com/722x402"
+                src="https://cdn.discordapp.com/attachments/801791591927775257/803689095737507840/output-onlinepngtools.png"
                 alt="content"
               />
-              <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+              <h3 className="tracking-widest text-green-800 text-xs font-medium title-font">
                 Full Stack Developer
               </h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
@@ -78,10 +78,10 @@ export default function AboutUs() {
             <div className="bg-gray-100 p-6 rounded-lg">
               <img
                 className="h-40 rounded w-full object-cover object-center mb-6"
-                src="https://dummyimage.com/723x403"
+                src="https://cdn.discordapp.com/attachments/801791591927775257/803689095737507840/output-onlinepngtools.png"
                 alt="content"
               />
-              <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+              <h3 className="tracking-widest text-green-800 text-xs font-medium title-font">
                 Full Stack Developer
               </h3>
               <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
