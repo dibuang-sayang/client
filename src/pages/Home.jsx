@@ -7,15 +7,14 @@ import {
   useMapEvents,
 } from 'react-leaflet';
 import { Hero, ProductHomepage } from '../components';
-import dummyData from '../assets/dummy-data-pengepul.json';
 import { FooterBar } from '../components';
-// import { useQuery } from '@apollo/client';
-import { user, office } from '../query';
 import { useQuery } from '@apollo/client';
+import { office, user } from '../query';
+// import { useQuery } from '@apollo/client';
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
-  // const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
+  const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER);
 
   const {data: dataOffices, error, loading } = useQuery(office.GET_ALL_OFFICE)
   const [localOffices, setLocalOffices]= useState({offices: []})
@@ -42,10 +41,12 @@ export default function Home() {
     );
   };
 
-  const OfficeMarkes = () => {
-    if(localOffices.length){
-      return 
-    }else return <div></div>
+  const chatTriggerHandler = (emailOffice,emailUser ) => {
+    if (emailOffice > emailUser) {
+      console.log(emailOffice + emailUser)
+    } else {
+      console.log(emailUser, emailOffice);
+    }
   }
 
   if(loading){
@@ -61,7 +62,7 @@ export default function Home() {
       </div>
       {/* Map Display */}
       <div className="box-border w-full flex justify-center my-8">
-        {/* {JSON.stringify(localOffices)} */}
+        {/* {JSON.stringify(dataCurrentUser)} */}
         <MapContainer
           center={position}
           zoom={13}
@@ -81,7 +82,12 @@ export default function Home() {
               return (
                 <Marker position={[el.latitude, el.longitude]} key={i}>
                   <Popup>
-                    <div>{el.User.email}</div>
+                    <div>
+                      {el.User.email}
+                      {(el.User.email !== dataCurrentUser.getCurrentUser.email )
+                        ? <button onClick={() => { chatTriggerHandler(el.User.email, dataCurrentUser.getCurrentUser.email)}}>chat</button>
+                        : <div>yours</div>}
+                    </div>
                   </Popup>
                 </Marker>
               )
