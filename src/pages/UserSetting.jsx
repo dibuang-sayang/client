@@ -3,58 +3,60 @@ import {
   Popup,
   Marker,
   MapContainer,
-  useMapEvents
-} from "react-leaflet";
-import { useQuery, useMutation } from '@apollo/client'
-import { user, office } from '../query'
-import React, {useState, useEffect} from 'react'
-import { useHistory} from 'react-router-dom'
+  useMapEvents,
+} from 'react-leaflet';
+import { useQuery, useMutation } from '@apollo/client';
+import { user, office } from '../query';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function UserSetting() {
-
-  const history = useHistory()
-  const [position, setPosition] = useState({lat: "", lng: ""});
-  const [localData, setLocalData] = useState({})
+  const history = useHistory();
+  const [position, setPosition] = useState({ lat: '', lng: '' });
+  const [localData, setLocalData] = useState({});
   const [officeData, setOfficeData] = useState({
-    address: "",
+    address: '',
     latitude: -6.260676036065346,
     longitude: 106.78161619719772,
-    phoneNumber: "",
-    category: "",
-  })
+    phoneNumber: '',
+    category: '',
+  });
 
   const [addOffice] = useMutation(office.ADD_OFFICE, {
     context: {
       headers: {
-        token: localStorage.getItem('token')
-      }
+        token: localStorage.getItem('token'),
+      },
     },
-    errorPolicy: "all",
+    errorPolicy: 'all',
     onCompleted: () => {
-      history.push('/')
-    }
-  })
+      history.push('/');
+    },
+  });
 
   //cek token
-  const {data: currentLoginUser, error, loading} = useQuery(user.FIND_USER_BY_ID, {
-    context: {
-      headers: {
-        token: localStorage.getItem('token')
-      }
-    },
-    onCompleted: () =>{ 
-      console.log('sukses')
+  const { data: currentLoginUser, error, loading } = useQuery(
+    user.FIND_USER_BY_ID,
+    {
+      context: {
+        headers: {
+          token: localStorage.getItem('token'),
+        },
+      },
+      onCompleted: () => {
+        console.log('sukses');
+      },
     }
-  })
+  );
 
   //set current user
   useEffect(() => {
-    if(currentLoginUser?.user){
+    if (currentLoginUser?.user) {
       console.log(currentLoginUser);
-      setLocalData(currentLoginUser.user)
+      setLocalData(currentLoginUser.user);
     }
-  }, [currentLoginUser])
-  
+  }, [currentLoginUser]);
+
   //marker
   function LocationMarker() {
     const map = useMapEvents({
@@ -63,16 +65,21 @@ export default function UserSetting() {
         setOfficeData({
           ...officeData,
           latitude: e.latlng.lat,
-          longitude: e.latlng.lng
-        })
-        setPosition(e.latlng)
+          longitude: e.latlng.lng,
+        });
+        setPosition(e.latlng);
       },
       locationfound(e) {
         setPosition(e.latlng);
+        setOfficeData({
+          ...officeData,
+          latitude: e.latlng.lat,
+          longitude: e.latlng.lng,
+        });
         map.flyTo(e.latlng, map.getZoom());
-      }
+      },
     });
-  
+
     return position === null ? null : (
       <Marker position={position}>
         <Popup>You are here</Popup>
@@ -81,28 +88,28 @@ export default function UserSetting() {
   }
 
   const onChangeHandler = (e) => {
-    let value = e.target.value
-    let name = e.target.name
+    let value = e.target.value;
+    let name = e.target.name;
 
     setOfficeData({
       ...officeData,
-      [name] : value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const onClickHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log(officeData);
     addOffice({
       variables: {
-        inputOffice: officeData
-      }
+        inputOffice: officeData,
+      },
     })
-    .then(res => {
-      console.log(res);
-    })
-    .catch( err => console.log(err))
-  }
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
   // const position = [-6.260676036065346, 106.78161619719772];
   return (
     <div className="flex w-full justify-center mt-24">
@@ -121,7 +128,9 @@ export default function UserSetting() {
 
               <div className="py-5 text-center">
                 <div
-                  onClick={() => { setOfficeData({ ...officeData, category: 'anggota'})}}
+                  onClick={() => {
+                    setOfficeData({ ...officeData, category: 'anggota' });
+                  }}
                   className="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Anggota
@@ -140,7 +149,9 @@ export default function UserSetting() {
 
               <div className="py-5 text-center">
                 <div
-                  onClick={() => { setOfficeData({ ...officeData, category: 'pengepul'})}}
+                  onClick={() => {
+                    setOfficeData({ ...officeData, category: 'pengepul' });
+                  }}
                   className="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Pengepul
@@ -159,7 +170,9 @@ export default function UserSetting() {
 
               <div className="py-5 text-center">
                 <div
-                  onClick={() => { setOfficeData({ ...officeData, category: 'pengrajin'})}}
+                  onClick={() => {
+                    setOfficeData({ ...officeData, category: 'pengrajin' });
+                  }}
                   className="block text-2xl text-gray-800 dark:text-white font-bold"
                 >
                   Pengrajin
@@ -219,6 +232,7 @@ export default function UserSetting() {
                   <input
                     disabled
                     id="password"
+                    value={officeData.latitude}
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
@@ -234,6 +248,7 @@ export default function UserSetting() {
                   <input
                     disabled
                     id="passwordConfirmation"
+                    value={officeData.longitude}
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
@@ -244,15 +259,17 @@ export default function UserSetting() {
                   center={[-6.260676036065346, 106.78161619719772]}
                   zoom={13}
                   scrollWheelZoom={false}
-                  className="testes"
+                  whenCreated={(map) => {
+                    map.locate();
+                  }}
                 >
                   <TileLayer
                     className="w-full h-full"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  
-                  <LocationMarker/>
+
+                  <LocationMarker />
                 </MapContainer>
                 <div className="w-full flex flex-col">
                   <span className="text-justify w-full text-sm">
@@ -269,8 +286,9 @@ export default function UserSetting() {
 
               <div className="flex justify-end mt-6">
                 <button
-                  onClick={(e) => onClickHandler(e)} 
-                  className="bg-gray-700 text-white py-2 px-4 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                  onClick={(e) => onClickHandler(e)}
+                  className="bg-gray-700 text-white py-2 px-4 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                >
                   Update Account Information
                 </button>
               </div>
