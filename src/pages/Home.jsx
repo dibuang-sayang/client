@@ -10,6 +10,7 @@ import { Hero, ProductHomepage } from '../components';
 import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
+import { startChat } from '../config/firestore'
 // import { useQuery } from '@apollo/client';
 
 export default function Home() {
@@ -41,12 +42,8 @@ export default function Home() {
     );
   };
 
-  const chatTriggerHandler = (emailOffice,emailUser ) => {
-    if (emailOffice > emailUser) {
-      console.log(emailOffice + emailUser)
-    } else {
-      console.log(emailUser, emailOffice);
-    }
+  const chatTriggerHandler = (emailOffice, emailUser) => {
+    startChat(emailOffice, emailUser)
   }
 
   if(loading){

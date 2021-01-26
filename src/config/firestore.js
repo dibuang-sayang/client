@@ -22,10 +22,10 @@ if (!firebase.apps.length) {
 export const auth = firebase.auth()
 export const db = firebase.firestore();
 
+// register user ke auth firebase
 export function signUpWithEmailPassword(email, password) {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      // console.log(user, 'dari signup firestore')
       saveUserToFirestore(user)
     })
     .catch((error) => {
@@ -35,24 +35,28 @@ export function signUpWithEmailPassword(email, password) {
     })
 }
 
+
+// sign in user buat dapet auth state
 export function signInWithEmailPassword(email, password) {
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      console.log(user, 'user signed in')
-    })
-    .catch((error) => {
-      const errorCode = error.code;
+  .then((user) => {
+    console.log(user, 'user signed in')
+  })
+  .catch((error) => {
+    const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage, 'apasih errornya di login')
     });
 }
 
+// sign in with google
 export function signInWithGoogle() {
   console.log('hit gsignin')
   const provider = new firebase.auth.GoogleAuthProvider();
   return firebase.auth().signInWithPopup(provider);
 }
 
+// sign out firebase
 export function signOutFirebase() {
   firebase.auth().signOut().then(() => {
     console.log('succeed logout')
@@ -61,14 +65,44 @@ export function signOutFirebase() {
   });
 }
 
+// masukin data user ke firestore
 export function saveUserToFirestore({user}) {
   console.log(user, 'masuk')
   const userRef = db.collection('users')
   userRef.doc(user.email).set({
     uid: user.uid,
     email: user.email,
-  })
+  }).collection("userChatRooms")
   console.log(userRef, 'userref')
 }
 
-export function writeData() {}
+export const messagesRef = db.collection('messages')
+// bikin collection message dulu
+export const chatRoomRef = db.collection('ChatRoom')
+
+export function startChat(emailUser, emailOffice) {
+  console.log('masuk')
+  const initChat = db.collection('ChatRoom')
+  if (emailOffice > emailUser) {
+    console.log('masuk sini')
+    initChat.doc(emailOffice+','+emailUser)
+    .set({
+      sender: emailUser,
+      receiver: emailOffice
+    })
+  } else {
+    console.log('masuk situ')
+    initChat.doc(emailUser+','+emailOffice)
+    .set({
+      sender: emailUser,
+      receiver: emailOffice
+    })
+  }
+}
+
+// get document
+export const getDocument = (emailUser) => {
+  const docRef = db.collection('message').doc()
+
+}
+
