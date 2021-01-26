@@ -2,7 +2,7 @@ import { CartTable } from "../components"
 import { cart } from "../query"
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
 import { useEffect , useState} from "react"
-
+import { checkOutVar } from "../cache"
 
 export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0)
@@ -18,9 +18,9 @@ export default function Cart() {
   let totalCheckOutPrice = 0
   useEffect(()=> {
     if(checkOutData) {
-      console.log(checkOutData);
-      refetch()
+      checkOutVar(checkOutData.checkOut.msg)
       setTotalPrice(0)
+      refetch()
     }
   }, [checkOutData])
 
@@ -66,6 +66,7 @@ export default function Cart() {
                 </th>
                 <th className="hidden text-right md:table-cell">Unit price</th>
                 <th className="text-right">Total price</th>
+                <th className="text-rigth">Action</th>
               </tr>
             </thead>
               {cartData.carts.map(cart => {
