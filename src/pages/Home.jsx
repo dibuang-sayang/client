@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -10,11 +10,22 @@ import { Hero, ProductHomepage } from '../components';
 import dummyData from '../assets/dummy-data-pengepul.json';
 import { FooterBar } from '../components';
 // import { useQuery } from '@apollo/client';
-// import { user } from '../query';
+import { user, office } from '../query';
+import { useQuery } from '@apollo/client';
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
   // const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
+
+  const {data: dataOffices, error, loading } = useQuery(office.GET_ALL_OFFICE)
+  const [localOffices, setLocalOffices]= useState([])
+
+  useEffect( () => {
+    if(dataOffices){
+      console.log(dataOffices);
+      setLocalOffices(dataOffices)
+    }
+  }, [dataOffices])
 
   const LocationMarker = () => {
     const map = useMapEvents({
@@ -42,6 +53,7 @@ export default function Home() {
       </div>
       {/* Map Display */}
       <div className="box-border w-full flex justify-center my-8">
+        {/* {JSON.stringify(localOffices)} */}
         <MapContainer
           center={position}
           zoom={13}
@@ -56,11 +68,11 @@ export default function Home() {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {dummyData.map((el, i) => {
+          {localOffices.offices.map((el, i) => {
             return (
-              <Marker position={el.lokasi} key={i}>
+              <Marker position={[el.latitude, el.longitude]} key={i}>
                 <Popup>
-                  <div>{el.nama}</div>
+                  <div>{el.id}</div>
                 </Popup>
               </Marker>
             );
