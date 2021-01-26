@@ -11,12 +11,12 @@ import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
 import { startChat } from '../config/firestore'
-// import { useQuery } from '@apollo/client';
+import { useHistory } from 'react-router-dom'
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
   const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER);
-
+  const history = useHistory()
   const {data: dataOffices, error, loading } = useQuery(office.GET_ALL_OFFICE)
   const [localOffices, setLocalOffices]= useState({offices: []})
 
@@ -44,6 +44,7 @@ export default function Home() {
 
   const chatTriggerHandler = (emailOffice, emailUser) => {
     startChat(emailOffice, emailUser)
+    history.push(`/chat/${emailOffice}`)
   }
 
   if(loading){

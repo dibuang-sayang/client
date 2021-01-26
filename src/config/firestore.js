@@ -81,33 +81,22 @@ export function saveUserToFirestore({user}) {
 
 export const messagesRef = db.collection('messages')
 // bikin collection message dulu
-// export const chatRoomRef = db.collection('ChatRoom')
+export const chatRoomRef = db.collection('ChatRoom')
 
 export function startChat(emailUser, emailOffice) {
-  Swal.fire({
-    title: 'Chat is coming soon!',
-    showClass: {
-      popup: 'animate__animated animate__fadeInDown'
-    },
-    hideClass: {
-      popup: 'animate__animated animate__fadeOutUp'
-    }
-  })
+  // Swal.fire({
+  //   title: 'Chat is coming soon!',
+  //   showClass: {
+  //     popup: 'animate__animated animate__fadeInDown'
+  //   },
+  //   hideClass: {
+  //     popup: 'animate__animated animate__fadeOutUp'
+  //   }
+  // })
   // console.log('masuk')
-  // const initChat = db.collection('ChatRoom')
-  // if (emailOffice > emailUser) {
-  //   console.log('masuk sini')
-  //   initChat.doc(emailOffice+','+emailUser)
-  //   .set({
-  //     sender: emailUser,
-  //     receiver: emailOffice
-  //   })
-  // } else {
-  //   console.log('masuk situ')
-  //   initChat.doc(emailUser+','+emailOffice)
-  //   .set({
-  //     sender: emailUser,
-  //     receiver: emailOffice
-  //   })
-  // }
+  const initChat = db.collection('ChatRoom')
+  let chatsId = (emailOffice> emailUser) ? `${emailOffice},${emailUser}` : `${emailUser},${emailOffice}`
+  
+  initChat.doc(chatsId).set({users:[emailUser,emailOffice]})
+  // .collection('chats').doc().set({message:"halo", timeStamp: firebase.firestore.FieldValue.serverTimestamp()})
 }
