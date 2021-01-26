@@ -115,11 +115,12 @@ export default function UserSetting() {
     <div className="flex w-full justify-center mt-24">
       <div className="flex flex-row w-11/12 gap-3">
         <div className="w-1/2">
-          <span className="text-2xl font-bold font-custom">
+          {/* <span className="text-2xl font-bold font-custom">
             Select Your Role
-          </span>
+          </span> */}
+          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" />
           <div className="flex flex-row gap-2">
-            <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
+            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
               <img
                 className="w-full h-40 object-cover"
                 src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
@@ -139,8 +140,8 @@ export default function UserSetting() {
                   Kamu punya sampah untuk disumbangkan atau dijual?
                 </span>
               </div>
-            </div>
-            <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
+            </div> */}
+            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
               <img
                 className="w-full h-40 object-cover"
                 src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
@@ -160,8 +161,8 @@ export default function UserSetting() {
                   Pendaur ulang sampah yang gitu-gitu
                 </span>
               </div>
-            </div>
-            <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
+            </div> */}
+            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
               <img
                 className="w-full h-40 object-cover"
                 src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
@@ -181,7 +182,7 @@ export default function UserSetting() {
                   Pengrajin sampah gitu-gitu
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="w-1/2 flex flex-col justify-center px-3 gap-4">
