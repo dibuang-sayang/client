@@ -11,15 +11,15 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useEffect } from 'react';
 
 export default function Market() {
-  const { loading, error, data: products , refetch} = useQuery(product.FIND_ALL_PRODUCT);
+  const { loading, error, data: products, refetch } = useQuery(
+    product.FIND_ALL_PRODUCT
+  );
   let { path, url } = useRouteMatch();
   console.log(path);
 
   useEffect(() => {
-
     refetch()
   } , [products])
-
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error !!!</h1>;
   return (
@@ -29,13 +29,11 @@ export default function Market() {
           <SidebarMarket />
         </div>
         <div className="w-9/12 container px-5 py-24 mx-auto">
-          {/* <ProductAdd /> */}
           <Switch>
             <Route path={`${path}/produk/:id`} component={ProductDetail} />
             <Route path={`${path}/add`} component={ProductAdd} />
             <Route path={path} component={MarketHome} />
           </Switch>
-          {/* <MarketHome products={products} /> */}
         </div>
       </div>
       <FooterBar />

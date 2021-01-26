@@ -6,7 +6,6 @@ import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
 import ClickAwayListener from 'react-click-away-listener';
 import { currentUserVar } from '../cache';
- 
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -19,7 +18,7 @@ export default function Navbar() {
     console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
-    currentUserVar({})
+    currentUserVar({});
   };
   const goToCart = () => {
     history.push('/keranjang');
@@ -173,13 +172,13 @@ export default function Navbar() {
                     setShowMenu(!showMenu);
                   }}
                 >
-                  <a
-                    href="/"
+                  <Link
+                    to="/chat"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     role="menuitem"
                   >
                     Chat Dashboard
-                  </a>
+                  </Link>
                   <Link
                     to="/user/setting"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

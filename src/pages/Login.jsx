@@ -7,8 +7,6 @@ import { signInWithEmailPassword } from '../config/firestore';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
-
 export default function Login(props) {
   const history = useHistory();
   const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all' });
@@ -16,17 +14,6 @@ export default function Login(props) {
     email: '',
     password: '',
   });
-  // const checkUserRole = (token) => {
-  //   return useQuery(user.FIND_USER_BY_ID, {
-  //     options: {
-  //       context: {
-  //         headers: {
-  //           token: token,
-  //         },
-  //       },
-  //     },
-  //   });
-  // };
 
   const changeHandler = (e) => {
     const name = e.target.name;
