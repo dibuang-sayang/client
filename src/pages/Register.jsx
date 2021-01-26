@@ -11,7 +11,6 @@ export default function Register() {
   const [registerNewUser] = useMutation(user.REGISTER_USER, {
     errorPolicy: 'all',
     onCompleted: () => {
-      history.push('/login')
     }
   });
   const roleOption = [
@@ -24,6 +23,7 @@ export default function Register() {
     lastName: '',
     email: '',
     password: '',
+    role: ''
   });
 
   const handleChangeInputUser = (e) => {
@@ -35,6 +35,7 @@ export default function Register() {
 
   const handleClickRegisterButton = (e) => {
     e.preventDefault();
+    console.log(inputUser);
     registerNewUser({
       variables: {
         inputUser,
@@ -44,6 +45,7 @@ export default function Register() {
         if (res.data.register) {
           console.log(res.data);
           signUpWithEmailPassword(inputUser.email, inputUser.password);
+          history.push('/login')
         } else {
           console.log(res.errors);
         }
@@ -52,6 +54,14 @@ export default function Register() {
   };
 
   useEffect(() => {}, []);
+
+  const roleChangeHanlder = (e) => {
+    console.log(e.value);
+    setInputUser({
+      ...inputUser,
+      role: e.value
+    });
+  }
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068673464238130/dumpsite.png';
@@ -124,7 +134,7 @@ export default function Register() {
             <div className="w-full text-left">
               <label htmlFor="roles">Role</label>
             </div>
-            <Select options={roleOption} className="mt-2" />
+            <Select options={roleOption} className="mt-2" onChange={(e) => roleChangeHanlder(e)} />
             <div className="mt-8 flex flex-col gap-3">
               <button
                 className="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
