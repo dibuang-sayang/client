@@ -1,6 +1,7 @@
 import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
+import Swal from 'sweetalert2'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAgftFKHYsA3YvlqU1v5-h4BQZSI93kco0",
@@ -72,37 +73,41 @@ export function saveUserToFirestore({user}) {
   userRef.doc(user.email).set({
     uid: user.uid,
     email: user.email,
+    uname: user.email.split('@')[0],
+    photoURL: `ui-avatars.com/api/?name=${user.email}`
   }).collection("userChatRooms")
   console.log(userRef, 'userref')
 }
 
 export const messagesRef = db.collection('messages')
 // bikin collection message dulu
-export const chatRoomRef = db.collection('ChatRoom')
+// export const chatRoomRef = db.collection('ChatRoom')
 
 export function startChat(emailUser, emailOffice) {
-  console.log('masuk')
-  const initChat = db.collection('ChatRoom')
-  if (emailOffice > emailUser) {
-    console.log('masuk sini')
-    initChat.doc(emailOffice+','+emailUser)
-    .set({
-      sender: emailUser,
-      receiver: emailOffice
-    })
-  } else {
-    console.log('masuk situ')
-    initChat.doc(emailUser+','+emailOffice)
-    .set({
-      sender: emailUser,
-      receiver: emailOffice
-    })
-  }
+  Swal.fire({
+    title: 'Chat is coming soon!',
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+      popup: 'animate__animated animate__fadeOutUp'
+    }
+  })
+  // console.log('masuk')
+  // const initChat = db.collection('ChatRoom')
+  // if (emailOffice > emailUser) {
+  //   console.log('masuk sini')
+  //   initChat.doc(emailOffice+','+emailUser)
+  //   .set({
+  //     sender: emailUser,
+  //     receiver: emailOffice
+  //   })
+  // } else {
+  //   console.log('masuk situ')
+  //   initChat.doc(emailUser+','+emailOffice)
+  //   .set({
+  //     sender: emailUser,
+  //     receiver: emailOffice
+  //   })
+  // }
 }
-
-// get document
-export const getDocument = (emailUser) => {
-  const docRef = db.collection('message').doc()
-
-}
-

@@ -8,3 +8,4 @@ export { default as ProductDetail } from './ProductDetail';
 export { default as ProductCard } from './ProductCard';
 export { default as MarketHome } from './MarketHome';
 export { default as ProductAdd } from './ProductAdd';
+export { default as ChatBox } from './Chatbox'

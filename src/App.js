@@ -9,7 +9,6 @@ import {
   Market,
   Cart,
   ChatBoard,
-  Chatbox,
 } from './pages';
 import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
@@ -47,7 +46,6 @@ function App() {
       <div className="">
         <GuardProvider guards={[requireLogin]}>
           <Switch>
-            <GuardedRoute path="/chatbox" component={Chatbox} />
             <Route path="/login" render={() => {
                 if(localStorage.getItem('token')){
                   return <Redirect to="/" />
