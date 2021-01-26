@@ -66,6 +66,12 @@ mutation deleteCart($id: ID!){
 }
 `
 
+const GET_CHECKOUT_MSG = gql`
+  query getCheckOutMsg{
+    getCheckOut @client
+  }
+`
+
 const cart = {
   FIND_ALL_CART,
   FIND_CART_BY_ID,

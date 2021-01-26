@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@apollo/client"
 import React, {useState, useEffect} from "react"
 import { cart } from "../query"
-
+// import { checkOutVar } from "../cache"
 
 export default function CartTable ({cart :cartData, refetch}) {
 
@@ -13,6 +13,13 @@ export default function CartTable ({cart :cartData, refetch}) {
             }
         },
         errorPolicy : "all"
+    })
+    const [deleteCart] = useMutation(cart.DELETE_CART, {
+        context : {
+            headers : {
+                token : localStorage.getItem("token")
+            }
+        }
     })
 
     const handleChangeQty =  (e) => {
@@ -36,6 +43,17 @@ export default function CartTable ({cart :cartData, refetch}) {
         }).then(res => {
             refetch()
         }).catch (err => console.log(err))
+    }
+
+    const handleClickDeleteCart = (cartId) => {
+        deleteCart({
+            variables : {
+                id : cartId
+            }
+        }).then(res => {
+            console.log(res);
+            refetch()
+        })
     }
 
     return (
@@ -82,6 +100,15 @@ export default function CartTable ({cart :cartData, refetch}) {
             <td className="text-right">
                 <span className="text-sm lg:text-base font-medium">
                 Rp.{new Intl.NumberFormat({style:'cuurency'}).format(cartData.Product.price * qty)}
+                </span>
+            </td>
+
+            <td className="text-right">
+                <span className="text-sm lg:text-base font-medium">
+                 <a 
+                 href="#"
+                 onClick= {() =>  handleClickDeleteCart(cartData.id)}
+                 >Delete</a>
                 </span>
             </td>
             </tr>
