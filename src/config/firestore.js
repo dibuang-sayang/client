@@ -68,7 +68,6 @@ export function signOutFirebase() {
 
 // masukin data user ke firestore
 export function saveUserToFirestore({user}) {
-  console.log(user, 'masuk')
   const userRef = db.collection('users')
   userRef.doc(user.email).set({
     uid: user.uid,
@@ -76,6 +75,7 @@ export function saveUserToFirestore({user}) {
     uname: user.email.split('@')[0],
     photoURL: `ui-avatars.com/api/?name=${user.email}`
   }).collection("userChatRooms")
+
   console.log(userRef, 'userref')
 }
 
