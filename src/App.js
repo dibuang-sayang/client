@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, Redirect } from 'react-router-dom';
 import {
   Login,
   Register,
@@ -48,8 +48,18 @@ function App() {
         <GuardProvider guards={[requireLogin]}>
           <Switch>
             <GuardedRoute path="/chatbox" component={Chatbox} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <Route path="/login" render={() => {
+                if(localStorage.getItem('token')){
+                  return <Redirect to="/" />
+                }else return <Login/>
+              }
+            }/>
+            <Route path="/register" render={() => {
+                if(localStorage.getItem('token')){
+                  return <Redirect to="/" />
+                }else return <Register/>
+              }
+            }/>
             <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
