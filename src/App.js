@@ -64,6 +64,7 @@ function App() {
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
             <GuardedRoute path="/keranjang" component={Cart} />
+            <GuardedRoute path="/chat/:receiver_id" component={ChatBoard} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
             <GuardedRoute path="/office" component={Office}/>
