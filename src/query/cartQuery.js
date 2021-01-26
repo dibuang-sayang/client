@@ -27,10 +27,17 @@ query cart($id: ID!){
 const FIND_ALL_CART = gql`
 query carts{
   carts{
+    id
     UserId
     ProductId
     quantity
     status
+    Product {
+      stock
+      price
+      picture
+      name
+    }
   }
 }
 `
