@@ -11,7 +11,6 @@ import {
   ChatBoard,
   OfficeList,
   Office,
-  EditProduct,
 } from './pages';
 import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
