@@ -83,8 +83,8 @@ export default function Home() {
                 <Marker position={[el.latitude, el.longitude]} key={i}>
                   <Popup>
                     <div>
-                      {el.User.email}
-                      {(el.User.email !== dataCurrentUser.getCurrentUser.email )
+                      {el.User?.email}
+                      {(el.User && (el.User.email !== dataCurrentUser.getCurrentUser.email) )
                         ? <button onClick={() => { chatTriggerHandler(el.User.email, dataCurrentUser.getCurrentUser.email)}}>chat</button>
                         : <div>yours</div>}
                     </div>

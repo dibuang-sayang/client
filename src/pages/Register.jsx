@@ -6,6 +6,8 @@ import { user } from '../query/index';
 import { useMutation } from '@apollo/client';
 import Select from 'react-select';
 import { currentUserVar } from '../cache';
+import { signInWithEmailPassword } from '../config/firestore';
+
 
 export default function Register() {
   const history = useHistory()
@@ -73,8 +75,10 @@ export default function Register() {
         password: inputUser.password
       },
     }).then( (res) => {
+      console.log(inputUser.role, 'ini rolee');
       localStorage.setItem('token', res.data.loginUser.token);
-      if(loginUser.role === 'anggota'){
+      signInWithEmailPassword(inputUser.email, inputUser.password)
+      if(inputUser.role === 'anggota'){
         history.push('/')
       }else{
         history.push('/user/setting')
