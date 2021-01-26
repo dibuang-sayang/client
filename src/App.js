@@ -9,6 +9,7 @@ import {
   Market,
   Cart,
   ChatBoard,
+  Office
 } from './pages';
 import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
@@ -64,6 +65,7 @@ function App() {
             <GuardedRoute path="/keranjang" component={Cart} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
+            <GuardedRoute path="/office" component={Office}/>
             <Route path="/" exact component={Home} />
           </Switch>
         </GuardProvider>

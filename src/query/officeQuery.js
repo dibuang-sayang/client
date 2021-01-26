@@ -49,6 +49,13 @@ const GET_OFFICE_BY_ID = gql`
                 password
                 role
             }
+            Products {
+                name
+                price
+                category
+                stock
+                picture
+            }
         }
     }
 `
