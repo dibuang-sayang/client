@@ -7,10 +7,12 @@ import {
 } from '../components';
 import { product } from '../query';
 import { useQuery } from '@apollo/client';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 export default function Market() {
   const { loading, error, data: products } = useQuery(product.FIND_ALL_PRODUCT);
+  let { path, url } = useRouteMatch();
+  console.log(path);
 
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error !!!</h1>;
@@ -21,12 +23,12 @@ export default function Market() {
           <SidebarMarket />
         </div>
         <div className="w-9/12 container px-5 py-24 mx-auto">
-          <ProductAdd />
-          {/* <Switch>
-            <Route path="/produk/:id" component={ProductDetail} />
-            <Route path="/add" component={ProductAdd} />
-            <Route path="/" component={MarketHome} />
-          </Switch> */}
+          {/* <ProductAdd /> */}
+          <Switch>
+            <Route path={`${path}/produk/:id`} component={ProductDetail} />
+            <Route path={`${path}/add`} component={ProductAdd} />
+            <Route path={path} component={MarketHome} />
+          </Switch>
           {/* <MarketHome products={products} /> */}
         </div>
       </div>
