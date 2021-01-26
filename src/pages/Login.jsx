@@ -58,7 +58,7 @@ export default function Login(props) {
     try {
       const data = await signInWithGoogle();
       console.log(data);
-      // history.push('/')
+      history.push('/')
     } catch (err) {
       console.log(err, 'error gsignin');
     }
