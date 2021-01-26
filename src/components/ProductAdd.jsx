@@ -1,4 +1,56 @@
+import React, {useState, useEffect} from "react"
+import { useMutation } from "@apollo/client"
+import  { product } from "../query"
+import { useHistory } from "react-router-dom"
+
 export default function ProductAdd() {
+
+  const [productInput, setProductInput] = useState({
+    name : "",
+    price : 0,
+    category : "",
+    stock : 0,
+    picture : ""
+  })
+  const [createProduct] = useMutation(product.CREATE_PRODUCT, {
+    context : {
+      headers : {
+        token : localStorage.getItem("token")
+      }
+    },
+    errorPolicy : "all"
+  })
+  const history = useHistory()
+
+  const changeInputHandler = (e) => {
+
+    let value = e.target.value
+    const name = e.target.name
+    if(name === 'stock' || name === 'price') {
+      value = Number(value) 
+    }
+    console.log(e.target.value);
+    setProductInput({
+      ...productInput, 
+      [name] : value
+    })
+    console.log(productInput);
+  }
+
+  const handleSubmitProduct = () => {
+    console.log(productInput);
+    createProduct({
+      variables : {
+        inputProduct : productInput
+      }
+    }).then(res => {
+      history.push("/pasar")
+      console.log(res);
+
+    })
+  }
+
+
   return (
     <div className="w-full h-screen flex justify-center">
       <div className="bg-white flex flex-col justify-center items-center w-3/4">
@@ -10,11 +62,13 @@ export default function ProductAdd() {
         <div class="w-3/4 text-center">
           <div className="flex flex-row w-full justify-between">
             <div className="w-1/4 text-left mt-2 flex items-center">
-              <label htmlFor="email">Nama Produk</label>
+              <label htmlFor="name">Nama Produk</label>
             </div>
             <input
               type="email"
-              name="email"
+              name="name"
+              onChange = {changeInputHandler}
+              value = {productInput.name}
               placeholder="Nama Produk"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
@@ -22,11 +76,13 @@ export default function ProductAdd() {
           </div>
           <div className="flex flex-row w-full justify-between">
             <div className="w-1/4 text-left mt-2 flex items-center">
-              <label htmlFor="email">Harga</label>
+              <label htmlFor="price">Harga</label>
             </div>
             <input
-              type="email"
-              name="email"
+              type="number"
+              name="price"
+              onChange = {changeInputHandler}
+              value = {productInput.price}
               placeholder="Harga"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
@@ -34,11 +90,13 @@ export default function ProductAdd() {
           </div>
           <div className="flex flex-row w-full justify-between">
             <div className="w-1/4 text-left mt-2 flex items-center">
-              <label htmlFor="email">Kategori</label>
+              <label htmlFor="category">Kategori</label>
             </div>
             <input
-              type="email"
-              name="email"
+              type="text"
+              name="category"
+              onChange = {changeInputHandler}
+              value = {productInput.category}
               placeholder="Kategori"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
@@ -46,11 +104,13 @@ export default function ProductAdd() {
           </div>
           <div className="flex flex-row w-full justify-between">
             <div className="w-1/4 text-left mt-2 flex items-center">
-              <label htmlFor="email">Stok</label>
+              <label htmlFor="stock">Stok</label>
             </div>
             <input
-              type="email"
-              name="email"
+              type="number"
+              name="stock"
+              value = {productInput.stock}
+              onChange = {changeInputHandler}
               placeholder="Stok"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
@@ -58,11 +118,13 @@ export default function ProductAdd() {
           </div>
           <div className="flex flex-row w-full justify-between">
             <div className="w-1/4 text-left mt-2 flex items-center">
-              <label htmlFor="email">Gambar</label>
+              <label htmlFor="picture">Gambar</label>
             </div>
             <input
-              type="email"
-              name="email"
+              type="text"
+              name="picture"
+              onChange = {changeInputHandler}
+              value = {productInput.picture}
               placeholder="Gambar"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-blue-500 focus:outline-none focus:ring"
@@ -77,7 +139,10 @@ export default function ProductAdd() {
             <img src="https://dummyimage.com/400x400/000/fff.jpg&text=+UPLOADED+IMAGE"></img>
           </div>
           <div className="mt-8 flex justify-center">
-            <button class="bg-green-600 w-1/2 py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow">
+            <button 
+            class="bg-green-600 w-1/2 py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow"
+            onClick = {handleSubmitProduct}
+            >
               Tambah Produk
             </button>
           </div>
