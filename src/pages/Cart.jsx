@@ -15,7 +15,7 @@ export default function Cart() {
   })
   const [checkOut, {loading : checkOutLoading , data : checkOutData}] = useLazyQuery(cart.CHECKOUT)
 
-
+  let totalCheckOutPrice = 0
   useEffect(()=> {
     if(checkOutData) {
       console.log(checkOutData);
@@ -24,14 +24,9 @@ export default function Cart() {
     }
   }, [checkOutData])
 
-  let currentTotalPrice = 0
+  
   useEffect(()=>{
-    if(cartData) {
-      cartData.carts.forEach(cart => {
-        currentTotalPrice = cart.quantity * cart.Product.price
-      })
-      setTotalPrice(currentTotalPrice)
-    }
+    setTotalPrice(totalCheckOutPrice)
   }, [cartData])
 
   const handleCheckOutButton = () => {
@@ -49,7 +44,7 @@ export default function Cart() {
   if(error ) {
     console.log("error");
   }
-  let totalCheckOutPrice = 0
+  
 
   if(!cartData){
     return <div className="mt-20">belum punya cart</div>
