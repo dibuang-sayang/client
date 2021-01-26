@@ -1,67 +1,66 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from 'react';
 
-import firebase from "firebase";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from 'firebase';
+import 'firebase/firestore';
+import 'firebase/auth';
 // import './chatbox.css'
-import { auth, messagesRef, chatRoomRef } from "../config/firestore";
+import { auth, messagesRef, chatRoomRef } from '../config/firestore';
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useParams } from "react-router-dom";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useParams } from 'react-router-dom';
 
-import { sortEmail } from "../config/utils";
+import { sortEmail } from '../config/utils';
 export default function Chatboard() {
   const [chats, setChats] = useState([]);
   const [conversation, setConversation] = useState([]);
   const { receiver_id } = useParams();
   const [user] = useAuthState(auth);
-  const [inputChat, setInputChat] = useState("");
-  
-  
-  const [receiver, setReceiver] = useState(null)
+  const [inputChat, setInputChat] = useState('');
 
-  const ref = useRef()
-  
+  const [receiver, setReceiver] = useState(null);
+
+  const ref = useRef();
+
   useEffect(() => {
     if (user) {
       chatRoomRef
-        .where("users", "array-contains", user.email)
+        .where('users', 'array-contains', user.email)
         .onSnapshot((res) => {
           let temp = [];
           res.forEach((doc) => {
             temp.push(doc.data());
           });
           setChats(temp);
-          if(receiver_id){
-            setReceiver(receiver_id)
-          }else{
-            setReceiver(getReceiver(temp[0]))
+          if (receiver_id) {
+            setReceiver(receiver_id);
+          } else {
+            setReceiver(getReceiver(temp[0]));
           }
         });
     }
   }, [user]);
 
   useEffect(() => {
-    if(ref.current){
-      ref.current()
+    if (ref.current) {
+      ref.current();
     }
     ref.current = chatRoomRef
-    .doc(sortEmail(receiver, user?.email))
-    .collection("chats")
-    .onSnapshot((res) => {
-      let temp = [];
-      res.forEach((doc) => {
-        temp.push(doc.data());
+      .doc(sortEmail(receiver, user?.email))
+      .collection('chats')
+      .onSnapshot((res) => {
+        let temp = [];
+        res.forEach((doc) => {
+          temp.push(doc.data());
+        });
+        setConversation(temp);
       });
-      setConversation(temp);
-    });
-  }, [receiver])
+  }, [receiver]);
 
   const sendMessage = () => {
     chatRoomRef
       .doc(sortEmail(receiver, user.email))
-      .collection("chats")
+      .collection('chats')
       .doc()
       .set({
         message: inputChat,
@@ -72,13 +71,19 @@ export default function Chatboard() {
   };
 
   const getReceiver = (chat) => {
+    if (!chat) return null;
     return chat.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
-  }
+  };
 
   const handleReceiver = (siItu) => {
-    setReceiver(siItu)
-  }
-
+    setReceiver(siItu);
+  };
+  if (!conversation)
+    return (
+      <div className="w-screen h-screen flex justify-center align-center">
+        belum
+      </div>
+    );
   return (
     <div className="flex h-screen antialiased text-gray-800 mt-20">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
@@ -126,22 +131,35 @@ export default function Chatboard() {
                 4
               </span>
             </div>
-            {chats.map((chat) => {
-              const isActive = getReceiver(chat) === receiver
-              console.log(getReceiver(chat), 'ini getre');
-              console.log(receiver, 'ini recv');
-              console.log(isActive);
-              return (
-                <div className={"flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto "}>
-                  <button onClick={() => handleReceiver(getReceiver(chat))} className={ isActive ? "flex flex-row items-center hover:bg-gray-100 rounded-xl p-2 bg-gray-500" : "flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"}>
+            <div
+              className={
+                'flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto '
+              }
+            >
+              {chats.map((chat) => {
+                const isActive = getReceiver(chat) === receiver;
+                console.log(getReceiver(chat), 'ini getre');
+                console.log(receiver, 'ini recv');
+                console.log(isActive);
+                return (
+                  <button
+                    onClick={() => handleReceiver(getReceiver(chat))}
+                    className={
+                      isActive
+                        ? 'flex flex-row items-center hover:bg-gray-100 rounded-xl p-2 bg-gray-500'
+                        : 'flex flex-row items-center hover:bg-gray-100 rounded-xl p-2'
+                    }
+                  >
                     <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
                       {getReceiver(chat).charAt(0)}
                     </div>
-                    <div className="ml-2 text-sm font-semibold">{getReceiver(chat)}</div>
+                    <div className="ml-2 text-sm font-semibold">
+                      {getReceiver(chat)}
+                    </div>
                   </button>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className="flex flex-col flex-auto h-full p-6">
