@@ -51,6 +51,9 @@ export default function Cart() {
   }
   let totalCheckOutPrice = 0
 
+  if(!cartData){
+    return <div className="mt-20">belum punya cart</div>
+  }
   return (
     <div className="flex justify-center my-20">
       <div className="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">

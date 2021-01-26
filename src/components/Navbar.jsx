@@ -5,6 +5,8 @@ import { useQuery } from '@apollo/client';
 import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
 import ClickAwayListener from 'react-click-away-listener';
+import { currentUserVar } from '../cache';
+ 
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -17,6 +19,7 @@ export default function Navbar() {
     console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
+    currentUserVar({})
   };
   const goToCart = () => {
     history.push('/keranjang');
