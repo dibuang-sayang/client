@@ -50,8 +50,8 @@ export default function Register() {
     })
       .then((res) => {
         if (res.data.register) {
-          currentUserVar(res.data)
-          console.log(res.data);
+          currentUserVar(res.data.register)
+          console.log(res.data, 'ini dataaa');
           signUpWithEmailPassword(inputUser.email, inputUser.password);
           doLogin()
         } else {
