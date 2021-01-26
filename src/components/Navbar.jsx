@@ -91,6 +91,15 @@ export default function Navbar() {
                 >
                   Beranda
                 </NavLink>
+                {data.getCurrentUser.firstName && (
+                  <NavLink
+                    to="/office-list"
+                    className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    activeClassName="text-white"
+                  >
+                    Cari Rekan
+                  </NavLink>
+                )}
                 <NavLink
                   to="/pasar"
                   className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
