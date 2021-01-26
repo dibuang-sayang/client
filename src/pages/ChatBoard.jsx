@@ -1,34 +1,84 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from "react";
 
-import firebase from 'firebase';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from "firebase";
+import "firebase/firestore";
+import "firebase/auth";
 // import './chatbox.css'
-import { auth, messagesRef } from '../config/firestore';
+import { auth, messagesRef, chatRoomRef } from "../config/firestore";
 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useParams } from "react-router-dom";
 
+import { sortEmail } from "../config/utils";
 export default function Chatboard() {
-  const dummy = useRef();
-  const query = messagesRef.orderBy('createdAt').limit(25);
-  const [messages] = useCollectionData(query, { idField: 'id' });
-  const [formValue, setFormValue] = useState('');
-  console.log(auth.currentUser, ' oke ');
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    const { uid, photoURL, email } = auth.currentUser;
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL,
-      email,
+  const [chats, setChats] = useState([]);
+  const [conversation, setConversation] = useState([]);
+  const { receiver_id } = useParams();
+  const [user] = useAuthState(auth);
+  const [inputChat, setInputChat] = useState("");
+  
+  
+  const [receiver, setReceiver] = useState(null)
+
+  const ref = useRef()
+  
+  useEffect(() => {
+    if (user) {
+      chatRoomRef
+        .where("users", "array-contains", user.email)
+        .onSnapshot((res) => {
+          let temp = [];
+          res.forEach((doc) => {
+            temp.push(doc.data());
+          });
+          setChats(temp);
+          if(receiver_id){
+            setReceiver(receiver_id)
+          }else{
+            setReceiver(getReceiver(temp[0]))
+          }
+        });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if(ref.current){
+      ref.current()
+    }
+    ref.current = chatRoomRef
+    .doc(sortEmail(receiver, user?.email))
+    .collection("chats")
+    .onSnapshot((res) => {
+      let temp = [];
+      res.forEach((doc) => {
+        temp.push(doc.data());
+      });
+      setConversation(temp);
     });
-    setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+  }, [receiver])
+
+  const sendMessage = () => {
+    chatRoomRef
+      .doc(sortEmail(receiver, user.email))
+      .collection("chats")
+      .doc()
+      .set({
+        message: inputChat,
+        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+        sender: user.email,
+        receiver: receiver,
+      });
   };
-  console.log(messages);
+
+  const getReceiver = (chat) => {
+    return chat.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
+  }
+
+  const handleReceiver = (siItu) => {
+    setReceiver(siItu)
+  }
+
   return (
     <div className="flex h-screen antialiased text-gray-800 mt-20">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
@@ -76,55 +126,22 @@ export default function Chatboard() {
                 4
               </span>
             </div>
-            <div className="flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto">
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
-                  H
+            {chats.map((chat) => {
+              const isActive = getReceiver(chat) === receiver
+              console.log(getReceiver(chat), 'ini getre');
+              console.log(receiver, 'ini recv');
+              console.log(isActive);
+              return (
+                <div className={"flex flex-col space-y-1 mt-4 -mx-2 h-48 overflow-y-auto "}>
+                  <button onClick={() => handleReceiver(getReceiver(chat))} className={ isActive ? "flex flex-row items-center hover:bg-gray-100 rounded-xl p-2 bg-gray-500" : "flex flex-row items-center hover:bg-gray-100 rounded-xl p-2"}>
+                    <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
+                      {getReceiver(chat).charAt(0)}
+                    </div>
+                    <div className="ml-2 text-sm font-semibold">{getReceiver(chat)}</div>
+                  </button>
                 </div>
-                <div className="ml-2 text-sm font-semibold">Henry Boyd</div>
-              </button>
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-gray-200 rounded-full">
-                  M
-                </div>
-                <div className="ml-2 text-sm font-semibold">Marta Curtis</div>
-                <div className="flex items-center justify-center ml-auto text-xs text-white bg-red-500 h-4 w-4 rounded leading-none">
-                  2
-                </div>
-              </button>
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-orange-200 rounded-full">
-                  P
-                </div>
-                <div className="ml-2 text-sm font-semibold">Philip Tucker</div>
-              </button>
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-pink-200 rounded-full">
-                  C
-                </div>
-                <div className="ml-2 text-sm font-semibold">Christine Reid</div>
-              </button>
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-purple-200 rounded-full">
-                  J
-                </div>
-                <div className="ml-2 text-sm font-semibold">Jerry Guzman</div>
-              </button>
-            </div>
-            <div className="flex flex-row items-center justify-between text-xs mt-6">
-              <span className="font-bold">Archivied</span>
-              <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
-                7
-              </span>
-            </div>
-            <div className="flex flex-col space-y-1 mt-4 -mx-2">
-              <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-                <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
-                  H
-                </div>
-                <div className="ml-2 text-sm font-semibold">Henry Boyd</div>
-              </button>
-            </div>
+              );
+            })}
           </div>
         </div>
         <div className="flex flex-col flex-auto h-full p-6">
@@ -132,156 +149,31 @@ export default function Chatboard() {
             <div className="flex flex-col h-full overflow-x-auto mb-4">
               <div className="flex flex-col h-full">
                 <div className="grid grid-cols-12 gap-y-2">
-                  <div className="col-start-1 col-end-8 p-3 rounded-lg">
-                    <div className="flex flex-row items-center">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                        <div>Hey How are you today?</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-1 col-end-8 p-3 rounded-lg">
-                    <div className="flex flex-row items-center">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                        <div>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Vel ipsa commodi illum saepe numquam maxime
-                          asperiores voluptate sit, minima perspiciatis.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-6 col-end-13 p-3 rounded-lg">
-                    <div className="flex items-center justify-start flex-row-reverse">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                        <div>I'm ok what about you?</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-6 col-end-13 p-3 rounded-lg">
-                    <div className="flex items-center justify-start flex-row-reverse">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                        <div>
-                          Lorem ipsum dolor sit, amet consectetur adipisicing. ?
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-1 col-end-8 p-3 rounded-lg">
-                    <div className="flex flex-row items-center">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                        <div>Lorem ipsum dolor sit amet !</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-6 col-end-13 p-3 rounded-lg">
-                    <div className="flex items-center justify-start flex-row-reverse">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                        <div>
-                          Lorem ipsum dolor sit, amet consectetur adipisicing. ?
-                        </div>
-                        <div className="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500">
-                          Seen
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-1 col-end-8 p-3 rounded-lg">
-                    <div className="flex flex-row items-center">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                        <div>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perspiciatis, in.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-1 col-end-8 p-3 rounded-lg">
-                    <div className="flex flex-row items-center">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                        A
-                      </div>
-                      <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                        <div className="flex flex-row items-center">
-                          <button className="flex items-center justify-center bg-indigo-600 hover:bg-indigo-800 rounded-full h-8 w-10">
-                            <svg
-                              className="w-6 h-6 text-white"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                              ></path>
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                              ></path>
-                            </svg>
-                          </button>
-                          <div className="flex flex-row items-center space-x-px ml-4">
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-4 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-10 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-10 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-12 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-10 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-6 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-5 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-4 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-3 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-10 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-10 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-1 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-1 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-8 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-2 w-1 bg-gray-500 rounded-lg"></div>
-                            <div className="h-4 w-1 bg-gray-500 rounded-lg"></div>
+                  {conversation.map((c) => {
+                    return c.sender === user.email ? (
+                      <div className="col-start-6 col-end-13 p-3 rounded-lg">
+                        <div className="flex items-center justify-start flex-row-reverse">
+                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+                            {c.sender.charAt(0).toUpperCase()}
+                          </div>
+                          <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                            <div>{c.message}</div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    ) : (
+                      <div className="col-start-1 col-end-8 p-3 rounded-lg">
+                        <div className="flex flex-row items-center">
+                          <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+                            {c.receiver.charAt(0).toUpperCase()}
+                          </div>
+                          <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                            <div>{c.message}</div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -307,6 +199,10 @@ export default function Chatboard() {
               <div className="flex-grow ml-4">
                 <div className="relative w-full">
                   <input
+                    onChange={(e) => {
+                      setInputChat(e.target.value);
+                    }}
+                    value={inputChat}
                     type="text"
                     className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                   />
@@ -329,7 +225,10 @@ export default function Chatboard() {
                 </div>
               </div>
               <div className="ml-4">
-                <button className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0">
+                <button
+                  onClick={sendMessage}
+                  className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                >
                   <span>Send</span>
                   <span className="ml-2">
                     <svg
