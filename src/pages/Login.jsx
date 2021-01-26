@@ -35,7 +35,7 @@ export default function Login(props) {
       [name]: value,
     });
   };
-  console.log(props);
+  // console.log(props);
   const submitHandler = (e) => {
     e.preventDefault();
     loginUser({
@@ -71,11 +71,11 @@ export default function Login(props) {
       <div className="bg-white flex flex-col justify-center items-center w-6/12 shadow-lg">
         <div className="w-3/4 text-left">
           <span>Welcome Back!</span>
-          <h1 class="text-3xl font-bold text-orange-500 mb-2 font-custom">
+          <h1 className="text-3xl font-bold text-orange-500 mb-2 font-custom">
             Masuk ke Akun Kamu
           </h1>
         </div>
-        <div class="w-3/4 text-center">
+        <div className="w-3/4 text-center">
           <div className="w-full text-left">
             <label htmlFor="email">Email</label>
           </div>
@@ -83,8 +83,8 @@ export default function Login(props) {
             type="email"
             name="email"
             placeholder="email"
-            autocomplete="off"
-            class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            autoComplete="off"
+            className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             value={loginData.email}
             onChange={(e) => changeHandler(e)}
           />
@@ -95,20 +95,20 @@ export default function Login(props) {
             type="password"
             name="password"
             placeholder="password"
-            autocomplete="off"
-            class="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+            autoComplete="off"
+            className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
             value={loginData.password}
             onChange={(e) => changeHandler(e)}
           />
           <div className="mt-8 flex flex-col gap-3">
             <button
               onClick={(e) => submitHandler(e)}
-              class="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow"
+              className="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3  rounded text-lg focus:outline-none shadow"
             >
               Login Now
             </button>
             <button
-              class="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
+              className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
               onClick={() => googleSignIn()}
             >
               <img src={googleLogo} className="w-6 h-6" alt="google logo" />
