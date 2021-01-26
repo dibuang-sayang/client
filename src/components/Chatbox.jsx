@@ -14,14 +14,16 @@ function ChatRoom () {
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
+  console.log(auth.currentUser, ' oke ')
   const sendMessage = async (e) => {
     e.preventDefault();
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, email } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
-      photoURL
+      photoURL,
+      email
     })
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
@@ -42,14 +44,18 @@ function ChatRoom () {
 }
 
 function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message;
+  console.log(props)
+  const { text, uid, photoURL, email } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (<>
     <div className={`message ${messageClass}`}>
-      <img className="" src={photoURL || 'https://api.hello-avatar.com/adorables/myseed'} alt='avatars'/>
-      <p>{text}</p>
+      <div className="flex flex-row">{'  '}
+      <img className="h-8 w-8 rounded-full" src={photoURL || 'https://api.hello-avatar.com/adorables/myseed'} alt='avatars'/>
+      <p>{ email }</p>
+      </div>
+      <p>{text}</p><br/> 
     </div>
   </>)
 }
