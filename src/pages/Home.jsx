@@ -18,7 +18,7 @@ export default function Home() {
   // const { data, error, loading } = useQuery(user.GET_CURRENT_USER);
 
   const {data: dataOffices, error, loading } = useQuery(office.GET_ALL_OFFICE)
-  const [localOffices, setLocalOffices]= useState([])
+  const [localOffices, setLocalOffices]= useState({offices: []})
 
   useEffect( () => {
     if(dataOffices){
@@ -42,7 +42,15 @@ export default function Home() {
     );
   };
 
-  return (
+  const OfficeMarkes = () => {
+    if(localOffices.length){
+      return 
+    }else return <div></div>
+  }
+
+  if(loading){
+    return <h1>loading..</h1>
+  }else return (
     <div>
       <Hero />
       {/* Produk Pasar Dummy */}
@@ -68,15 +76,17 @@ export default function Home() {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {localOffices.offices.map((el, i) => {
-            return (
-              <Marker position={[el.latitude, el.longitude]} key={i}>
-                <Popup>
-                  <div>{el.id}</div>
-                </Popup>
-              </Marker>
-            );
-          })}
+          {
+            localOffices.offices.map((el, i) => {
+              return (
+                <Marker position={[el.latitude, el.longitude]} key={i}>
+                  <Popup>
+                    <div>{el.User.email}</div>
+                  </Popup>
+                </Marker>
+              )
+            })
+          }
           <LocationMarker />
         </MapContainer>
       </div>
