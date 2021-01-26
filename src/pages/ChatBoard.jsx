@@ -1,4 +1,34 @@
+import React, { useRef, useState } from 'react';
+
+import firebase from 'firebase';
+import 'firebase/firestore';
+import 'firebase/auth';
+// import './chatbox.css'
+import { auth, messagesRef } from '../config/firestore';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 export default function Chatboard() {
+  const dummy = useRef();
+  const query = messagesRef.orderBy('createdAt').limit(25);
+  const [messages] = useCollectionData(query, { idField: 'id' });
+  const [formValue, setFormValue] = useState('');
+  console.log(auth.currentUser, ' oke ');
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    const { uid, photoURL, email } = auth.currentUser;
+    await messagesRef.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL,
+      email,
+    });
+    setFormValue('');
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
+  };
+  console.log(messages);
   return (
     <div className="flex h-screen antialiased text-gray-800 mt-20">
       <div className="flex flex-row h-full w-full overflow-x-hidden">
