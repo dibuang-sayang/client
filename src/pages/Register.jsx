@@ -5,6 +5,9 @@ import { signUpWithEmailPassword } from '../config/firestore';
 import { user } from '../query/index';
 import { useMutation } from '@apollo/client';
 import Select from 'react-select';
+import { currentUserVar } from '../cache';
+import { signInWithEmailPassword } from '../config/firestore';
+
 
 export default function Register() {
   const history = useHistory()
@@ -13,6 +16,10 @@ export default function Register() {
     onCompleted: () => {
     }
   });
+
+  const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all' });
+
+  
   const roleOption = [
     { value: 'anggota', label: 'Anggota' },
     { value: 'pengepul', label: 'Pengepul' },
@@ -43,9 +50,10 @@ export default function Register() {
     })
       .then((res) => {
         if (res.data.register) {
-          console.log(res.data);
+          currentUserVar(res.data.register)
+          console.log(res.data, 'ini dataaa');
           signUpWithEmailPassword(inputUser.email, inputUser.password);
-          history.push('/login')
+          doLogin()
         } else {
           console.log(res.errors);
         }
@@ -53,7 +61,30 @@ export default function Register() {
       .catch((err) => console.log(err), '<<<<< ini error');
   };
 
-  useEffect(() => {}, []);
+  // const redirectRouteHandler = () => {
+  //   if(inputUser.role === 'anggota'){
+  //     return history.push('/login')
+  //   }else 
+
+  // }
+
+  const doLogin = () => {
+    loginUser({
+      variables: {
+        email: inputUser.email,
+        password: inputUser.password
+      },
+    }).then( (res) => {
+      console.log(inputUser.role, 'ini rolee');
+      localStorage.setItem('token', res.data.loginUser.token);
+      signInWithEmailPassword(inputUser.email, inputUser.password)
+      if(inputUser.role === 'anggota'){
+        history.push('/')
+      }else{
+        history.push('/user/setting')
+      }
+    })
+  }
 
   const roleChangeHanlder = (e) => {
     console.log(e.value);

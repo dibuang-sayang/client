@@ -8,9 +8,11 @@ import {
 import { useQuery, useMutation } from '@apollo/client'
 import { user, office } from '../query'
 import React, {useState, useEffect} from 'react'
+import { useHistory} from 'react-router-dom'
 
 export default function UserSetting() {
 
+  const history = useHistory()
   const [position, setPosition] = useState({lat: "", lng: ""});
   const [localData, setLocalData] = useState({})
   const [officeData, setOfficeData] = useState({
@@ -27,7 +29,10 @@ export default function UserSetting() {
         token: localStorage.getItem('token')
       }
     },
-    errorPolicy: "all"
+    errorPolicy: "all",
+    onCompleted: () => {
+      history.push('/')
+    }
   })
 
   //cek token
