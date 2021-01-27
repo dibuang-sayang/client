@@ -29,7 +29,7 @@ export default function Cart() {
       const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
       console.log(checkOutMessage.invoice_url);
       Swal.fire({
-        text: `silahkan proses pembayaran anda : ${window.moveTo(
+        text: `silahkan proses pembayaran anda : ${window.open(
           checkOutMessage.invoice_url
         )}`,
       });
