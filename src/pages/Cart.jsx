@@ -2,7 +2,7 @@ import { CartTable } from '../components';
 import { cart } from '../query';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { checkOutVar } from '../cache';
+// import { checkOutVar } from '../cache';
 import Swal from 'sweetalert2';
 
 export default function Cart() {
@@ -20,14 +20,13 @@ export default function Cart() {
   const [
     checkOut,
     { loading: checkOutLoading, data: checkOutData },
-  ] = useLazyQuery(cart.CHECKOUT);
+  ] = useLazyQuery(cart.CHECKOUT, { fetchPolicy : "network-only"});
 
   let totalCheckOutPrice = 0;
   useEffect(() => {
     if (checkOutData) {
-      checkOutVar(checkOutData.checkOut.msg);
       const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
-      console.log(checkOutMessage.invoice_url);
+      console.log(checkOutMessage.invoice_url, "ini rul");
       Swal.fire({
         text: `silahkan proses pembayaran anda : ${window.open(
           checkOutMessage.invoice_url
@@ -35,7 +34,7 @@ export default function Cart() {
         });
         setTotalPrice(0);
       }
-      refetch();
+      // refetch();
   }, [checkOutData]);
 
 
@@ -62,7 +61,7 @@ export default function Cart() {
     console.log('error');
   }
 
-  if (!cartData) {
+  if (cartData.length === 0 ) {
     return <div className="mt-20">belum punya cart</div>;
   }
   return (
