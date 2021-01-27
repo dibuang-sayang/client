@@ -50,7 +50,7 @@ export default function ProductEdit() {
     console.log(localData);
     EDIT_PRODUCT({
       variables: {
-        id,
+        inputId: id,
         editData: localData,
       },
     });
