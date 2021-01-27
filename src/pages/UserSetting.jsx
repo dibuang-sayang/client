@@ -122,7 +122,7 @@ export default function UserSetting() {
           {/* <span className="text-2xl font-bold font-custom">
             Select Your Role
           </span> */}
-          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" />
+          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" alt="gambar" />
           <div className="flex flex-row gap-2">
             {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
               <img
