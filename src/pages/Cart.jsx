@@ -1,11 +1,13 @@
-import { CartTable } from '../components';
+import { CartTable, Loader, Error404 } from '../components';
 import { cart } from '../query';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 // import { checkOutVar } from '../cache';
 import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
 export default function Cart() {
+  const history = useHistory();
   const [totalPrice, setTotalPrice] = useState(0);
   const { loading, error, data: cartData, refetch } = useQuery(
     cart.FIND_ALL_CART,
@@ -20,26 +22,27 @@ export default function Cart() {
   const [
     checkOut,
     { loading: checkOutLoading, data: checkOutData },
-  ] = useLazyQuery(cart.CHECKOUT, { fetchPolicy : "network-only"});
+  ] = useLazyQuery(cart.CHECKOUT, { fetchPolicy: 'network-only' });
 
   let totalCheckOutPrice = 0;
   useEffect(() => {
     if (checkOutData) {
       const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
-      Swal.fire({
-        text: `silahkan proses pembayaran anda : ${window.open(
-          checkOutMessage.invoice_url
-          )}`,
-        });
-        setTotalPrice(0);
-      }
-      // refetch();
+      // Swal.fire({
+      //   text: `silahkan proses pembayaran anda : ${window.open(
+      //     checkOutMessage.invoice_url
+      //   )}`,
+      // });
+      refetch();
+      window.open(checkOutMessage.invoice_url);
+      setTotalPrice(0);
+      history.push('/pasar');
+    }
   }, [checkOutData]);
-
 
   useEffect(() => {
     setTotalPrice(totalCheckOutPrice);
-    refetch()
+    refetch();
   }, [cartData]);
 
   // useEffect(() => {
@@ -52,15 +55,18 @@ export default function Cart() {
           token: localStorage.getItem('token'),
         },
       },
+      onCompleted: () => {
+        history.push('/');
+      },
     });
   };
 
-  if (loading) return <h1>loading ...</h1>;
+  if (loading) return <Loader />;
   if (error) {
-    console.log('error');
+    <Error404 />;
   }
 
-  if (cartData.length === 0 ) {
+  if (cartData.length === 0) {
     return <div className="mt-20">belum punya cart</div>;
   }
   return (

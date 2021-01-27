@@ -61,7 +61,7 @@ export default function AboutUs() {
           </div>
         </div>
 
-        <section className="pb-20 bg-gray-300">
+        <section className="pb-20 bg-gray-300 ">
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
               <h3
