@@ -2,7 +2,7 @@ import backgroundVideo from '../assets/tes.mp4';
 
 export default function Hero() {
   return (
-    <div className="mb-16 mt-16 relative overflow-y-hidden">
+    <div className="mt-16 relative overflow-y-hidden">
       <video
         autoPlay
         loop
@@ -33,66 +33,69 @@ export default function Hero() {
           className="absolute bg-white -bottom-1 w-full"
           style={{ height: '55%' }}
         />
-        <div className="relative grid mx-auto overflow-hidden bg-white divide-y rounded shadow sm:divide-y-0 sm:divide-x sm:max-w-screen-sm sm:grid-cols-3 lg:max-w-screen-md">
-          <div className="inline-block p-8 text-center">
-            <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
-                stroke="currentColor"
-                viewBox="0 0 52 52"
-              >
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                />
-              </svg>
+        <div className="flex flex-wrap px-20">
+          <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div className="px-4 py-5 flex-auto">
+                <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                  <img
+                    alt="..."
+                    src="https://cdn.discordapp.com/attachments/803847554725838858/803848160191053824/anggota.png"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: '200px' }}
+                  />
+                </div>
+                <h6 className="text-xl font-semibold">Anggota</h6>
+                <p className="mt-2 mb-4 text-gray-600">
+                  Menjadi bagian dari kami merupakan sebuah kehormatan, kami
+                  menganggap komunitas ini adalah bagian dari keluarga kami
+                  sendiri, untuk mengubah dunia kita perlu untuk bekerja sama!
+                </p>
+              </div>
             </div>
-            <p className="font-bold tracking-wide text-gray-800">
-              Anggota
-            </p>
           </div>
-          <div className="inline-block p-8 text-center">
-            <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
-                stroke="currentColor"
-                viewBox="0 0 52 52"
-              >
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                />
-              </svg>
+
+          <div className="w-full md:w-4/12 px-4 text-center">
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div className="px-4 py-5 flex-auto">
+                <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                  <img
+                    alt="..."
+                    src="https://cdn.discordapp.com/attachments/803847554725838858/803849026327150602/pengepul.png"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: '200px' }}
+                  />
+                </div>
+                <h6 className="text-xl font-semibold">Pengepul</h6>
+                <p className="mt-2 mb-4 text-gray-600">
+                  Kami menyadari setiap sampah yang kita pikir tidak memiliki
+                  daya jual, ternyata memiliki nilai jual dan juga dapat menjadi
+                  resource baru untuk menjadi bahan untuk produk upcycle.
+                </p>
+              </div>
             </div>
-            <p className="font-bold tracking-wide text-gray-800">
-              Pengepul
-            </p>
           </div>
-          <div className="inline-block p-8 text-center">
-            <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-full bg-indigo-50">
-              <svg
-                className="w-10 h-10 text-deep-purple-accent-400"
-                stroke="currentColor"
-                viewBox="0 0 52 52"
-              >
-                <polygon
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                  points="29 13 14 29 25 29 23 39 38 23 27 23"
-                />
-              </svg>
+
+          <div className="pt-6 w-full md:w-4/12 px-4 text-center">
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+              <div className="px-4 py-5 flex-auto">
+                <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                  <img
+                    alt="..."
+                    src="https://cdn.discordapp.com/attachments/803847554725838858/803851214751006770/pengrajin.png"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: '200px' }}
+                  />
+                </div>
+                <h6 className="text-xl font-semibold">Pengrajin</h6>
+                <p className="mt-2 mb-4 text-gray-600">
+                  Apabila kalian dapat mengubah nilai sampah yang dari tidak
+                  ternilai menjadi sesuatu yang lebih bermanfaat bergabunglah
+                  bersama kami sebagai pengrajin! disini kalian juga dapat
+                  menjual produk upcycling anda.
+                </p>
+              </div>
             </div>
-            <p className="font-bold tracking-wide text-gray-800">
-              Pengrajin
-            </p>
           </div>
         </div>
       </div>
