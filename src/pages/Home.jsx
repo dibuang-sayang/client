@@ -23,16 +23,14 @@ export default function Home() {
     office.GET_ALL_OFFICE
   );
   const [localOffices, setLocalOffices] = useState({ offices: [] });
-  
+  useEffect(()=> {
+  }, [dataCurrentUser])
   useEffect(() => {
     if (dataOffices) {
-      console.log(dataOffices);
       setLocalOffices(dataOffices);
       refetch();
     }
-  }, [dataOffices, refetch]);
-
-
+  }, [dataOffices]);
   const LocationMarker = () => {
     const map = useMapEvents({
       locationfound(e) {
@@ -61,7 +59,8 @@ export default function Home() {
     return (
       <div>
         <Hero />
-        <section class="text-gray-600 body-font mb-16">
+        {/* <section class="text-gray-600 body-font mb-16">
+        {currentUserVar.firstName &&(
           <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-11/12 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
               <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">
@@ -74,7 +73,9 @@ export default function Home() {
               </button>
             </div>
           </div>
-        </section>
+        )}
+
+        </section> */}
         {/* Produk Pasar Dummy */}
         <HeroMarketHome />
 

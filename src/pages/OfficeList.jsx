@@ -138,8 +138,6 @@ export default function OfficeList() {
           </div>
         </div>
       </section>
-
-      {/** Pengrajin */}
     </>
   );
 }

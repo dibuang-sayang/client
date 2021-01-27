@@ -41,16 +41,13 @@ export default function ProductDetail() {
       quantity: 1,
       status: 'belum lunas',
     };
-    console.log(newCart, 'ini new cart');
     addCart({
       variables: {
         inputCart: newCart,
       },
     })
       .then((res) => {
-        console.log(res, "ini res");
         if(res.data.addCart) {
-          console.log("sukses");
           Toast.fire({
             icon : 'success',
             title : 'berhasil ditambahkan ke keranjang'
@@ -62,11 +59,12 @@ export default function ProductDetail() {
           })
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log (err)
+      });
   };
   if(loading) return <h1>Loading...</h1>
   if(error) return <h1>error</h1>
-  console.log(productDetail.product, "ini params");
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">

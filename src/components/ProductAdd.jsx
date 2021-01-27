@@ -27,23 +27,19 @@ export default function ProductAdd() {
     if (name === 'stock' || name === 'price') {
       value = Number(value);
     }
-    console.log(e.target.value);
     setProductInput({
       ...productInput,
       [name]: value,
     });
-    console.log(productInput);
   };
 
   const handleSubmitProduct = () => {
-    console.log(productInput);
     createProduct({
       variables: {
         inputProduct: productInput,
       },
     }).then((res) => {
       history.push('/pasar');
-      console.log(res);
     });
   };
 
