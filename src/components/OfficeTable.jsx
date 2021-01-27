@@ -14,23 +14,24 @@ export default function OfficeTable({ office }) {
 		history.push(`/chat/${emailOffice}`);
 	};
 
-  const fullName = office.User.firstName + ' ' + office.User.lastName;
+  const fullName = office?.User.firstName + ' ' + office?.User.lastName;
   const { address, latitude, longitude, phoneNumber, category } = office;
   return (
     <tbody className='bg-white'>
       <tr className='accordion border-b border-grey-light hover:bg-gray-100'>
         <td className='inline-flex'>
           <span className='py-3 w-40 ml-4'>
-            <p class='text-gray-800 text-md'>{fullName.toUpperCase()}</p>
-            <p class='hidden md:table-cell text-xs text-gray-500 font-medium'>
+            <p className='text-gray-800 text-sm'>{fullName.toUpperCase()}</p>
+            <p className='hidden md:table-cell text-xs text-gray-500 font-medium'>
               {category.toUpperCase()}
             </p>
           </span>
         </td>
-        <td className='inline-flex md:table-cell '>
-          <span className='py-3 w-20'>
-            <p class='text-gray-800 text-md'>{address.toUpperCase()}</p>
-						<p onClick={() => window.open(`https://www.google.com/maps/@?api=1&map_action=map&${latitude},${longitude}`) } class='hidden md:table-cell cursor-pointer text-xs text-gray-500 font-medium'>
+        <td className='inline-flex md:table-cell text-center'>
+          <span className='py-3 w-20 text-center'>
+            <p className='text-gray-800 text-sm text-center'>{address.toUpperCase()}</p>
+            <p onClick={() => window.open(`https://www.google.com/maps/@?api=1&map_action=map&${latitude},${longitude}`)}
+              className='hidden md:table-cell cursor-pointer text-xs text-gray-500 font-medium text-center'>
               OPEN IN GOOGLE MAPS
             </p>
           </span>
