@@ -10,6 +10,3 @@ export { default as ChatBoard } from './ChatBoard';
 export { default as OfficeList} from './OfficeList'
 export { default as Office } from './Office'
 export { default as EditProduct } from './EditProduct'
-export { default as Pengepul } from './Pengepul'
-export { default as Pengrajin } from './Pengrajin'
-export { default as Anggota } from './Anggota'

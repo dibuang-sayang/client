@@ -94,7 +94,7 @@ export default function Login(props) {
             value={loginData.email}
             onChange={(e) => changeHandler(e)}
           />
-          <div className="w-full text-left">
+          <div className="w-full text-left mt-4">
             <label htmlFor="password">Password</label>
           </div>
           <input
