@@ -8,13 +8,12 @@ import { user } from '../query'
 export default function OfficeTable({ office }) {
 	const history = useHistory()
 	const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER)
-	console.log(office.User, 'cureent')
 	const chatTriggerHandler = (emailOffice, emailUser) => {
 		startChat(emailOffice, emailUser);
 		history.push(`/chat/${emailOffice}`);
 	};
 
-  const fullName = office?.User.firstName + ' ' + office?.User.lastName;
+  const fullName = office.User?.firstName + ' ' + office.User?.lastName;
   const { address, latitude, longitude, phoneNumber, category } = office;
   return (
     <tbody className='bg-white'>
@@ -45,7 +44,7 @@ export default function OfficeTable({ office }) {
 					<button
 						onClick={() => {
 							chatTriggerHandler(
-								office.User.email,
+								office.User?.email,
 								dataCurrentUser.getCurrentUser.email
 							);
 						}}
