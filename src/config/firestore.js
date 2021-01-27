@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 const firebaseConfig = {
   apiKey: "AIzaSyAgftFKHYsA3YvlqU1v5-h4BQZSI93kco0",

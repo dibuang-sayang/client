@@ -7,8 +7,8 @@ import { auth, messagesRef } from '../config/firestore';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useQuery } from '@apollo/client';
-import { user } from '../query';
+// import { useQuery } from '@apollo/client';
+// import { user } from '../query';
 import { Link } from 'react-router-dom';
 
 function ChatRoom() {

@@ -14,3 +14,5 @@ export { default as OfficeTabel } from './OfficeTable';
 export { default as ProductEdit } from './ProductEdit';
 export { default as OfficeHome } from './OfficeHome';
 export { default as SidebarOffice } from './SideBarOffice';
+export { default as Loader } from './Loader'
+export { default as Error404 } from './Error404'

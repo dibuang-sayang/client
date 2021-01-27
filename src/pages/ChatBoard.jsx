@@ -4,10 +4,10 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 // import './chatbox.css'
-import { auth, messagesRef, chatRoomRef } from '../config/firestore';
+import { auth, chatRoomRef } from '../config/firestore';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+// import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useParams } from 'react-router-dom';
 
 import { sortEmail } from '../config/utils';
@@ -48,6 +48,7 @@ export default function Chatboard() {
     ref.current = chatRoomRef
       .doc(sortEmail(receiver, user?.email))
       .collection('chats')
+      .orderBy('timeStamp')
       .onSnapshot((res) => {
         let temp = [];
         res.forEach((doc) => {
@@ -57,22 +58,25 @@ export default function Chatboard() {
       });
   }, [receiver]);
 
-  const sendMessage = () => {
-    chatRoomRef
-      .doc(sortEmail(receiver, user.email))
-      .collection('chats')
-      .doc()
-      .set({
-        message: inputChat,
-        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-        sender: user.email,
-        receiver: receiver,
-      });
+  const sendMessage = async () => {
+    if(inputChat !== ""){
+      await chatRoomRef
+        .doc(sortEmail(receiver, user.email))
+        .collection('chats')
+        .doc()
+        .set({
+          message: inputChat,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          sender: user.email,
+          receiver: receiver,
+        });
+      setInputChat("")
+    }
   };
 
   const getReceiver = (chat) => {
     if (!chat) return null;
-    return chat.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
+    return chat?.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
   };
 
   const handleReceiver = (siItu) => {
@@ -166,7 +170,7 @@ export default function Chatboard() {
         <div className="flex flex-col flex-auto h-full p-6">
           <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
             <div className="flex flex-col h-full overflow-x-auto mb-4">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col-reverse h-full">
                 <div className="grid grid-cols-12 gap-y-2">
                   {conversation.map((c, i) => {
                     return c.sender === user.email ? (
@@ -224,6 +228,7 @@ export default function Chatboard() {
                     onChange={(e) => {
                       setInputChat(e.target.value);
                     }}
+                    onKeyPress={(e) => { (e.key === 'Enter') ? sendMessage() : console.log('beda'); }}
                     value={inputChat}
                     type="text"
                     className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
