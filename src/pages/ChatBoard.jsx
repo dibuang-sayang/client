@@ -58,16 +58,18 @@ export default function Chatboard() {
   }, [receiver]);
 
   const sendMessage = () => {
-    chatRoomRef
-      .doc(sortEmail(receiver, user.email))
-      .collection('chats')
-      .doc()
-      .set({
-        message: inputChat,
-        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-        sender: user.email,
-        receiver: receiver,
-      });
+    if(inputChat !== ""){
+      chatRoomRef
+        .doc(sortEmail(receiver, user.email))
+        .collection('chats')
+        .doc()
+        .set({
+          message: inputChat,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          sender: user.email,
+          receiver: receiver,
+        });
+    }
   };
 
   const getReceiver = (chat) => {
