@@ -9,7 +9,8 @@ export default function ProductAdd() {
     price: 0,
     category: '',
     stock: 0,
-    picture: '',
+    picture:
+      'https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image',
   });
   const [createProduct] = useMutation(product.CREATE_PRODUCT, {
     context: {
@@ -122,17 +123,15 @@ export default function ProductAdd() {
               className=" mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
-          {/*<div className="w-full flex justify-between mt-3">
+
+          {/* <div className="w-full flex justify-between mt-3">
             <div className="flex flex-col justify-center">
               <button className="bg-gray-100 hover:bg-gray-900 hover:text-white px-3 py-2">
                 Upload Produk
               </button>
             </div>
-            <img
-              src="https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image"
-              alt=""
-            ></img>
-          </div>*/}
+            <img src={productInput.picture} alt=""></img>
+          </div> */}
           <div className="mt-8 flex justify-center">
             <button
               className="bg-green-600 w-1/2 py-2 font-custom hover:bg-green-800 text-white px-3  rounded text-lg focus:outline-none shadow"

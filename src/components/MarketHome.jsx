@@ -12,7 +12,7 @@ export default function MarketHome(props) {
   if (error) return <Error404 />
   return (
     <Fragment>
-      <div className="flex flex-wrap -m-4">
+      <div className="grid grid-cols-4 gap-3">
         {products.products.map((product) => {
           return <ProductCard product={product} key={product.id}></ProductCard>;
         })}

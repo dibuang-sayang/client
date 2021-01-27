@@ -23,8 +23,7 @@ export default function Home() {
     office.GET_ALL_OFFICE
   );
   const [localOffices, setLocalOffices] = useState({ offices: [] });
-  useEffect(()=> {
-  }, [dataCurrentUser])
+  useEffect(() => {}, [dataCurrentUser]);
   useEffect(() => {
     if (dataOffices) {
       setLocalOffices(dataOffices);
@@ -53,13 +52,13 @@ export default function Home() {
   };
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
-  if (error) return <Error404 />
-    return (
-      <div>
-        <Hero />
-        {/* <section class="text-gray-600 body-font mb-16">
+  if (error) return <Error404 />;
+  return (
+    <div>
+      <Hero />
+      {/* <section class="text-gray-600 body-font mb-16">
         {currentUserVar.firstName &&(
           <div class="container px-5 py-24 mx-auto">
             <div class="lg:w-11/12 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
@@ -76,129 +75,127 @@ export default function Home() {
         )}
 
         </section> */}
-        {/* Produk Pasar Dummy */}
-        <HeroMarketHome />
+      {/* Produk Pasar Dummy */}
+      <HeroMarketHome />
 
-        <div className="flex flex-col w-full justify-center text-center">
-          {/* {[...Array(1)].map((el, i) => {
+      <div className="flex flex-col w-full justify-center text-center">
+        {/* {[...Array(1)].map((el, i) => {
             return <ProductHomepage key={i} />;
           })} */}
-          <span className="text-8xl w-11/12 font-black text-center mt-24 text-gray-300">
-            CARI PENGEPUL DAN PENGRAJIN DI SEKITAR ANDA
-          </span>
-          <div className="flex w-full text-center justify-center mt-4">
-            <svg
-              className="w-6 h-6 animate-bounce"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
-              />
-            </svg>
-          </div>
-        </div>
-        {/* Map Display */}
-
-        <div className="box-border w-full flex justify-center my-8 mt-16">
-          <MapContainer
-            center={position}
-            zoom={13}
-            scrollWheelZoom={false}
-            whenCreated={(map) => {
-              map.locate();
-            }}
-            style={{ height: '35rem', zIndex: 0 }}
+        <span className="text-8xl w-full font-black text-center mt-24 text-gray-300">
+          CARI PENGEPUL DAN PENGRAJIN DI SEKITAR ANDA
+        </span>
+        <div className="flex w-full text-center justify-center mt-4">
+          <svg
+            className="w-6 h-6 animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <TileLayer
-              className="w-full h-full"
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 13l-7 7-7-7m14-8l-7 7-7-7"
             />
-            {localOffices.offices.map((el, i) => {
-              if (el.category === 'pengrajin') {
-                return (
-                  <Marker
-                    position={[el.latitude, el.longitude]}
-                    key={i}
-                    icon={pengrajin}
-                  >
-                    <Popup>
-                      <div className="flex flex-col w-60 h-32 relative gap-1">
-                        <div className="">{el.category.toUpperCase()}</div>
-                        <div className="font-extrabold tracking-widest">
-                          {el.User?.firstName} {el.User?.lastName}
-                        </div>
-                        <div>{el.phoneNumber}</div>
-                        <div>{el.address}</div>
-                        {el.User &&
-                        el.User.email !==
-                          dataCurrentUser.getCurrentUser.email ? (
-                          <button
-                            className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
-                            onClick={() => {
-                              chatTriggerHandler(
-                                el.User.email,
-                                dataCurrentUser.getCurrentUser.email
-                              );
-                            }}
-                          >
-                            chat
-                          </button>
-                        ) : (
-                          <div>yours</div>
-                        )}
-                      </div>
-                    </Popup>
-                  </Marker>
-                );
-              } else {
-                return (
-                  <Marker
-                    position={[el.latitude, el.longitude]}
-                    key={i}
-                    icon={pengepul}
-                  >
-                    <Popup>
-                      <div className="flex flex-col w-60 h-32 relative gap-1">
-                        <div className="">{el.category.toUpperCase()}</div>
-                        <div className="font-extrabold tracking-widest">
-                          {el.User?.firstName} {el.User?.lastName}
-                        </div>
-                        <div>{el.phoneNumber}</div>
-                        <div>{el.address}</div>
-                        {el.User &&
-                        el.User.email !==
-                          dataCurrentUser.getCurrentUser.email ? (
-                          <button
-                            className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
-                            onClick={() => {
-                              chatTriggerHandler(
-                                el.User.email,
-                                dataCurrentUser.getCurrentUser.email
-                              );
-                            }}
-                          >
-                            chat
-                          </button>
-                        ) : (
-                          <div>yours</div>
-                        )}
-                      </div>
-                    </Popup>
-                  </Marker>
-                );
-              }
-            })}
-            <LocationMarker />
-          </MapContainer>
+          </svg>
         </div>
-        <FooterBar />
       </div>
-    );
+      {/* Map Display */}
+
+      <div className="box-border w-full flex justify-center my-8 mt-16">
+        <MapContainer
+          center={position}
+          zoom={13}
+          scrollWheelZoom={false}
+          whenCreated={(map) => {
+            map.locate();
+          }}
+          style={{ height: '35rem', zIndex: 0 }}
+        >
+          <TileLayer
+            className="w-full h-full"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {localOffices.offices.map((el, i) => {
+            if (el.category === 'pengrajin') {
+              return (
+                <Marker
+                  position={[el.latitude, el.longitude]}
+                  key={i}
+                  icon={pengrajin}
+                >
+                  <Popup>
+                    <div className="flex flex-col w-60 h-32 relative gap-1">
+                      <div className="">{el.category.toUpperCase()}</div>
+                      <div className="font-extrabold tracking-widest">
+                        {el.User?.firstName} {el.User?.lastName}
+                      </div>
+                      <div>{el.phoneNumber}</div>
+                      <div>{el.address}</div>
+                      {el.User &&
+                      el.User.email !== dataCurrentUser.getCurrentUser.email ? (
+                        <button
+                          className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
+                          onClick={() => {
+                            chatTriggerHandler(
+                              el.User.email,
+                              dataCurrentUser.getCurrentUser.email
+                            );
+                          }}
+                        >
+                          chat
+                        </button>
+                      ) : (
+                        <div>yours</div>
+                      )}
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            } else {
+              return (
+                <Marker
+                  position={[el.latitude, el.longitude]}
+                  key={i}
+                  icon={pengepul}
+                >
+                  <Popup>
+                    <div className="flex flex-col w-60 h-32 relative gap-1">
+                      <div className="">{el.category.toUpperCase()}</div>
+                      <div className="font-extrabold tracking-widest">
+                        {el.User?.firstName} {el.User?.lastName}
+                      </div>
+                      <div>{el.phoneNumber}</div>
+                      <div>{el.address}</div>
+                      {el.User &&
+                      el.User.email !== dataCurrentUser.getCurrentUser.email ? (
+                        <button
+                          className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
+                          onClick={() => {
+                            chatTriggerHandler(
+                              el.User.email,
+                              dataCurrentUser.getCurrentUser.email
+                            );
+                          }}
+                        >
+                          chat
+                        </button>
+                      ) : (
+                        <div>yours</div>
+                      )}
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            }
+          })}
+          <LocationMarker />
+        </MapContainer>
+      </div>
+      <FooterBar />
+    </div>
+  );
 }
