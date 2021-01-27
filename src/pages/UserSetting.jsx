@@ -9,6 +9,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { user, office } from '../query';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { currentUserVar } from '../cache'
 
 export default function UserSetting() {
   const history = useHistory();
@@ -21,7 +22,7 @@ export default function UserSetting() {
     phoneNumber: '',
     category: '',
   });
-
+  console.log(currentUserVar());
   const [addOffice] = useMutation(office.ADD_OFFICE, {
     context: {
       headers: {
@@ -102,7 +103,10 @@ export default function UserSetting() {
     console.log(officeData);
     addOffice({
       variables: {
-        inputOffice: officeData,
+        inputOffice: {
+          ...officeData,
+          category: currentUserVar().role
+        },
       },
     })
       .then((res) => {
