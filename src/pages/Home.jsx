@@ -54,7 +54,7 @@ export default function Home() {
   if (loading) {
     return <Loader />;
   }
-  if (error) return <Error404 />;
+  if (error) return <Error404 error={error} />;
   return (
     <div>
       <Hero />
