@@ -1,8 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { currentUserVar, checkOutVar  } from '../cache';
+import { currentUserVar, checkOutVar, userPositionVar  } from '../cache';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: 'http://13.213.17.85:4000',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
@@ -15,6 +15,11 @@ const client = new ApolloClient({
           getCheckOut : {
             read: () => {
               return checkOutVar()
+            }
+          },
+          getUserPosition : {
+            read: () => {
+              return userPositionVar()
             }
           }
         },

@@ -22,7 +22,7 @@ import { currentUserVar } from './cache';
 
 function App() {
   const location = useLocation();
-  const { data: currentLoginUser } = useQuery(user.FIND_USER_BY_ID, {
+  const { data: currentLoginUser ,refetch} = useQuery(user.FIND_USER_BY_ID, {
     context: {
       headers: {
         token: localStorage.getItem('token'),
@@ -35,8 +35,9 @@ function App() {
 
   useEffect(() => {
     if (currentLoginUser) {
-      console.log(currentLoginUser.user);
       currentUserVar(currentLoginUser.user);
+      console.log(currentLoginUser.user, "ini dari appa");
+      refetch()
     } else console.log('tidak ada yang login');
   }, [currentLoginUser]);
 

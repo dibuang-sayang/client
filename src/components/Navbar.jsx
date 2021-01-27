@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import { CartPopup } from '../components';
 import { useQuery } from '@apollo/client';
@@ -91,7 +91,8 @@ export default function Navbar() {
                 >
                   Beranda
                 </NavLink>
-                {data.getCurrentUser.firstName && (
+                {data.getCurrentUser.firstName && 
+                (
                   <NavLink
                     to="/office-list"
                     className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
