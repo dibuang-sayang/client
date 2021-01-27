@@ -263,7 +263,7 @@ export default function Navbar() {
                   </Link> */}
                   <Link
                     to="/office"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
                     role="menuitem"
                   >
                     <svg
@@ -285,7 +285,7 @@ export default function Navbar() {
                   <div onClick={doLogout}>
                     <Link
                       to="/"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
                       role="menuitem"
                     >
                       <svg

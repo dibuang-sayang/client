@@ -10,6 +10,7 @@ import { user, office } from '../query';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { currentUserVar } from '../cache'
+import { Error404, Loader } from '../components';
 
 export default function UserSetting() {
   const history = useHistory();
@@ -114,7 +115,8 @@ export default function UserSetting() {
       })
       .catch((err) => console.log(err));
   };
-  // const position = [-6.260676036065346, 106.78161619719772];
+  if (error) return <Error404 />
+  if (loading) return <Loader />
   return (
     <div className="flex w-full justify-center mt-24">
       <div className="flex flex-row w-11/12 gap-3">
