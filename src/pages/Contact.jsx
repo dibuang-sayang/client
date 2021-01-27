@@ -1,142 +1,682 @@
+import React from "react";
+
 export default function Contact() {
   return (
-    <section className="text-gray-600 body-font relative">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="flex flex-col text-center w-full mb-12">
-          <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-            Kontak Kami
-          </h1>
-          <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-            Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-            gentrify.
-          </p>
-        </div>
-        <div className="lg:w-1/2 md:w-2/3 mx-auto">
-          <div className="flex flex-wrap -m-2">
-            <div className="p-2 w-1/2">
-              <div className="relative">
-                <label
-                  htmlFor="name"
-                  className="leading-7 text-sm text-gray-600"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
+    <>
+      <main>
+        <div className="relative pt-16 pb-32 flex content-center items-center justify-center"
+            style={{
+              minHeight: "75vh"
+            }}>
+          <div className="absolute top-0 w-full h-full bg-center bg-cover"
+              style={{
+                backgroundImage: "url('https://cdn.discordapp.com/attachments/803847554725838858/803864301638909962/bg-2.jpg')"
+              }}>
+            <span id="blackOverlay" className="w-full h-full absolute opacity-75 bg-black"></span>
+          </div>
+          <div className="container relative mx-auto">
+              <div className="items-center flex flex-wrap">
+                <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+                  <div>
+                    <h1 className="text-white font-semibold text-5xl">
+                      About us.
+                    </h1>
+                    <h5 className="mt-4 text-md text-gray-300">
+                    Dibuang Sayang memiliki visi untuk mengubah pola pikir masyarakat terhadap sampah plastik. Mulai dari menciptakan gerakan berbasis komunitas, dimana masyarakat dapat belajar lebih banyak tentang pengelolaan sampah plastik, daur ulang dan pembuatan produk upcycling. Kami melihat masalah serta potensinya. Seiring berjalannya waktu kami percaya kita semua dapat membangun dunia yang lebih baik.
+                    </h5>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="p-2 w-1/2">
-              <div className="relative">
-                <label
-                  htmlFor="email"
-                  className="leading-7 text-sm text-gray-600"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-              </div>
-            </div>
-            <div className="p-2 w-full">
-              <div className="relative">
-                <label
-                  htmlFor="message"
-                  className="leading-7 text-sm text-gray-600"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-                ></textarea>
-              </div>
-            </div>
-            <div className="p-2 w-full">
-              <button className="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
-                Button
-              </button>
-            </div>
-            <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-              <a className="text-green-500" href="/">
-                admin@dibuangsayang.tech
-              </a>
-              <p className="leading-normal my-5">
-                49 Smith St.
-                <br />
-                Saint Cloud, MN 56301
-              </p>
-              <span className="inline-flex">
-                <a className="text-gray-500" href="/">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                  </svg>
-                </a>
-                <a className="ml-4 text-gray-500" href="/">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                  </svg>
-                </a>
-                <a className="ml-4 text-gray-500" href="/">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <rect
-                      width="20"
-                      height="20"
-                      x="2"
-                      y="2"
-                      rx="5"
-                      ry="5"
-                    ></rect>
-                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-                  </svg>
-                </a>
-                <a className="ml-4 text-gray-500" href="/">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                  </svg>
-                </a>
-              </span>
-            </div>
+          </div>
+          <div
+            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
+            style={{ height: "70px", transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-gray-300 fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
           </div>
         </div>
-      </div>
-    </section>
+
+        <section className="pb-20 bg-gray-300 -mt-24">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap">
+              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                    <img
+                      alt="..."
+                      src="https://cdn.discordapp.com/attachments/803847554725838858/803848160191053824/anggota.png"
+                      className="shadow-lg rounded-full max-w-full mx-auto"
+                      style={{ maxWidth: "200px" }}
+                    />
+                    </div>
+                    <h6 className="text-xl font-semibold">Anggota</h6>
+                    <p className="mt-2 mb-4 text-gray-600">
+                      Menjadi bagian dari kami merupakan sebuah kehormatan, kami menganggap komunitas ini adalah bagian dari keluarga kami sendiri, untuk mengubah dunia kita perlu untuk bekerja sama!
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                    <img
+                      alt="..."
+                      src="https://cdn.discordapp.com/attachments/803847554725838858/803849026327150602/pengepul.png"
+                      className="shadow-lg rounded-full max-w-full mx-auto"
+                      style={{ maxWidth: "200px" }}
+                    />
+                    </div>
+                    <h6 className="text-xl font-semibold">
+                      Pengepul
+                    </h6>
+                    <p className="mt-2 mb-4 text-gray-600">
+                      Kami menyadari setiap sampah yang kita pikir tidak memiliki daya jual, ternyata memiliki nilai jual dan juga dapat menjadi resource baru untuk menjadi bahan untuk produk upcycle.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                    <img
+                      alt="..."
+                      src="https://cdn.discordapp.com/attachments/803847554725838858/803851214751006770/pengrajin.png"
+                      className="shadow-lg rounded-full max-w-full mx-auto"
+                      style={{ maxWidth: "200px" }}
+                    />
+                    </div>
+                    <h6 className="text-xl font-semibold">
+                      Pengrajin
+                    </h6>
+                    <p className="mt-2 mb-4 text-gray-600">
+                      Apabila kalian dapat mengubah nilai sampah yang dari tidak ternilai menjadi sesuatu yang lebih bermanfaat bergabunglah bersama kami sebagai pengrajin! disini kalian juga dapat menjual produk upcycling anda.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="flex flex-wrap items-center mt-32">
+              <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
+                <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
+                  <i className="fas fa-user-friends text-xl"></i>
+                </div>
+                <h3 className="text-3xl mb-2 font-semibold leading-normal">
+                  Working with us is a pleasure
+                </h3>
+                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
+                  Don't let your uses guess by attaching tooltips and popoves
+                  to any element. Just make sure you enable them first via
+                  JavaScript.
+                </p>
+                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
+                  The kit comes with three pre-built pages to help you get
+                  started faster. You can change the text and images and
+                  you're good to go. Just make sure you enable them first via
+                  JavaScript.
+                </p>
+                <a
+                  href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+                  className="font-bold text-gray-800 mt-8"
+                >
+                  Check Tailwind Starter Kit!
+                </a>
+              </div>
+
+              <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-pink-600">
+                  <img
+                    alt="..."
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
+                    className="w-full align-middle rounded-t-lg"
+                  />
+                  <blockquote className="relative p-8 mb-4">
+                    <svg
+                      preserveAspectRatio="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 583 95"
+                      className="absolute left-0 w-full block"
+                      style={{
+                        height: "95px",
+                        top: "-94px"
+                      }}
+                    >
+                      <polygon
+                        points="-30,95 583,95 583,65"
+                        className="text-pink-600 fill-current"
+                      ></polygon>
+                    </svg>
+                    <h4 className="text-xl font-bold text-white">
+                      Top Notch Services
+                    </h4>
+                    <p className="text-md font-light mt-2 text-white">
+                      The Arctic Ocean freezes every winter and much of the
+                      sea-ice then thaws every summer, and that process will
+                      continue whatever happens.
+                    </p>
+                  </blockquote>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <section className="relative py-20">
+          <div
+            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+            style={{ height: "80px", transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-white fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+
+          <div className="container mx-auto px-4">
+            <div className="items-center flex flex-wrap">
+              <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+                <img
+                  alt="..."
+                  className="max-w-full rounded-lg shadow-lg"
+                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                />
+              </div>
+              <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
+                <div className="md:pr-12">
+                  <div className="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
+                    <i className="fas fa-rocket text-xl"></i>
+                  </div>
+                  <h3 className="text-3xl font-semibold">
+                    A growing company
+                  </h3>
+                  <p className="mt-4 text-lg leading-relaxed text-gray-600">
+                    The extension comes with three pre-built pages to help you
+                    get started faster. You can change the text and images and
+                    you're good to go.
+                  </p>
+                  <ul className="list-none mt-6">
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="fas fa-fingerprint"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">
+                            Carefully crafted components
+                          </h4>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="fab fa-html5"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">Amazing page examples</h4>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="far fa-paper-plane"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">Dynamic components</h4>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section className="relative py-20">
+          <div
+            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+            style={{ height: "80px", transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-white fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+
+          <div className="container mx-auto px-4">
+            <div className="items-center flex flex-wrap">
+              
+              <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
+                <div className="md:pr-12">
+                  <div className="text-pink-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-pink-300">
+                    <i className="fas fa-rocket text-xl"></i>
+                  </div>
+                  <h3 className="text-3xl font-semibold">
+                    Pengepul
+                  </h3>
+                  <p className="mt-4 text-lg leading-relaxed text-gray-600">
+                    The extension comes with three pre-built pages to help you
+                    get started faster. You can change the text and images and
+                    you're good to go.
+                  </p>
+                  <ul className="list-none mt-6">
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="fas fa-fingerprint"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">
+                            Carefully crafted components
+                          </h4>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="fab fa-html5"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">Amazing page examples</h4>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="py-2">
+                      <div className="flex items-center">
+                        <div>
+                          <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 mr-3">
+                            <i className="far fa-paper-plane"></i>
+                          </span>
+                        </div>
+                        <div>
+                          <h4 className="text-gray-600">Dynamic components</h4>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+                <img
+                  alt="..."
+                  className="max-w-full rounded-lg shadow-lg"
+                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        
+
+        <section className="pt-20 pb-48">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap justify-center text-center mb-24">
+              <div className="w-full lg:w-6/12 px-4">
+                <h2 className="text-4xl font-semibold">
+                  Here are our heroes
+                </h2>
+                <p className="text-lg leading-relaxed m-4 text-gray-600">
+                  According to the National Oceanic and Atmospheric
+                  Administration, Ted, Scambos, NSIDClead scentist, puts the
+                  potentially record maximum.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                <div className="px-6">
+                  <img
+                    alt="..."
+                    src="https://media.discordapp.net/attachments/801791591927775257/803844812054593536/wicak.png?width=670&height=670"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: "300px" }}
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">
+                      Wicaksana Yoga Pratama
+                    </h5>
+                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                      FullStack Developer
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-facebook-f"></i>
+                      </button>
+                      <button
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-dribbble"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                <div className="px-6">
+                  <img
+                    alt="..."
+                    src="https://media.discordapp.net/attachments/801791591927775257/803844842597777418/tio.png?width=670&height=670"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: "300px" }}
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">
+                      Tio Rizky
+                    </h5>
+                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                      FullStack Developer
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
+                      </button>
+                      <button
+                        className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-facebook-f"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                <div className="px-6">
+                  <img
+                    alt="..."
+                    src="https://media.discordapp.net/attachments/801791591927775257/803844861551443968/icanq.png?width=670&height=670"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: "300px" }}
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">
+                      Ichsan Natawijaya
+                    </h5>
+                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                      FullStack Developer
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
+                      </button>
+                      <button
+                        className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-instagram"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
+                <div className="px-6">
+                  <img
+                    alt="..."
+                    src="https://media.discordapp.net/attachments/801791591927775257/803844820225228860/hapis.png?width=670&height=670"
+                    className="shadow-lg rounded-full max-w-full mx-auto"
+                    style={{ maxWidth: "300px" }}
+                  />
+                  <div className="pt-6 text-center">
+                    <h5 className="text-xl font-bold">
+                      Hafis Tafsani
+                    </h5>
+                    <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
+                      FullStack Developer
+                    </p>
+                    <div className="mt-6">
+                      <button
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-dribbble"></i>
+                      </button>
+                      <button
+                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
+                      </button>
+                      <button
+                        className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-instagram"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20 relative block bg-gray-900">
+          <div
+            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
+            style={{ height: "80px", transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-gray-900 fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+
+          <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
+            <div className="flex flex-wrap text-center justify-center">
+              <div className="w-full lg:w-6/12 px-4">
+                <h2 className="text-4xl font-semibold text-white">
+                  Build something
+                </h2>
+                <p className="text-lg leading-relaxed mt-4 mb-4 text-gray-500">
+                  Put the potentially record low maximum sea ice extent tihs year down to low ice.
+                  According to the National Oceanic and Atmospheric Administration, Ted, Scambos.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap mt-12 justify-center">
+              <div className="w-full lg:w-3/12 px-4 text-center">
+                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                  <i className="fas fa-medal text-xl"></i>
+                </div>
+                <h6 className="text-xl mt-5 font-semibold text-white">
+                  Excelent Services
+                </h6>
+                <p className="mt-2 mb-4 text-gray-500">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+              <div className="w-full lg:w-3/12 px-4 text-center">
+                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                  <i className="fas fa-poll text-xl"></i>
+                </div>
+                <h5 className="text-xl mt-5 font-semibold text-white">
+                  Grow your market
+                </h5>
+                <p className="mt-2 mb-4 text-gray-500">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+              <div className="w-full lg:w-3/12 px-4 text-center">
+                <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                  <i className="fas fa-lightbulb text-xl"></i>
+                </div>
+                <h5 className="text-xl mt-5 font-semibold text-white">
+                  Launch time
+                </h5>
+                <p className="mt-2 mb-4 text-gray-500">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="relative block py-24 lg:pt-0 bg-gray-900">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
+              <div className="w-full lg:w-6/12 px-4">
+                <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300">
+                  <div className="flex-auto p-5 lg:p-10">
+                    <h4 className="text-2xl font-semibold">
+                      Want to work with us?
+                    </h4>
+                    <p className="leading-relaxed mt-1 mb-4 text-gray-600">
+                      Complete this form and we will get back to you in 24 hours.
+                    </p>
+                    <div className="relative w-full mb-3 mt-8">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="full-name"
+                      >
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                        placeholder="Full Name"
+                        style={{ transition: "all .15s ease" }}
+                      />
+                    </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="email"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                        placeholder="Email"
+                        style={{ transition: "all .15s ease" }}
+                      />
+                    </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="message"
+                      >
+                        Message
+                      </label>
+                      <textarea
+                        rows="4"
+                        cols="80"
+                        className="px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+                        placeholder="Type a message..."
+                      />
+                    </div>
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                      >
+                        Send Message
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
