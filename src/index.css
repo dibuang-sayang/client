@@ -14,7 +14,7 @@
   @apply h-96 w-full;
 }
 
-.message {
+/* .message {
   display: flex;
   align-items: center;
 }
@@ -31,8 +31,8 @@
 .received p {
   background: #e5e5ea;
   color: black;
-}
-
+} */
+/* 
 p {
   max-width: 500px;
   margin-bottom: 12px;
@@ -42,7 +42,7 @@ p {
   position: relative;
   color: white;
   text-align: center;
-}
+} */
 
 ::-webkit-scrollbar {
   width: 5px;
