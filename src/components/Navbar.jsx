@@ -15,6 +15,7 @@ export default function Navbar() {
     signOutFirebase();
     localStorage.clear();
     currentUserVar({});
+    setShowMenu(!showMenu);
   };
   const goToCart = () => {
     history.push('/keranjang');
@@ -87,8 +88,7 @@ export default function Navbar() {
                 >
                   Beranda
                 </NavLink>
-                {data.getCurrentUser.firstName && 
-                (
+                {data.getCurrentUser.firstName && (
                   <NavLink
                     to="/office-list"
                     className="text-gray-900 hover:bg-transparent hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -265,6 +265,9 @@ export default function Navbar() {
                     to="/office"
                     className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
                     role="menuitem"
+                    onClick={() => {
+                      setShowMenu(!showMenu);
+                    }}
                   >
                     <svg
                       className="w-6 h-6"

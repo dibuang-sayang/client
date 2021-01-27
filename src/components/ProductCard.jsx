@@ -64,9 +64,7 @@ export default function ProductCard({ product: productData }) {
           });
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const handleEditProduct = (e) => {

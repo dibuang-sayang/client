@@ -29,9 +29,6 @@ function App() {
           token: localStorage.getItem('token'),
         },
       },
-      onCompleted: () => {
-        console.log('sukses');
-      },
     }
   );
 
@@ -49,9 +46,8 @@ function App() {
   useEffect(() => {
     if (currentLoginUser) {
       currentUserVar(currentLoginUser.user);
-      console.log(currentLoginUser.user, 'ini dari appa');
       refetch();
-    } else console.log('tidak ada yang login');
+    }
   }, [currentLoginUser, refetch]);
 
   // if (error) return <Error404 />

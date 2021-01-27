@@ -59,7 +59,7 @@ export default function Chatboard() {
   }, [receiver]);
 
   const sendMessage = async () => {
-    if(inputChat !== ""){
+    if (inputChat !== '') {
       await chatRoomRef
         .doc(sortEmail(receiver, user.email))
         .collection('chats')
@@ -70,7 +70,7 @@ export default function Chatboard() {
           sender: user.email,
           receiver: receiver,
         });
-      setInputChat("")
+      setInputChat('');
     }
   };
 
@@ -142,9 +142,6 @@ export default function Chatboard() {
             >
               {chats.map((chat, i) => {
                 const isActive = getReceiver(chat) === receiver;
-                // console.log(getReceiver(chat), 'ini getre');
-                // console.log(receiver, 'ini recv');
-                // console.log(isActive);
                 return (
                   <button
                     onClick={() => handleReceiver(getReceiver(chat))}
@@ -228,7 +225,9 @@ export default function Chatboard() {
                     onChange={(e) => {
                       setInputChat(e.target.value);
                     }}
-                    onKeyPress={(e) => { (e.key === 'Enter') ? sendMessage() : console.log('beda'); }}
+                    onKeyPress={(e) => {
+                      e.key === 'Enter' && sendMessage();
+                    }}
                     value={inputChat}
                     type="text"
                     className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"

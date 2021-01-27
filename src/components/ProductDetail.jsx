@@ -1,17 +1,19 @@
-import React from "react"
-import { useParams } from "react-router-dom"
-import { useQuery, useMutation } from "@apollo/client"
-import { product,cart } from "../query"
-import Swal from "sweetalert2"
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+import { product, cart } from '../query';
+import Swal from 'sweetalert2';
 
 export default function ProductDetail() {
-
-  const {id}  = useParams()
-  const {data : productDetail,loading, error } = useQuery(product.FIND_PRODUCT_BY_ID, {
-    variables : {
-      id
+  const { id } = useParams();
+  const { data: productDetail, loading, error } = useQuery(
+    product.FIND_PRODUCT_BY_ID,
+    {
+      variables: {
+        id,
+      },
     }
-  })
+  );
   const [addCart] = useMutation(cart.ADD_CART, {
     context: {
       headers: {
@@ -27,11 +29,10 @@ export default function ProductDetail() {
     timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
-
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   const handleAddCart = (e) => {
     e.preventDefault();
@@ -47,24 +48,22 @@ export default function ProductDetail() {
       },
     })
       .then((res) => {
-        if(res.data.addCart) {
+        if (res.data.addCart) {
           Toast.fire({
-            icon : 'success',
-            title : 'berhasil ditambahkan ke keranjang'
-          })
-        }else {
+            icon: 'success',
+            title: 'berhasil ditambahkan ke keranjang',
+          });
+        } else {
           Toast.fire({
-            icon : "error",
-            title: res.errors[0].message
-          })
+            icon: 'error',
+            title: res.errors[0].message,
+          });
         }
       })
-      .catch((err) => {
-        console.log (err)
-      });
+      .catch((err) => {});
   };
-  if(loading) return <h1>Loading...</h1>
-  if(error) return <h1>error</h1>
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <h1>error</h1>;
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
@@ -222,29 +221,32 @@ export default function ProductDetail() {
             </div> */}
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                Rp. {new Intl.NumberFormat({style : 'currency'}).format(productDetail.product.price)}
+                Rp.{' '}
+                {new Intl.NumberFormat({ style: 'currency' }).format(
+                  productDetail.product.price
+                )}
               </span>
               {/* <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                 Button
               </button> */}
-              <button 
-              className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4"
-              onClick= {handleAddCart}
+              <button
+                className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4"
+                onClick={handleAddCart}
               >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
               </button>
             </div>
           </div>
