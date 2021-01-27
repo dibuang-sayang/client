@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { office, product } from '../query';
+import { product } from '../query';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
+import Error404 from './Error404';
+import Loader from './Loader';
 
 export default function ProductEdit() {
   const history = useHistory();
@@ -80,9 +82,9 @@ export default function ProductEdit() {
   }, [productData]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <Loader />
   }
-
+  if (error) return <Error404 />
   return (
     <div className="w-full h-screen flex justify-center">
       <div className="bg-white flex flex-col justify-center items-center w-3/4">
@@ -103,7 +105,7 @@ export default function ProductEdit() {
               value={localData.name}
               placeholder="Nama Produk"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
+              class="mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -117,7 +119,7 @@ export default function ProductEdit() {
               value={localData.price}
               placeholder="Harga"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
+              class=" mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -131,7 +133,7 @@ export default function ProductEdit() {
               value={localData.category}
               placeholder="Kategori"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
+              class=" mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -145,7 +147,7 @@ export default function ProductEdit() {
               onChange={onChangeHandler}
               placeholder="Stok"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
+              class="mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="flex flex-row w-full justify-between">
@@ -159,7 +161,7 @@ export default function ProductEdit() {
               value={localData.picture}
               placeholder="Gambar"
               autocomplete="off"
-              class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
+              class="mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
             />
           </div>
           <div className="w-full flex justify-between mt-3">

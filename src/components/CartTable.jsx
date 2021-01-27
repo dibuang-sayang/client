@@ -1,5 +1,5 @@
-import { useQuery, useMutation } from '@apollo/client';
-import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import React, { useState } from 'react';
 import { cart } from '../query';
 // import { checkOutVar } from "../cache"
 
@@ -108,9 +108,9 @@ export default function CartTable({ cart: cartData, refetch }) {
 
         <td className="text-center">
           <span className="text-sm lg:text-base font-medium">
-            <a href="#" onClick={() => handleClickDeleteCart(cartData.id)}>
+            <p className="cursor-pointer" onClick={() => handleClickDeleteCart(cartData.id)}>
               Delete
-            </a>
+            </p>
           </span>
         </td>
       </tr>

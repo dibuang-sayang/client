@@ -3,6 +3,8 @@ import { ProductCard } from './index';
 import { useQuery } from '@apollo/client';
 import { office as OfficeQuery, user } from '../query';
 import { useHistory } from 'react-router-dom';
+import Loader from './Loader';
+import Error404 from './Error404';
 
 export default function OfficeHome(props) {
   const history = useHistory();
@@ -31,8 +33,9 @@ export default function OfficeHome(props) {
   }, [refetch]);
 
   if (loading || loadingCurrentUser) {
-    return <div>loadng...</div>;
+    return <Loader />
   }
+  if (error) return <Error404 />
   return (
     <Fragment>
       <div className="flex flex-wrap -m-4">

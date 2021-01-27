@@ -9,7 +9,7 @@ import {
 import { GuardedRoute } from 'react-router-guards';
 
 export default function Office() {
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <section className="text-gray-600 body-font">

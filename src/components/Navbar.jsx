@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
-import { CartPopup } from '../components';
 import { useQuery } from '@apollo/client';
 import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
@@ -9,7 +8,6 @@ import { currentUserVar } from '../cache';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
-  // const [showCart, setShowCart] = useState(false);
   const { data } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
 
@@ -265,7 +263,7 @@ export default function Navbar() {
                   </Link> */}
                   <Link
                     to="/office"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
                     role="menuitem"
                   >
                     <svg
@@ -287,7 +285,7 @@ export default function Navbar() {
                   <div onClick={doLogout}>
                     <Link
                       to="/"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex flex-row gap-2 mx-1"
                       role="menuitem"
                     >
                       <svg

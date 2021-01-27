@@ -10,6 +10,7 @@ import { user, office } from '../query';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { currentUserVar } from '../cache'
+import { Error404, Loader } from '../components';
 
 export default function UserSetting() {
   const history = useHistory();
@@ -110,7 +111,8 @@ export default function UserSetting() {
       })
       .catch((err) => console.log(err));
   };
-  // const position = [-6.260676036065346, 106.78161619719772];
+  if (error) return <Error404 />
+  if (loading) return <Loader />
   return (
     <div className="flex w-full justify-center mt-24">
       <div className="flex flex-row w-11/12 gap-3">
@@ -118,7 +120,7 @@ export default function UserSetting() {
           {/* <span className="text-2xl font-bold font-custom">
             Select Your Role
           </span> */}
-          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" />
+          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" alt="gambar" />
           <div className="flex flex-row gap-2">
             {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
               <img

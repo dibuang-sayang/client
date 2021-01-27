@@ -25,7 +25,7 @@ export default function AboutUs() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div>
                   <h1 className="text-white font-semibold text-5xl">
-                    About us.
+                    Tentang Kami.
                   </h1>
                   <h5 className="mt-4 text-md text-gray-300">
                     Dibuang Sayang memiliki visi untuk mengubah pola pikir

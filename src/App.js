@@ -5,14 +5,13 @@ import {
   Home,
   UserSetting,
   AboutUs,
-  Contact,
   Market,
   ChatBoard,
   OfficeList,
   Office,
   Cart
 } from './pages';
-import { Navbar } from './components';
+import { Error404, Loader, Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { requireLogin } from './config';
 import { user,cart } from './query';
@@ -22,7 +21,7 @@ import { currentUserVar, checkOutVar } from './cache';
 
 function App() {
   const location = useLocation();
-  const { data: currentLoginUser ,refetch} = useQuery(user.FIND_USER_BY_ID, {
+  const { data: currentLoginUser, loading, error, refetch} = useQuery(user.FIND_USER_BY_ID, {
     context: {
       headers: {
         token: localStorage.getItem('token'),
@@ -34,7 +33,7 @@ function App() {
   });
 
 
-  const { loading, error, data: cartData} = useQuery(
+  const { data: cartData} = useQuery(
     cart.FIND_ALL_CART,
     {
       context: {
@@ -54,8 +53,10 @@ function App() {
       console.log(currentLoginUser.user, "ini dari appa");
       refetch()
     } else console.log('tidak ada yang login');
-  }, [currentLoginUser]);
+  }, [currentLoginUser, refetch]);
 
+  if (error) return <Error404 />
+  if (loading) return <Loader />
   return (
     <Fragment>
       {location.pathname !== '/login' && location.pathname !== '/register' && (

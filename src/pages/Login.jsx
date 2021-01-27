@@ -7,7 +7,9 @@ import { signInWithEmailPassword } from '../config/firestore';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { currentUserVar } from '../cache';
+
 import Swal from "sweetalert2"
+import { Error404, Loader } from '../components';
 
 
 export default function Login(props) {
@@ -19,9 +21,8 @@ export default function Login(props) {
     email: '',
     password: '',
   });
-  // const [findUser, {data}] = useLazyQuery(user.FIND_USER_BY_ID, { fetchPolicy: 'no-cache' });
-  
-  
+
+   
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -86,6 +87,9 @@ export default function Login(props) {
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png';
+  
+  if (loading) return <Loader />
+  if (error) return <Error404 />
   return (
     <div className="w-full h-screen flex bg-gray-200">
       <div className="bg-white flex flex-col justify-center items-center w-6/12 shadow-lg">
