@@ -4,10 +4,10 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 // import './chatbox.css'
-import { auth, messagesRef, chatRoomRef } from '../config/firestore';
+import { auth, chatRoomRef } from '../config/firestore';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+// import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useParams } from 'react-router-dom';
 
 import { sortEmail } from '../config/utils';
@@ -72,7 +72,7 @@ export default function Chatboard() {
 
   const getReceiver = (chat) => {
     if (!chat) return null;
-    return chat.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
+    return chat?.users[chat.users.indexOf(user.email) === 0 ? 1 : 0];
   };
 
   const handleReceiver = (siItu) => {

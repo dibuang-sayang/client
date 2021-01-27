@@ -105,7 +105,6 @@ export default function Home() {
             <LocationMarker />
           </MapContainer>
         </div>
-        {/* <ChatBox /> */}
         <FooterBar />
       </div>
     );
