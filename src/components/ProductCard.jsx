@@ -2,7 +2,7 @@ import React from 'react';
 import { useMutation } from '@apollo/client';
 import { cart, product } from '../query';
 import { useLocation, useHistory, Link } from 'react-router-dom';
-import Swal from "sweetalert2"
+import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -11,13 +11,12 @@ const Toast = Swal.mixin({
   timer: 1000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  },
+});
 
-
-export default function ProductCard({ product:productData }) {
+export default function ProductCard({ product: productData }) {
   const location = useLocation();
   const history = useHistory();
   const [addCart] = useMutation(cart.ADD_CART, {
@@ -29,13 +28,13 @@ export default function ProductCard({ product:productData }) {
     errorPolicy: 'all',
   });
   const [deleteProduct] = useMutation(product.DELETE_PRODUCT, {
-    context : {
-      headers : {
-        token : localStorage.getItem("token")
-      }
+    context: {
+      headers: {
+        token: localStorage.getItem('token'),
+      },
     },
-    errorPolicy : "all"
-  })
+    errorPolicy: 'all',
+  });
 
   const handleAddCart = (e) => {
     console.log(e, 'dari add cart');
@@ -53,18 +52,18 @@ export default function ProductCard({ product:productData }) {
       },
     })
       .then((res) => {
-        if(res.data.addCart) {
-          console.log("sukses");
+        if (res.data.addCart) {
+          console.log('sukses');
           Toast.fire({
-            icon : 'success',
-            title : 'berhasil ditambahkan ke keranjang'
-          })
+            icon: 'success',
+            title: 'berhasil ditambahkan ke keranjang',
+          });
           // history.push('/keranjang');
-        }else {
+        } else {
           Toast.fire({
-            icon : "error",
-            title: res.errors[0].message
-          })
+            icon: 'error',
+            title: res.errors[0].message,
+          });
           // console.log(res.errors[0].message);
         }
       })
@@ -72,24 +71,24 @@ export default function ProductCard({ product:productData }) {
   };
 
   const handleEditProduct = (e) => {
-    console.log("edit");
+    console.log('edit');
     e.preventDefault();
     e.stopPropagation();
     history.push(`office/produk/${productData.id}/edit`);
   };
 
   const handleDeleteProduct = (e) => {
-    console.log("mencobe delete", productData.id);
+    console.log('mencobe delete', productData.id);
     deleteProduct({
-      variables : {
-        inputId : productData.id
-      } 
-    })
-  }
+      variables: {
+        inputId: productData.id,
+      },
+    });
+  };
 
   return (
     <Link
-      to={`pasar/produk/${productData.id}`}
+      to={`/pasar/produk/${productData.id}`}
       className="lg:w-1/4 md:w-1/2 p-4 w-full"
     >
       <div className="block relative h-48 rounded overflow-hidden">
@@ -108,12 +107,15 @@ export default function ProductCard({ product:productData }) {
         </h2>
         <p className="mt-1">
           Rp.
-          {new Intl.NumberFormat({ style: 'currency' }).format(productData.price)}
+          {new Intl.NumberFormat({ style: 'currency' }).format(
+            productData.price
+          )}
         </p>
         {location.pathname !== '/office' ? (
-          <div 
-          onClick={handleAddCart}
-          className="flex flex-row gap-1 hover:text-black">
+          <div
+            onClick={handleAddCart}
+            className="flex flex-row gap-1 hover:text-black"
+          >
             <svg
               className="w-6 h-6"
               fill="none"
@@ -128,13 +130,14 @@ export default function ProductCard({ product:productData }) {
                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
               />
             </svg>
-            <button >Add To cart</button>
+            <button>Add To cart</button>
           </div>
         ) : (
           <div className="">
-            <div 
-            onClick={handleEditProduct}
-            className="flex flex-row gap-1 hover:text-black">
+            <div
+              onClick={handleEditProduct}
+              className="flex flex-row gap-1 hover:text-black"
+            >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -151,9 +154,7 @@ export default function ProductCard({ product:productData }) {
               </svg>
               (<button>edit product</button>)
             </div>
-            <div 
-            onClick = {handleDeleteProduct}
-            className="delete-button">
+            <div onClick={handleDeleteProduct} className="delete-button">
               <button>delete</button>
             </div>
           </div>
