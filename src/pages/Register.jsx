@@ -1,4 +1,3 @@
-import googleLogo from '../assets/img/google.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { signUpWithEmailPassword } from '../config/firestore';

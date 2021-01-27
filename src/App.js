@@ -5,7 +5,6 @@ import {
   Home,
   UserSetting,
   AboutUs,
-  Contact,
   Market,
   ChatBoard,
   OfficeList,
@@ -34,7 +33,7 @@ function App() {
   });
 
 
-  const { loading, error, data: cartData} = useQuery(
+  const { data: cartData} = useQuery(
     cart.FIND_ALL_CART,
     {
       context: {
