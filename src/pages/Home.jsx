@@ -12,6 +12,7 @@ import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
 import { startChat } from '../config/firestore';
 import { useHistory } from 'react-router-dom';
+import { pengepul, pengrajin, anggota } from '../config/utils';
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
@@ -77,30 +78,79 @@ export default function Home() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {localOffices.offices.map((el, i) => {
-              return (
-                <Marker position={[el.latitude, el.longitude]} key={i}>
-                  <Popup>
-                    <div>
-                      {el.User?.email}
-                      {el.User &&
-                      el.User.email !== dataCurrentUser.getCurrentUser.email ? (
-                        <button
-                          onClick={() => {
-                            chatTriggerHandler(
-                              el.User.email,
-                              dataCurrentUser.getCurrentUser.email
-                            );
-                          }}
-                        >
-                          chat
-                        </button>
-                      ) : (
-                        <div>yours</div>
-                      )}
-                    </div>
-                  </Popup>
-                </Marker>
-              );
+              if (el.category === 'pengrajin') {
+                return (
+                  <Marker
+                    position={[el.latitude, el.longitude]}
+                    key={i}
+                    icon={pengrajin}
+                  >
+                    <Popup>
+                      <div className="flex flex-col w-60 h-32 relative gap-1">
+                        <div className="">{el.category.toUpperCase()}</div>
+                        <div className="font-extrabold tracking-widest">
+                          {el.User?.firstName} {el.User?.lastName}
+                        </div>
+                        <div>{el.phoneNumber}</div>
+                        <div>{el.address}</div>
+                        {el.User &&
+                        el.User.email !==
+                          dataCurrentUser.getCurrentUser.email ? (
+                          <button
+                            className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
+                            onClick={() => {
+                              chatTriggerHandler(
+                                el.User.email,
+                                dataCurrentUser.getCurrentUser.email
+                              );
+                            }}
+                          >
+                            chat
+                          </button>
+                        ) : (
+                          <div>yours</div>
+                        )}
+                      </div>
+                    </Popup>
+                  </Marker>
+                );
+              } else {
+                return (
+                  <Marker
+                    position={[el.latitude, el.longitude]}
+                    key={i}
+                    icon={pengepul}
+                  >
+                    <Popup>
+                      <div className="flex flex-col w-60 h-32 relative gap-1">
+                        <div className="">{el.category.toUpperCase()}</div>
+                        <div className="font-extrabold tracking-widest">
+                          {el.User?.firstName} {el.User?.lastName}
+                        </div>
+                        <div>{el.phoneNumber}</div>
+                        <div>{el.address}</div>
+                        {el.User &&
+                        el.User.email !==
+                          dataCurrentUser.getCurrentUser.email ? (
+                          <button
+                            className="py-2 px-6 bg-green-500 hover:bg-green-800 hover:text-white absolute bottom-0 right-0"
+                            onClick={() => {
+                              chatTriggerHandler(
+                                el.User.email,
+                                dataCurrentUser.getCurrentUser.email
+                              );
+                            }}
+                          >
+                            chat
+                          </button>
+                        ) : (
+                          <div>yours</div>
+                        )}
+                      </div>
+                    </Popup>
+                  </Marker>
+                );
+              }
             })}
             <LocationMarker />
           </MapContainer>
