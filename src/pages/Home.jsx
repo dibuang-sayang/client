@@ -6,7 +6,7 @@ import {
   Popup,
   useMapEvents,
 } from 'react-leaflet';
-import { Hero, HeroMarketHome } from '../components';
+import { Error404, Hero, HeroMarketHome, Loader } from '../components';
 import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
@@ -19,7 +19,7 @@ export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
   const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
-  const { data: dataOffices, loading, refetch } = useQuery(
+  const { data: dataOffices, loading, error, refetch } = useQuery(
     office.GET_ALL_OFFICE
   );
   const [localOffices, setLocalOffices] = useState({ offices: [] });
@@ -55,8 +55,9 @@ export default function Home() {
   };
 
   if (loading) {
-    return <h1>loading..</h1>;
-  } else
+    return <Loader />
+  }
+  if (error) return <Error404 />
     return (
       <div>
         <Hero />

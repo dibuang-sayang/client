@@ -2,10 +2,14 @@ import { Fragment } from 'react';
 import { ProductCard } from './index';
 import { product } from '../query';
 import { useQuery } from '@apollo/client';
+import Loader from './Loader';
+import Error404 from './Error404';
 
 export default function MarketHome(props) {
   const { loading, error, data: products } = useQuery(product.FIND_ALL_PRODUCT);
 
+  if (loading) return <Loader />
+  if (error) return <Error404 />
   return (
     <Fragment>
       <div className="flex flex-wrap -m-4">

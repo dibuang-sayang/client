@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { office, product } from '../query'
+import { product } from '../query'
 import { useParams } from 'react-router-dom'
 import { useQuery, useMutation } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
+import { Error404, Loader } from '../components'
 
 
 export default function EditProduct() {
@@ -78,8 +79,9 @@ export default function EditProduct() {
   }
 
   if(loading){
-    return <div>loading...</div>
+    return <Loader />
   }
+  if (error) return <Error404 />
   return (
     <div>
       <div className="mt-20">{id}</div>
