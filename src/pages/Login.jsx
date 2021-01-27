@@ -1,19 +1,35 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation ,useQuery} from '@apollo/client';
 import { user } from '../query';
 import { signInWithGoogle } from '../config/firestore';
 import { signInWithEmailPassword } from '../config/firestore';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { currentUserVar } from '../cache';
 
 export default function Login(props) {
   const history = useHistory();
-  const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all' });
+  const [loginUser] = useMutation(user.LOGIN_USER, { 
+    errorPolicy: 'all',
+    refetchQueries : user.FIND_USER_BY_ID
+   });
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
+  const { data: currentLoginUser ,refetch} = useQuery(user.FIND_USER_BY_ID, {
+    context: {
+      headers: {
+        token: localStorage.getItem('token'),
+      },
+    },
+    onCompleted: () => {
+      console.log('sukses');
+    },
+  });
+
+
 
   const changeHandler = (e) => {
     const name = e.target.name;
@@ -35,6 +51,7 @@ export default function Login(props) {
         if (res.data.loginUser) {
           signInWithEmailPassword(loginData.email, loginData.password);
           localStorage.setItem('token', res.data.loginUser.token);
+          currentUserVar(currentLoginUser.user);
           history.push('/');
         } else if (res.errors) {
           throw res.errors[0];
