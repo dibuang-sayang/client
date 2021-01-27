@@ -35,7 +35,7 @@ export default function Market() {
               path={`${path}/produk/:id/edit`}
               component={ProductEdit}
             />
-            {/* <Route path={`${path}/produk/:id`} component={ProductDetail} /> */}
+            <Route path={`${path}/produk/:id`} component={ProductDetail} />
             <Route path={`${path}/add`} component={ProductAdd} />
             <Route path={path} component={MarketHome} />
           </Switch>
