@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
-import { CartPopup } from '../components';
 import { useQuery } from '@apollo/client';
 import { user } from '../query';
 import { signOutFirebase } from '../config/firestore';
@@ -9,13 +8,10 @@ import { currentUserVar } from '../cache';
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
-  // const [showCart, setShowCart] = useState(false);
   const { data } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
 
   const doLogout = () => {
-    console.log('hit');
-    // console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
     currentUserVar({});
