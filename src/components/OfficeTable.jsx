@@ -28,9 +28,8 @@ export default function OfficeTable({ office }) {
         </td>
         <td className='inline-flex md:table-cell text-center'>
           <span className='py-3 w-20 text-center'>
-            <p className='text-gray-800 text-sm text-center'>{address.toUpperCase()}</p>
-            <p onClick={() => window.open(`https://www.google.com/maps/@?api=1&map_action=map&${latitude},${longitude}`)}
-              className='hidden md:table-cell cursor-pointer text-xs text-gray-500 font-medium text-center'>
+            <p class='text-gray-800 text-sm text-center'>{address.toUpperCase()}</p>
+						<p onClick={() => window.open(`http://maps.google.com/maps?q=loc:${latitude},${longitude}&z=17`) } class='hidden md:table-cell cursor-pointer text-xs text-gray-500 font-medium'>
               OPEN IN GOOGLE MAPS
             </p>
           </span>

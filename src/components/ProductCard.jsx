@@ -27,6 +27,7 @@ export default function ProductCard({ product:productData }) {
       },
     },
     errorPolicy: 'all',
+    refetchQueries : cart.FIND_ALL_CART
   });
   const [deleteProduct] = useMutation(product.DELETE_PRODUCT, {
     context : {

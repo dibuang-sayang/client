@@ -1,4 +1,3 @@
-import googleLogo from '../assets/img/google.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { signUpWithEmailPassword } from '../config/firestore';
@@ -173,10 +172,10 @@ export default function Register() {
               >
                 Register Now
               </button>
-              <button className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
+              {/* <button className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
                 <img src={googleLogo} className="w-6 h-6" alt="logo google " />
                 or Sign In with Google
-              </button>
+              </button> */}
               <Link to="/login" className="w-full text-left">
                 <span>
                   Sudah punya akun? <b>Login!</b>
