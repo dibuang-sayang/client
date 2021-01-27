@@ -1,58 +1,95 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client';
-import { product } from '../query';
+import { office, product } from '../query';
+import { useParams } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
-export default function ProductAdd() {
-  const [productInput, setProductInput] = useState({
+export default function ProductEdit() {
+  const history = useHistory();
+  const { id } = useParams();
+  const [localData, setLocalData] = useState({
+    // id: 0,
+    OfficeId: 0,
     name: '',
     price: 0,
     category: '',
     stock: 0,
-    picture: '',
+    picture:
+      'https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image',
   });
-  const [createProduct] = useMutation(product.CREATE_PRODUCT, {
+
+  const { data: productData, error, loading } = useQuery(
+    product.FIND_PRODUCT_BY_ID,
+    {
+      errorPolicy: 'all',
+      variables: {
+        id,
+      },
+      context: {
+        headers: {
+          token: localStorage.getItem('token'),
+        },
+      },
+    }
+  );
+
+  const [EDIT_PRODUCT] = useMutation(product.EDIT_PRODUCT, {
     context: {
       headers: {
         token: localStorage.getItem('token'),
       },
     },
     errorPolicy: 'all',
+    onCompleted: () => {
+      history.push('/office');
+    },
   });
-  const history = useHistory();
 
-  const changeInputHandler = (e) => {
-    let value = e.target.value;
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(localData);
+    EDIT_PRODUCT({
+      variables: {
+        id,
+        editData: localData,
+      },
+    });
+  };
+
+  const onChangeHandler = (e) => {
+    const value = e.target.value;
     const name = e.target.name;
-    if (name === 'stock' || name === 'price') {
-      value = Number(value);
-    }
-    console.log(e.target.value);
-    setProductInput({
-      ...productInput,
+
+    setLocalData({
+      ...localData,
       [name]: value,
     });
-    console.log(productInput);
   };
 
-  const handleSubmitProduct = () => {
-    console.log(productInput);
-    createProduct({
-      variables: {
-        inputProduct: productInput,
-      },
-    }).then((res) => {
-      history.push('/pasar');
-      console.log(res);
-    });
-  };
+  useEffect(() => {
+    if (productData) {
+      setLocalData({
+        // id: productData.product.id,
+        OfficeId: productData.product.OfficeId,
+        name: productData.product.name,
+        price: productData.product.price,
+        category: productData.product.category,
+        stock: productData.product.stock,
+        picture: productData.product.picture,
+      });
+    }
+  }, [productData]);
+
+  if (loading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <div className="w-full h-screen flex justify-center">
       <div className="bg-white flex flex-col justify-center items-center w-3/4">
         <div className="w-3/4 text-left">
           <h1 class="text-3xl font-bold text-orange-500 mb-2 font-custom">
-            Tambah Produk
+            Update {productData?.product.name} Data
           </h1>
         </div>
         <div class="w-3/4 text-center">
@@ -63,8 +100,8 @@ export default function ProductAdd() {
             <input
               type="email"
               name="name"
-              onChange={changeInputHandler}
-              value={productInput.name}
+              onChange={onChangeHandler}
+              value={localData.name}
               placeholder="Nama Produk"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
@@ -77,8 +114,8 @@ export default function ProductAdd() {
             <input
               type="number"
               name="price"
-              onChange={changeInputHandler}
-              value={productInput.price}
+              onChange={onChangeHandler}
+              value={localData.price}
               placeholder="Harga"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
@@ -91,8 +128,8 @@ export default function ProductAdd() {
             <input
               type="text"
               name="category"
-              onChange={changeInputHandler}
-              value={productInput.category}
+              onChange={onChangeHandler}
+              value={localData.category}
               placeholder="Kategori"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
@@ -105,8 +142,8 @@ export default function ProductAdd() {
             <input
               type="number"
               name="stock"
-              value={productInput.stock}
-              onChange={changeInputHandler}
+              value={localData.stock}
+              onChange={onChangeHandler}
               placeholder="Stok"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
@@ -119,8 +156,8 @@ export default function ProductAdd() {
             <input
               type="text"
               name="picture"
-              onChange={changeInputHandler}
-              value={productInput.picture}
+              onChange={onChangeHandler}
+              value={localData.picture}
               placeholder="Gambar"
               autocomplete="off"
               class="w-3/4 mt-2 bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:border-green-500 focus:outline-none focus:ring"
@@ -129,20 +166,23 @@ export default function ProductAdd() {
           <div className="w-full flex justify-between mt-3">
             <div className="flex flex-col justify-center">
               <button className="bg-gray-100 hover:bg-gray-900 hover:text-white px-3 py-2">
-                Upload Produk
+                Update Foto
               </button>
             </div>
-            <img
-              src="https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image"
-              alt=""
-            ></img>
+            <div className="w-96 h-96 overflow-hidden">
+              <img
+                src={localData.picture}
+                alt=""
+                className="h-full w-full object-cover object-center "
+              ></img>
+            </div>
           </div>
           <div className="mt-8 flex justify-center">
             <button
               class="bg-green-600 w-1/2 py-2 font-custom hover:bg-green-800 text-white px-3  rounded text-lg focus:outline-none shadow"
-              onClick={handleSubmitProduct}
+              onClick={(e) => onSubmitHandler(e)}
             >
-              Tambah Produk
+              Update Produk
             </button>
           </div>
         </div>

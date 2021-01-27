@@ -1,62 +1,68 @@
-import { CartTable } from "../components"
-import { cart } from "../query"
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client"
-import { useEffect , useState} from "react"
-import { checkOutVar } from "../cache"
-import Swal from "sweetalert2"
+import { CartTable } from '../components';
+import { cart } from '../query';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import { checkOutVar } from '../cache';
+import Swal from 'sweetalert2';
 
 export default function Cart() {
-  const [totalPrice, setTotalPrice] = useState(0)
-  const {loading, error, data: cartData, refetch} = useQuery(cart.FIND_ALL_CART, {
-    context : {
-      headers : {
-        token  : localStorage.getItem("token") 
-      }
+  const [totalPrice, setTotalPrice] = useState(0);
+  const { loading, error, data: cartData, refetch } = useQuery(
+    cart.FIND_ALL_CART,
+    {
+      context: {
+        headers: {
+          token: localStorage.getItem('token'),
+        },
+      },
     }
-  })
-  const [checkOut, {loading : checkOutLoading , data : checkOutData}] = useLazyQuery(cart.CHECKOUT)
+  );
+  const [
+    checkOut,
+    { loading: checkOutLoading, data: checkOutData },
+  ] = useLazyQuery(cart.CHECKOUT);
 
-  let totalCheckOutPrice = 0
-  useEffect(()=> {
-    if(checkOutData) {
-      checkOutVar(checkOutData.checkOut.msg)
-      const checkOutMessage = JSON.parse(checkOutData.checkOut.msg)
+  let totalCheckOutPrice = 0;
+  useEffect(() => {
+    if (checkOutData) {
+      checkOutVar(checkOutData.checkOut.msg);
+      const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
       console.log(checkOutMessage.invoice_url);
-      Swal.fire(
-        {text : `silahkan proses pembayaran anda : ${window.moveTo( checkOutMessage.invoice_url)}`} )
-      setTotalPrice(0)
-      refetch()
+      Swal.fire({
+        text: `silahkan proses pembayaran anda : ${window.moveTo(
+          checkOutMessage.invoice_url
+        )}`,
+      });
+      setTotalPrice(0);
+      refetch();
     }
-  }, [checkOutData])
+  }, [checkOutData]);
 
-  
-  useEffect(()=>{
-    setTotalPrice(totalCheckOutPrice)
-  }, [cartData])
+  useEffect(() => {
+    setTotalPrice(totalCheckOutPrice);
+  }, [cartData]);
 
   const handleCheckOutButton = () => {
     checkOut({
-      context : {
-        headers : {
-          token : localStorage.getItem("token")
-        }
-      }
-    })
+      context: {
+        headers: {
+          token: localStorage.getItem('token'),
+        },
+      },
+    });
+  };
 
+  if (loading) return <h1>loading ...</h1>;
+  if (error) {
+    console.log('error');
   }
 
-  if(loading ) return <h1>loading ...</h1>
-  if(error ) {
-    console.log("error");
-  }
-  
-
-  if(!cartData){
-    return <div className="mt-20">belum punya cart</div>
+  if (!cartData) {
+    return <div className="mt-20">belum punya cart</div>;
   }
   return (
     <div className="flex justify-center my-20">
-      <div className="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5">
+      <div className="flex flex-col w-full p-8 text-gray-800 bg-white pin-r pin-y md:w-4/5 lg:w-4/5">
         <div className="flex-1">
           <table className="w-full text-sm lg:text-base" cellSpacing="0">
             <thead>
@@ -74,24 +80,26 @@ export default function Cart() {
                 <th className="text-rigth">Action</th>
               </tr>
             </thead>
-              {cartData.carts.map(cart => {
-                if(cart.status != 'lunas') {
-                  totalCheckOutPrice  = totalCheckOutPrice +(cart.quantity * cart.Product.price)
-                  // setTotalPrice(totalCheckOutPrice)
-                  return  <CartTable
-                  key = {cart.id}
-                  cart = {cart}
-                  refetch = {refetch}
-                ></CartTable>
-                }
-              })
+            {cartData.carts.map((cart) => {
+              if (cart.status != 'lunas') {
+                totalCheckOutPrice =
+                  totalCheckOutPrice + cart.quantity * cart.Product.price;
+                // setTotalPrice(totalCheckOutPrice)
+                return (
+                  <CartTable
+                    key={cart.id}
+                    cart={cart}
+                    refetch={refetch}
+                  ></CartTable>
+                );
               }
+            })}
           </table>
 
           <hr className="pb-6 mt-6" />
           <div className="my-4 mt-6 -mx-2 lg:flex">
             <div className="lg:px-2 lg:w-1/2">
-              <div className="p-4 bg-gray-100 rounded-full">
+              <div className="p-4 bg-gray-100 rounded-md">
                 <h1 className="ml-2 font-bold uppercase">Order Details</h1>
               </div>
               <div className="p-4">
@@ -104,7 +112,10 @@ export default function Cart() {
                     Subtotal
                   </div>
                   <div className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                    Rp. {new Intl.NumberFormat({style : 'currency'}).format(totalPrice)}
+                    Rp.{' '}
+                    {new Intl.NumberFormat({ style: 'currency' }).format(
+                      totalPrice
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between pt-4 border-b">
@@ -112,13 +123,16 @@ export default function Cart() {
                     Total
                   </div>
                   <div className="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                  Rp. {new Intl.NumberFormat({style : 'currency'}).format(totalCheckOutPrice)}
+                    Rp.{' '}
+                    {new Intl.NumberFormat({ style: 'currency' }).format(
+                      totalCheckOutPrice
+                    )}
                   </div>
                 </div>
                 <div>
-                  <button 
-                  className="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
-                  onClick = {handleCheckOutButton}
+                  <button
+                    className="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-green-600 rounded-md shadow item-center hover:bg-green-800 focus:shadow-outline focus:outline-none"
+                    onClick={handleCheckOutButton}
                   >
                     <svg
                       aria-hidden="true"

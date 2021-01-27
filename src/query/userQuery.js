@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client'
+import { gql } from '@apollo/client';
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String, $password: String) {
@@ -9,15 +9,15 @@ const LOGIN_USER = gql`
 `;
 
 const REGISTER_USER = gql`
-mutation register($inputUser: UserData) {
-  register(data: $inputUser) {
-    firstName
-    lastName
-    email
-    password
-    role
+  mutation register($inputUser: UserData) {
+    register(data: $inputUser) {
+      firstName
+      lastName
+      email
+      password
+      role
+    }
   }
-}
 `;
 
 const FIND_USER_BY_ID = gql`
@@ -28,6 +28,13 @@ const FIND_USER_BY_ID = gql`
       lastName
       email
       role
+      Office {
+        address
+        latitude
+        longitude
+        phoneNumber
+        category
+      }
     }
   }
 `;
@@ -36,7 +43,7 @@ const GET_CURRENT_USER = gql`
   query getCurrentUser {
     getCurrentUser @client
   }
-`
+`;
 
 const FIND_ALL_USER = gql`
   query findAllUser {
@@ -69,13 +76,13 @@ const DELETE_USER = gql`
 `;
 
 const user = {
-  REGISTER_USER, 
-  LOGIN_USER, 
-  FIND_USER_BY_ID, 
+  REGISTER_USER,
+  LOGIN_USER,
+  FIND_USER_BY_ID,
   GET_CURRENT_USER,
   FIND_ALL_USER,
   EDIT_USER,
-  DELETE_USER
-}
+  DELETE_USER,
+};
 
-export default user
+export default user;

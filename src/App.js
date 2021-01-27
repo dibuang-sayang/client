@@ -9,9 +9,8 @@ import {
   Market,
   Cart,
   ChatBoard,
-  OfficeList
+  OfficeList,
   Office,
-  EditProduct
 } from './pages';
 import { Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
@@ -49,29 +48,31 @@ function App() {
       <div className="">
         <GuardProvider guards={[requireLogin]}>
           <Switch>
-            <Route path="/login" render={() => {
-                if(localStorage.getItem('token')){
-                  return <Redirect to="/" />
-                }else return <Login/>
-              }
-            }/>
-            <Route path="/register" render={() => {
-                if(localStorage.getItem('token')){
-                  return <Redirect to="/" />
-                }else return <Register/>
-              }
-            }/>
+            <Route
+              path="/login"
+              render={() => {
+                if (localStorage.getItem('token')) {
+                  return <Redirect to="/" />;
+                } else return <Login />;
+              }}
+            />
+            <Route
+              path="/register"
+              render={() => {
+                if (localStorage.getItem('token')) {
+                  return <Redirect to="/" />;
+                } else return <Register />;
+              }}
+            />
             <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
             <Route path="/kontak" component={Contact} />
-            
             <GuardedRoute path="/keranjang" component={Cart} />
             <GuardedRoute path="/chat/:receiver_id" component={ChatBoard} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
-            <GuardedRoute path="/office-list" component= {OfficeList}/>
-            <GuardedRoute path="/office" component={Office}/>
-            <GuardedRoute path="/produk/:id/edit" component={EditProduct}/>
+            <GuardedRoute path="/office-list" component={OfficeList} />
+            <GuardedRoute path="/office" component={Office} />
             <Route path="/" exact component={Home} />
           </Switch>
         </GuardProvider>

@@ -4,10 +4,13 @@ export { default as ProductHomepage } from './ProductHomepage';
 export { default as FooterBar } from './FooterBar';
 export { default as SidebarMarket } from './SidebarMarket';
 export { default as CartPopup } from './CartPopup';
-export { default as CartTable} from "./CartTable"
+export { default as CartTable } from './CartTable';
 export { default as ProductDetail } from './ProductDetail';
 export { default as ProductCard } from './ProductCard';
 export { default as MarketHome } from './MarketHome';
 export { default as ProductAdd } from './ProductAdd';
-export { default as ChatBox } from './Chatbox'
-export { default as OfficeTabel} from "./OfficeTable"
+export { default as ChatBox } from './Chatbox';
+export { default as OfficeTabel } from './OfficeTable';
+export { default as ProductEdit } from './ProductEdit';
+export { default as OfficeHome } from './OfficeHome';
+export { default as SidebarOffice } from './SideBarOffice';

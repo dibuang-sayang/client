@@ -4,22 +4,23 @@ import {
   MarketHome,
   ProductDetail,
   ProductAdd,
+  ProductEdit,
 } from '../components';
 import { product } from '../query';
 import { useQuery } from '@apollo/client';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { useEffect } from 'react';
+import { GuardedRoute } from 'react-router-guards';
 
 export default function Market() {
   const { loading, error, data: products, refetch } = useQuery(
     product.FIND_ALL_PRODUCT
   );
-  let { path, url } = useRouteMatch();
-  console.log(path);
+  const { path, url } = useRouteMatch();
 
   useEffect(() => {
-    refetch()
-  } , [products])
+    refetch();
+  }, [products]);
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error !!!</h1>;
   return (
@@ -30,6 +31,10 @@ export default function Market() {
         </div>
         <div className="w-9/12 container px-5 py-24 mx-auto">
           <Switch>
+            <GuardedRoute
+              path={`${path}/produk/:id/edit`}
+              component={ProductEdit}
+            />
             <Route path={`${path}/produk/:id`} component={ProductDetail} />
             <Route path={`${path}/add`} component={ProductAdd} />
             <Route path={path} component={MarketHome} />
