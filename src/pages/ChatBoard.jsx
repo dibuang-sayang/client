@@ -142,9 +142,9 @@ export default function Chatboard() {
             >
               {chats.map((chat, i) => {
                 const isActive = getReceiver(chat) === receiver;
-                console.log(getReceiver(chat), 'ini getre');
-                console.log(receiver, 'ini recv');
-                console.log(isActive);
+                // console.log(getReceiver(chat), 'ini getre');
+                // console.log(receiver, 'ini recv');
+                // console.log(isActive);
                 return (
                   <button
                     onClick={() => handleReceiver(getReceiver(chat))}
@@ -171,7 +171,7 @@ export default function Chatboard() {
           <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
             <div className="flex flex-col h-full overflow-x-auto mb-4">
               <div className="flex flex-col-reverse h-full">
-                <div className="grid grid-cols-12 gap-y-2">
+                <div className="grid grid-cols-12 overflow-auto gap-y-2">
                   {conversation.map((c, i) => {
                     return c.sender === user.email ? (
                       <div
@@ -191,7 +191,7 @@ export default function Chatboard() {
                       <div className="col-start-1 col-end-8 p-3 rounded-lg">
                         <div className="flex flex-row items-center">
                           <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500 flex-shrink-0">
-                            {c.receiver.charAt(0).toUpperCase()}
+                            {c.sender.charAt(0).toUpperCase()}
                           </div>
                           <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
                             <div>{c.message}</div>

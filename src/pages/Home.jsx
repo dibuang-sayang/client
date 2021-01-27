@@ -6,7 +6,7 @@ import {
   Popup,
   useMapEvents,
 } from 'react-leaflet';
-import { Hero, ProductHomepage, HeroMarketHome } from '../components';
+import { Hero, ProductHomepage, ChatBox, HeroMarketHome } from '../components';
 import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
@@ -61,7 +61,7 @@ export default function Home() {
     const map = useMapEvents({
       locationfound(e) {
         setPosition(e.latlng);
-        console.log(e.latlng, 'ini ');
+        userPositionVar([e.latlng.lat, e.latlng.lng]);
         map.flyTo(e.latlng, map.getZoom());
       },
     });
