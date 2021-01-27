@@ -45,6 +45,12 @@ const GET_CURRENT_USER = gql`
   }
 `;
 
+const GET_USER_POSITION = gql`
+  query getUserPosition {
+    getUserPosition @client
+  }
+`
+
 const FIND_ALL_USER = gql`
   query findAllUser {
     users {
@@ -83,6 +89,7 @@ const user = {
   FIND_ALL_USER,
   EDIT_USER,
   DELETE_USER,
+  GET_USER_POSITION
 };
 
 export default user;
