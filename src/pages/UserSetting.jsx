@@ -44,9 +44,6 @@ export default function UserSetting() {
           token: localStorage.getItem('token'),
         },
       },
-      onCompleted: () => {
-        console.log('sukses');
-      },
     }
   );
 
@@ -106,10 +103,8 @@ export default function UserSetting() {
         },
       },
     })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => {});
   };
   if (error) return <Error404 />;
   if (loading) return <Loader />;

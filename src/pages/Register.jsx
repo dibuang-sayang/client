@@ -6,14 +6,13 @@ import { useMutation } from '@apollo/client';
 import Select from 'react-select';
 import { currentUserVar } from '../cache';
 import { signInWithEmailPassword } from '../config/firestore';
-import Swal from "sweetalert2"
+import Swal from 'sweetalert2';
 
 export default function Register() {
-  const history = useHistory()
+  const history = useHistory();
   const [registerNewUser] = useMutation(user.REGISTER_USER, {
     errorPolicy: 'all',
-    onCompleted: () => {
-    }
+    onCompleted: () => {},
   });
 
   const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all' });
@@ -25,10 +24,10 @@ export default function Register() {
     timer: 4000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   const roleOption = [
     { value: 'anggota', label: 'Anggota' },
@@ -40,7 +39,7 @@ export default function Register() {
     lastName: '',
     email: '',
     password: '',
-    role: ''
+    role: '',
   });
 
   const handleChangeInputUser = (e) => {
@@ -52,7 +51,6 @@ export default function Register() {
 
   const handleClickRegisterButton = (e) => {
     e.preventDefault();
-    console.log(inputUser);
     registerNewUser({
       variables: {
         inputUser,
@@ -61,28 +59,27 @@ export default function Register() {
       .then((res) => {
         if (res.data.register) {
           Toast.fire({
-            icon : 'success',
-            title : "succes register new account"
-          })
-          currentUserVar(res.data.register)
+            icon: 'success',
+            title: 'succes register new account',
+          });
+          currentUserVar(res.data.register);
           // console.log(res.data, 'ini dataaa');
           signUpWithEmailPassword(inputUser.email, inputUser.password);
-          doLogin()
+          doLogin();
         } else {
-          console.log(res.errors);
           Toast.fire({
-            icon : "error",
-            title : res.errors[0].message
-          })
+            icon: 'error',
+            title: res.errors[0].message,
+          });
         }
       })
-      .catch((err) => console.log(err), '<<<<< ini error');
+      .catch((err) => {});
   };
 
   // const redirectRouteHandler = () => {
   //   if(inputUser.role === 'anggota'){
   //     return history.push('/login')
-  //   }else 
+  //   }else
 
   // }
 
@@ -90,27 +87,25 @@ export default function Register() {
     loginUser({
       variables: {
         email: inputUser.email,
-        password: inputUser.password
+        password: inputUser.password,
       },
-    }).then( (res) => {
-      console.log(inputUser.role, 'ini rolee');
+    }).then((res) => {
       localStorage.setItem('token', res.data.loginUser.token);
-      signInWithEmailPassword(inputUser.email, inputUser.password)
-      if(inputUser.role === 'anggota'){
-        history.push('/')
-      }else{
-        history.push('/user/setting')
+      signInWithEmailPassword(inputUser.email, inputUser.password);
+      if (inputUser.role === 'anggota') {
+        history.push('/');
+      } else {
+        history.push('/user/setting');
       }
-    })
-  }
+    });
+  };
 
   const roleChangeHanlder = (e) => {
-    console.log(e.value);
     setInputUser({
       ...inputUser,
-      role: e.value
+      role: e.value,
     });
-  }
+  };
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068673464238130/dumpsite.png';
@@ -183,7 +178,11 @@ export default function Register() {
             <div className="w-full text-left">
               <label htmlFor="roles">Role</label>
             </div>
-            <Select options={roleOption} className="mt-2" onChange={(e) => roleChangeHanlder(e)} />
+            <Select
+              options={roleOption}
+              className="mt-2"
+              onChange={(e) => roleChangeHanlder(e)}
+            />
             <div className="mt-8 flex flex-col gap-3">
               <button
                 className="bg-green-600 w-full py-2 font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"

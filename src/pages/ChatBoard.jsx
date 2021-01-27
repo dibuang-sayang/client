@@ -142,9 +142,6 @@ export default function Chatboard() {
             >
               {chats.map((chat, i) => {
                 const isActive = getReceiver(chat) === receiver;
-                // console.log(getReceiver(chat), 'ini getre');
-                // console.log(receiver, 'ini recv');
-                // console.log(isActive);
                 return (
                   <button
                     onClick={() => handleReceiver(getReceiver(chat))}
@@ -229,7 +226,7 @@ export default function Chatboard() {
                       setInputChat(e.target.value);
                     }}
                     onKeyPress={(e) => {
-                      e.key === 'Enter' ? sendMessage() : console.log('beda');
+                      e.key === 'Enter' && sendMessage();
                     }}
                     value={inputChat}
                     type="text"

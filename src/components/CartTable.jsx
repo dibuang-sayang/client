@@ -39,7 +39,7 @@ export default function CartTable({ cart: cartData, refetch }) {
       .then((res) => {
         refetch();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   const handleClickDeleteCart = (cartId) => {
@@ -48,7 +48,6 @@ export default function CartTable({ cart: cartData, refetch }) {
         id: cartId,
       },
     }).then((res) => {
-      console.log(res);
       refetch();
     });
   };
@@ -108,7 +107,10 @@ export default function CartTable({ cart: cartData, refetch }) {
 
         <td className="text-center">
           <span className="text-sm lg:text-base font-medium">
-            <p className="cursor-pointer" onClick={() => handleClickDeleteCart(cartData.id)}>
+            <p
+              className="cursor-pointer"
+              onClick={() => handleClickDeleteCart(cartData.id)}
+            >
               Delete
             </p>
           </span>

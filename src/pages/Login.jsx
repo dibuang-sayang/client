@@ -45,25 +45,20 @@ export default function Login(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(loginData, 'ini login data');
     loginUser({
       variables: loginData,
     })
       .then((res) => {
         const dataUser = res.data.loginUser;
-        console.log(res, 'then pertama');
         if (dataUser) {
           signInWithEmailPassword(loginData.email, loginData.password);
           localStorage.setItem('token', dataUser.token);
           currentUserVar(dataUser.User);
-          console.log(dataUser.User, 'ini user login');
           if (dataUser.User.role !== 'anggota') {
-            console.log(dataUser.User.role, 'yang ini login');
             dataUser.User.Office
               ? history.push('/')
               : history.push('/user/setting');
           } else {
-            console.log(dataUser.User.role, 'ini anggota');
             history.push('/');
           }
         } else if (res.errors) {
@@ -74,7 +69,7 @@ export default function Login(props) {
           throw res.errors[0];
         }
       })
-      .catch((err) => console.log(err, 'err'));
+      .catch((err) => {});
   };
 
   const googleSignIn = async () => {
@@ -130,13 +125,13 @@ export default function Login(props) {
             >
               Login Now
             </button>
-            <button
+            {/* <button
               className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow"
               onClick={() => googleSignIn()}
             >
               <img src={googleLogo} className="w-6 h-6" alt="google logo" />
               or Sign In with Google
-            </button>
+            </button> */}
             <Link to="/register" className="w-full text-left">
               <span>
                 Belum punya akun? <b>Register Gratis!</b>
