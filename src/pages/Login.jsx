@@ -1,6 +1,6 @@
 import googleLogo from '../assets/img/google.png';
 import { Link } from 'react-router-dom';
-import { useMutation ,useQuery, useLazyQuery} from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import { user } from '../query';
 import { signInWithGoogle } from '../config/firestore';
 import { signInWithEmailPassword } from '../config/firestore';
@@ -8,21 +8,19 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { currentUserVar } from '../cache';
 
-import Swal from "sweetalert2"
+import Swal from 'sweetalert2';
 import { Error404, Loader } from '../components';
-
 
 export default function Login(props) {
   const history = useHistory();
-  const [loginUser] = useMutation(user.LOGIN_USER, { 
-    errorPolicy: 'all'
-   });
+  const [loginUser] = useMutation(user.LOGIN_USER, {
+    errorPolicy: 'all',
+  });
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
 
-   
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -30,11 +28,11 @@ export default function Login(props) {
     timer: 2500,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
-  
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
   const changeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -47,49 +45,50 @@ export default function Login(props) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(loginData, "ini login data");
+    console.log(loginData, 'ini login data');
     loginUser({
       variables: loginData,
     })
       .then((res) => {
-        const dataUser = res.data.loginUser 
-        console.log(res,"then pertama");
-        if(dataUser) {
+        const dataUser = res.data.loginUser;
+        console.log(res, 'then pertama');
+        if (dataUser) {
           signInWithEmailPassword(loginData.email, loginData.password);
           localStorage.setItem('token', dataUser.token);
           currentUserVar(dataUser.User);
-          console.log(dataUser.User,"ini user login");
-          if(dataUser.User.role !== "anggota" ) {
-            console.log(dataUser.User.role, "yang ini login");
-            dataUser.User.Office ? history.push('/') : history.push('/user/setting')
-          }else {
-            console.log(dataUser.User.role, "ini anggota");
+          console.log(dataUser.User, 'ini user login');
+          if (dataUser.User.role !== 'anggota') {
+            console.log(dataUser.User.role, 'yang ini login');
+            dataUser.User.Office
+              ? history.push('/')
+              : history.push('/user/setting');
+          } else {
+            console.log(dataUser.User.role, 'ini anggota');
             history.push('/');
           }
         } else if (res.errors) {
           Toast.fire({
-            icon : "error",
-            title: res.errors[0].message
-          })
+            icon: 'error',
+            title: res.errors[0].message,
+          });
           throw res.errors[0];
         }
-      }).catch((err) => console.log(err, 'err'));
+      })
+      .catch((err) => console.log(err, 'err'));
   };
-
 
   const googleSignIn = async () => {
     try {
       const data = await signInWithGoogle();
       history.push('/');
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const backgroundImage =
     'https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png';
-  
-  if (loading) return <Loader />
-  if (error) return <Error404 />
+
+  // if (loading) return <Loader />
+  // if (error) return <Error404 />;
   return (
     <div className="w-full h-screen flex bg-gray-200">
       <div className="bg-white flex flex-col justify-center items-center w-6/12 shadow-lg">

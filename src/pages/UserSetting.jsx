@@ -9,7 +9,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { user, office } from '../query';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { currentUserVar } from '../cache'
+import { currentUserVar } from '../cache';
 import { Error404, Loader } from '../components';
 
 export default function UserSetting() {
@@ -102,7 +102,7 @@ export default function UserSetting() {
       variables: {
         inputOffice: {
           ...officeData,
-          category: currentUserVar().role
+          category: currentUserVar().role,
         },
       },
     })
@@ -111,81 +111,42 @@ export default function UserSetting() {
       })
       .catch((err) => console.log(err));
   };
-  if (error) return <Error404 />
-  if (loading) return <Loader />
+  if (error) return <Error404 />;
+  if (loading) return <Loader />;
   return (
-    <div className="flex w-full justify-center mt-24">
+    <div className="flex w-full justify-center mt-24 mb-24">
       <div className="flex flex-row w-11/12 gap-3">
-        <div className="w-1/2">
-          {/* <span className="text-2xl font-bold font-custom">
-            Select Your Role
-          </span> */}
-          <img src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png" alt="gambar" />
-          <div className="flex flex-row gap-2">
-            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
-              <img
-                className="w-full h-40 object-cover"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
+        <div className="flex flex-col w-1/2 justify-center">
+          {currentUserVar().role == 'pengrajin' ? (
+            <div className="flex flex-col px-4 text-center">
+              <span className="text-2xl font-bold font-custom mb-3">
+                Pengrajin
+              </span>
+              <span className="text-justify">
+                Kami menyadari setiap sampah yang kita pikir tidak memiliki daya
+                jual, ternyata memiliki nilai jual dan juga dapat menjadi
+                resource baru untuk menjadi bahan untuk produk upcycle.
+              </span>
+            </div>
+          ) : (
+            <div className="flex flex-col px-4 text-center">
+              <span className="text-2xl font-bold font-custom mb-3">
+                Pengepul
+              </span>
+              <span className="text-justify">
+                Apabila kalian dapat mengubah nilai sampah yang dari tidak
+                ternilai menjadi sesuatu yang lebih bermanfaat bergabunglah
+                bersama kami sebagai pengrajin! disini kalian juga dapat menjual
+                produk upcycling anda.
+              </span>
+            </div>
+          )}
 
-              <div className="py-5 text-center">
-                <div
-                  onClick={() => {
-                    setOfficeData({ ...officeData, category: 'anggota' });
-                  }}
-                  className="block text-2xl text-gray-800 dark:text-white font-bold"
-                >
-                  Anggota
-                </div>
-                <span className="text-sm text-gray-700 dark:text-gray-200">
-                  Kamu punya sampah untuk disumbangkan atau dijual?
-                </span>
-              </div>
-            </div> */}
-            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
-              <img
-                className="w-full h-40 object-cover"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-
-              <div className="py-5 text-center">
-                <div
-                  onClick={() => {
-                    setOfficeData({ ...officeData, category: 'pengepul' });
-                  }}
-                  className="block text-2xl text-gray-800 dark:text-white font-bold"
-                >
-                  Pengepul
-                </div>
-                <span className="text-sm text-gray-700 dark:text-gray-200">
-                  Pendaur ulang sampah yang gitu-gitu
-                </span>
-              </div>
-            </div> */}
-            {/* <div className="max-w-xs bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden mx-auto">
-              <img
-                className="w-full h-40 object-cover"
-                src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                alt="avatar"
-              />
-
-              <div className="py-5 text-center">
-                <div
-                  onClick={() => {
-                    setOfficeData({ ...officeData, category: 'pengrajin' });
-                  }}
-                  className="block text-2xl text-gray-800 dark:text-white font-bold"
-                >
-                  Pengrajin
-                </div>
-                <span className="text-sm text-gray-700 dark:text-gray-200">
-                  Pengrajin sampah gitu-gitu
-                </span>
-              </div>
-            </div> */}
-          </div>
+          <img
+            src="https://cdn.discordapp.com/attachments/801791591927775257/802068635224768572/artwork_8.png"
+            alt="gambar"
+          />
+          <div className="flex flex-row gap-2"></div>
         </div>
         <div className="w-1/2 flex flex-col justify-center px-3 gap-4">
           <span className="text-2xl font-bold font-custom">
@@ -204,6 +165,7 @@ export default function UserSetting() {
                   </label>
                   <input
                     onChange={onChangeHandler}
+                    placeholder="Alamat lengkap kantor"
                     name="address"
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -219,6 +181,7 @@ export default function UserSetting() {
                   </label>
                   <input
                     onChange={onChangeHandler}
+                    placeholder="+6285xxxxxxxxxxx"
                     name="phoneNumber"
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -235,7 +198,7 @@ export default function UserSetting() {
                   <input
                     disabled
                     id="password"
-                    value={officeData.latitude}
+                    placeholder={officeData.latitude}
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
@@ -251,13 +214,16 @@ export default function UserSetting() {
                   <input
                     disabled
                     id="passwordConfirmation"
-                    value={officeData.longitude}
+                    placeholder={officeData.longitude}
                     type="text"
                     className="mt-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded py-2 px-4 block w-full focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   />
                 </div>
               </div>
               <div className="flex w-full justify-center flex-col mt-4">
+                <span className="text-gray-700 dark:text-gray-200 mb-2">
+                  Pilih Lokasi Kantormu:{' '}
+                </span>
                 <MapContainer
                   center={[-6.260676036065346, 106.78161619719772]}
                   zoom={13}

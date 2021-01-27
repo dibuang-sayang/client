@@ -9,54 +9,53 @@ import {
   ChatBoard,
   OfficeList,
   Office,
-  Cart
+  Cart,
 } from './pages';
 import { Error404, Loader, Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { requireLogin } from './config';
-import { user,cart } from './query';
+import { user, cart } from './query';
 import { useQuery } from '@apollo/client';
 import React, { useEffect, Fragment } from 'react';
 import { currentUserVar, checkOutVar } from './cache';
 
 function App() {
   const location = useLocation();
-  const { data: currentLoginUser, loading, error, refetch} = useQuery(user.FIND_USER_BY_ID, {
-    context: {
-      headers: {
-        token: localStorage.getItem('token'),
-      },
-    },
-    onCompleted: () => {
-      console.log('sukses');
-    },
-  });
-
-
-  const { data: cartData} = useQuery(
-    cart.FIND_ALL_CART,
+  const { data: currentLoginUser, loading, error, refetch } = useQuery(
+    user.FIND_USER_BY_ID,
     {
       context: {
         headers: {
           token: localStorage.getItem('token'),
         },
       },
-      onCompleted : () => {
-        checkOutVar(cartData)
-      }
+      onCompleted: () => {
+        console.log('sukses');
+      },
     }
   );
+
+  const { data: cartData } = useQuery(cart.FIND_ALL_CART, {
+    context: {
+      headers: {
+        token: localStorage.getItem('token'),
+      },
+    },
+    onCompleted: () => {
+      checkOutVar(cartData);
+    },
+  });
 
   useEffect(() => {
     if (currentLoginUser) {
       currentUserVar(currentLoginUser.user);
-      console.log(currentLoginUser.user, "ini dari appa");
-      refetch()
+      console.log(currentLoginUser.user, 'ini dari appa');
+      refetch();
     } else console.log('tidak ada yang login');
   }, [currentLoginUser, refetch]);
 
-  if (error) return <Error404 />
-  if (loading) return <Loader />
+  // if (error) return <Error404 />
+  // if (loading) return <Loader />;
   return (
     <Fragment>
       {location.pathname !== '/login' && location.pathname !== '/register' && (
@@ -83,7 +82,7 @@ function App() {
             />
             <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
-            <GuardedRoute path= "/keranjang" component={Cart} /> 
+            <GuardedRoute path="/keranjang" component={Cart} />
             <GuardedRoute path="/chat/:receiver_id" component={ChatBoard} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
