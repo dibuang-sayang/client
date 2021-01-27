@@ -22,7 +22,6 @@ export default function UserSetting() {
     phoneNumber: '',
     category: '',
   });
-  console.log(currentUserVar());
   const [addOffice] = useMutation(office.ADD_OFFICE, {
     context: {
       headers: {
@@ -53,7 +52,6 @@ export default function UserSetting() {
   //set current user
   useEffect(() => {
     if (currentLoginUser?.user) {
-      console.log(currentLoginUser);
       setLocalData(currentLoginUser.user);
     }
   }, [currentLoginUser]);
@@ -62,7 +60,6 @@ export default function UserSetting() {
   function LocationMarker() {
     const map = useMapEvents({
       click(e) {
-        console.log(e.latlng);
         setOfficeData({
           ...officeData,
           latitude: e.latlng.lat,
@@ -100,7 +97,6 @@ export default function UserSetting() {
 
   const onClickHandler = (e) => {
     e.preventDefault();
-    console.log(officeData);
     addOffice({
       variables: {
         inputOffice: {

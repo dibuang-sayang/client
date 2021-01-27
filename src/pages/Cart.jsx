@@ -26,7 +26,6 @@ export default function Cart() {
   useEffect(() => {
     if (checkOutData) {
       const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
-      console.log(checkOutMessage.invoice_url, "ini rul");
       Swal.fire({
         text: `silahkan proses pembayaran anda : ${window.open(
           checkOutMessage.invoice_url

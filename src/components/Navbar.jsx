@@ -14,8 +14,6 @@ export default function Navbar() {
   const history = useHistory();
 
   const doLogout = () => {
-    console.log('hit');
-    // console.log(data.getCurrentUser);
     signOutFirebase();
     localStorage.clear();
     currentUserVar({});

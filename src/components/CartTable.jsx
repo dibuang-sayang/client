@@ -22,7 +22,6 @@ export default function CartTable({ cart: cartData, refetch }) {
   });
 
   const handleChangeQty = (e) => {
-    console.log(e.target.value);
     const value = e.target.value;
     setQty(value);
     const { ProductId, status } = cartData;

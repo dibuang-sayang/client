@@ -58,7 +58,6 @@ export default function EditProduct() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    console.log(localData);
     EDIT_PRODUCT({
       variables: {
         id,

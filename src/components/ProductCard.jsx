@@ -39,7 +39,6 @@ export default function ProductCard({ product:productData }) {
   })
 
   const handleAddCart = (e) => {
-    console.log(e, 'dari add cart');
     e.preventDefault();
     e.stopPropagation();
     const newCart = {
@@ -47,7 +46,6 @@ export default function ProductCard({ product:productData }) {
       quantity: 1,
       status: 'belum lunas',
     };
-    console.log(newCart);
     addCart({
       variables: {
         inputCart: newCart,
@@ -55,7 +53,6 @@ export default function ProductCard({ product:productData }) {
     })
       .then((res) => {
         if(res.data.addCart) {
-          console.log("sukses");
           Toast.fire({
             icon : 'success',
             title : 'berhasil ditambahkan ke keranjang'
@@ -66,28 +63,26 @@ export default function ProductCard({ product:productData }) {
             icon : "error",
             title: res.errors[0].message
           })
-          // console.log(res.errors[0].message);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+      });
   };
 
   const handleEditProduct = (e) => {
-    console.log("edit");
     e.preventDefault();
     e.stopPropagation();
     history.push(`office/produk/${productData.id}/edit`);
   };
 
   const handleDeleteProduct = (e) => {
-    console.log("mencobe delete", productData.id);
     deleteProduct({
       variables : {
         inputId : productData.id
       } 
     })
   }
-
   return (
     <Link
       to={`pasar/produk/${productData.id}`}

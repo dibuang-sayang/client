@@ -24,9 +24,7 @@ export default function OfficeList () {
         const lokasiKantor = [element.latitude, element.longitude]
         element["jarak"] = cariJarak(lokasiUser,lokasiKantor)
     });
-    console.log(sortedOffice, "sebelum");
     sortedOffice.sort( (a,b) => a.jarak - b.jarak )
-    console.log(sortedOffice, "sesudah");
 
     return (
         <div className="flex justify-center my-20">

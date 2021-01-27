@@ -7,6 +7,8 @@ import { signInWithEmailPassword } from '../config/firestore';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { currentUserVar } from '../cache';
+import Swal from "sweetalert2"
+
 
 export default function Login(props) {
   const history = useHistory();
@@ -28,7 +30,18 @@ export default function Login(props) {
       console.log('sukses');
     },
   });
-
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
 
 
   const changeHandler = (e) => {
@@ -40,20 +53,22 @@ export default function Login(props) {
       [name]: value,
     });
   };
-  // console.log(props);
   const submitHandler = (e) => {
     e.preventDefault();
     loginUser({
       variables: loginData,
     })
       .then((res) => {
-        console.log(res, 'respsonse');
         if (res.data.loginUser) {
           signInWithEmailPassword(loginData.email, loginData.password);
           localStorage.setItem('token', res.data.loginUser.token);
           currentUserVar(currentLoginUser.user);
           history.push('/');
         } else if (res.errors) {
+          Toast.fire({
+            icon : "error",
+            title: res.errors[0].message
+          })
           throw res.errors[0];
         }
       })
@@ -63,10 +78,8 @@ export default function Login(props) {
   const googleSignIn = async () => {
     try {
       const data = await signInWithGoogle();
-      console.log(data);
       history.push('/');
     } catch (err) {
-      console.log(err, 'error gsignin');
     }
   };
 
