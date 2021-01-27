@@ -59,6 +59,7 @@ export default function Home() {
     const map = useMapEvents({
       locationfound(e) {
         setPosition(e.latlng);
+        userPositionVar([e.latlng.lat, e.latlng.lng])
         console.log(e.latlng, "ini ");
         map.flyTo(e.latlng, map.getZoom());
       },
