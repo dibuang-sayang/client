@@ -9,7 +9,8 @@ export default function ProductAdd() {
     price: 0,
     category: '',
     stock: 0,
-    picture: '',
+    picture:
+      'https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image',
   });
   const [createProduct] = useMutation(product.CREATE_PRODUCT, {
     context: {
@@ -132,10 +133,7 @@ export default function ProductAdd() {
                 Upload Produk
               </button>
             </div>
-            <img
-              src="https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image"
-              alt=""
-            ></img>
+            <img src={productInput.picture} alt=""></img>
           </div>
           <div className="mt-8 flex justify-center">
             <button

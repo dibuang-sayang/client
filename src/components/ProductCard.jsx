@@ -89,7 +89,7 @@ export default function ProductCard({ product: productData }) {
   return (
     <Link
       to={`/pasar/produk/${productData.id}`}
-      className="lg:w-1/4 md:w-1/2 p-4 w-full"
+      className="p-4 w-full border-2 rounded-md border-gray-200 hover:bg-gray-200"
     >
       <div className="block relative h-48 rounded overflow-hidden">
         <img
@@ -98,46 +98,26 @@ export default function ProductCard({ product: productData }) {
           src={productData.picture}
         />
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col relative">
         <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
           {productData.category.toUpperCase()}
         </h3>
-        <h2 className="text-gray-900 title-font text-lg font-medium">
+        <h2 className="text-gray-900 title-font text-lg font-medium h-16">
           {productData.name}
         </h2>
-        <p className="mt-1">
-          Rp.
-          {new Intl.NumberFormat({ style: 'currency' }).format(
-            productData.price
-          )}
-        </p>
-        {location.pathname !== '/office' ? (
-          <div
-            onClick={handleAddCart}
-            className="flex flex-row gap-1 hover:text-black"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            <button>Add To cart</button>
-          </div>
-        ) : (
-          <div className="">
+        <div className="flex flex-row w-full justify-between">
+          <span className="mt-1 text-gray-500">
+            {new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+            }).format(productData.price)}
+          </span>
+          {location.pathname !== '/office' ? (
             <div
-              onClick={handleEditProduct}
+              onClick={handleAddCart}
               className="flex flex-row gap-1 hover:text-black"
             >
+              {/* <button>Add To cart</button> */}
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -152,13 +132,35 @@ export default function ProductCard({ product: productData }) {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              (<button>edit product</button>)
             </div>
-            <div onClick={handleDeleteProduct} className="delete-button">
-              <button>delete</button>
+          ) : (
+            <div className="">
+              <div
+                onClick={handleEditProduct}
+                className="flex flex-row gap-1 hover:text-black"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                (<button>edit product</button>)
+              </div>
+              <div onClick={handleDeleteProduct} className="delete-button">
+                <button>delete</button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </Link>
   );

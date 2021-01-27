@@ -105,7 +105,7 @@ export default function Home() {
           {/* {[...Array(1)].map((el, i) => {
             return <ProductHomepage key={i} />;
           })} */}
-          <span className="text-8xl w-11/12 font-black text-center mt-24 text-gray-300">
+          <span className="text-8xl w-full font-black text-center mt-24 text-gray-300">
             CARI PENGEPUL DAN PENGRAJIN DI SEKITAR ANDA
           </span>
           <div className="flex w-full text-center justify-center mt-4">
