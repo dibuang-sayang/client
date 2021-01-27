@@ -31,17 +31,22 @@ export default function Cart() {
       Swal.fire({
         text: `silahkan proses pembayaran anda : ${window.open(
           checkOutMessage.invoice_url
-        )}`,
-      });
-      setTotalPrice(0);
+          )}`,
+        });
+        setTotalPrice(0);
+      }
       refetch();
-    }
   }, [checkOutData]);
+
 
   useEffect(() => {
     setTotalPrice(totalCheckOutPrice);
+    refetch()
   }, [cartData]);
 
+  useEffect(() => {
+    refetch()
+  })
   const handleCheckOutButton = () => {
     checkOut({
       context: {
