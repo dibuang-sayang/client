@@ -44,9 +44,9 @@ export default function Cart() {
     refetch()
   }, [cartData]);
 
-  useEffect(() => {
-    refetch()
-  })
+  // useEffect(() => {
+  //   refetch()
+  // })
   const handleCheckOutButton = () => {
     checkOut({
       context: {
