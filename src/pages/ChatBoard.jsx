@@ -48,6 +48,7 @@ export default function Chatboard() {
     ref.current = chatRoomRef
       .doc(sortEmail(receiver, user?.email))
       .collection('chats')
+      .orderBy('timeStamp')
       .onSnapshot((res) => {
         let temp = [];
         res.forEach((doc) => {
@@ -57,9 +58,9 @@ export default function Chatboard() {
       });
   }, [receiver]);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if(inputChat !== ""){
-      chatRoomRef
+      await chatRoomRef
         .doc(sortEmail(receiver, user.email))
         .collection('chats')
         .doc()
@@ -69,6 +70,7 @@ export default function Chatboard() {
           sender: user.email,
           receiver: receiver,
         });
+      setInputChat("")
     }
   };
 
@@ -168,7 +170,7 @@ export default function Chatboard() {
         <div className="flex flex-col flex-auto h-full p-6">
           <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
             <div className="flex flex-col h-full overflow-x-auto mb-4">
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col-reverse h-full">
                 <div className="grid grid-cols-12 gap-y-2">
                   {conversation.map((c, i) => {
                     return c.sender === user.email ? (
@@ -226,6 +228,7 @@ export default function Chatboard() {
                     onChange={(e) => {
                       setInputChat(e.target.value);
                     }}
+                    onKeyPress={(e) => { (e.key === 'Enter') ? sendMessage() : console.log('beda'); }}
                     value={inputChat}
                     type="text"
                     className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
