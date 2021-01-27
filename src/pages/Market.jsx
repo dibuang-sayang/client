@@ -5,6 +5,8 @@ import {
   ProductDetail,
   ProductAdd,
   ProductEdit,
+  Error404,
+  Loader,
 } from '../components';
 import { product } from '../query';
 import { useQuery } from '@apollo/client';
@@ -16,13 +18,13 @@ export default function Market() {
   const { loading, error, data: products, refetch } = useQuery(
     product.FIND_ALL_PRODUCT
   );
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
 
   useEffect(() => {
     refetch();
-  }, [products]);
-  if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1>Error !!!</h1>;
+  }, [products, refetch]);
+  if (loading) return <Loader />
+  if (error) return <Error404 />
   return (
     <section className="text-gray-600 body-font">
       <div

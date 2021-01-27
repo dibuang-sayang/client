@@ -7,8 +7,6 @@ import { auth, messagesRef } from '../config/firestore';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-// import { useQuery } from '@apollo/client';
-// import { user } from '../query';
 import { Link } from 'react-router-dom';
 
 function ChatRoom() {
@@ -16,7 +14,6 @@ function ChatRoom() {
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
-  console.log(auth.currentUser, ' oke ');
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL, email } = auth.currentUser;
@@ -30,7 +27,6 @@ function ChatRoom() {
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   };
-  console.log(messages);
 
   return (
     <React.Fragment>
@@ -57,7 +53,6 @@ function ChatRoom() {
 }
 
 function ChatMessage(props) {
-  console.log(props);
   const { text, uid, photoURL, email } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';

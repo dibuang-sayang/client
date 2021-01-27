@@ -2,7 +2,7 @@ import { CartTable } from '../components';
 import { cart } from '../query';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { checkOutVar } from '../cache';
+// import { checkOutVar } from '../cache';
 import Swal from 'sweetalert2';
 
 export default function Cart() {
@@ -20,28 +20,31 @@ export default function Cart() {
   const [
     checkOut,
     { loading: checkOutLoading, data: checkOutData },
-  ] = useLazyQuery(cart.CHECKOUT);
+  ] = useLazyQuery(cart.CHECKOUT, { fetchPolicy : "network-only"});
 
   let totalCheckOutPrice = 0;
   useEffect(() => {
     if (checkOutData) {
-      checkOutVar(checkOutData.checkOut.msg);
       const checkOutMessage = JSON.parse(checkOutData.checkOut.msg);
-      console.log(checkOutMessage.invoice_url);
       Swal.fire({
-        text: `silahkan proses pembayaran anda : ${window.moveTo(
+        text: `silahkan proses pembayaran anda : ${window.open(
           checkOutMessage.invoice_url
-        )}`,
-      });
-      setTotalPrice(0);
-      refetch();
-    }
+          )}`,
+        });
+        setTotalPrice(0);
+      }
+      // refetch();
   }, [checkOutData]);
+
 
   useEffect(() => {
     setTotalPrice(totalCheckOutPrice);
+    refetch()
   }, [cartData]);
 
+  // useEffect(() => {
+  //   refetch()
+  // })
   const handleCheckOutButton = () => {
     checkOut({
       context: {
@@ -57,7 +60,7 @@ export default function Cart() {
     console.log('error');
   }
 
-  if (!cartData) {
+  if (cartData.length === 0 ) {
     return <div className="mt-20">belum punya cart</div>;
   }
   return (
@@ -81,7 +84,7 @@ export default function Cart() {
               </tr>
             </thead>
             {cartData.carts.map((cart) => {
-              if (cart.status != 'lunas') {
+              if (cart.status !== 'lunas') {
                 totalCheckOutPrice =
                   totalCheckOutPrice + cart.quantity * cart.Product.price;
                 // setTotalPrice(totalCheckOutPrice)

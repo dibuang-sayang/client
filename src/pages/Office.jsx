@@ -9,15 +9,15 @@ import {
 import { GuardedRoute } from 'react-router-guards';
 
 export default function Office() {
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
 
   return (
     <section className="text-gray-600 body-font">
-      <div className="flex flex-row my-20">
+      <div className="flex flex-row mt-16">
         <div className="w-3/12 bg-gray-200">
           <SidebarOffice />
         </div>
-        <div className="w-9/12 container px-5 py-24 mx-auto">
+        <div className="w-9/12 container px-5 mx-auto">
           <Switch>
             <GuardedRoute
               path={`${path}/produk/:id/edit`}

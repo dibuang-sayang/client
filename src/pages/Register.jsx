@@ -1,4 +1,3 @@
-import googleLogo from '../assets/img/google.png';
 import { Link, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { signUpWithEmailPassword } from '../config/firestore';
@@ -7,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import Select from 'react-select';
 import { currentUserVar } from '../cache';
 import { signInWithEmailPassword } from '../config/firestore';
-
+import Swal from "sweetalert2"
 
 export default function Register() {
   const history = useHistory()
@@ -19,7 +18,18 @@ export default function Register() {
 
   const [loginUser] = useMutation(user.LOGIN_USER, { errorPolicy: 'all' });
 
-  
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
   const roleOption = [
     { value: 'anggota', label: 'Anggota' },
     { value: 'pengepul', label: 'Pengepul' },
@@ -50,12 +60,20 @@ export default function Register() {
     })
       .then((res) => {
         if (res.data.register) {
+          Toast.fire({
+            icon : 'success',
+            title : "succes register new account"
+          })
           currentUserVar(res.data.register)
-          console.log(res.data, 'ini dataaa');
+          // console.log(res.data, 'ini dataaa');
           signUpWithEmailPassword(inputUser.email, inputUser.password);
           doLogin()
         } else {
           console.log(res.errors);
+          Toast.fire({
+            icon : "error",
+            title : res.errors[0].message
+          })
         }
       })
       .catch((err) => console.log(err), '<<<<< ini error');
@@ -173,10 +191,10 @@ export default function Register() {
               >
                 Register Now
               </button>
-              <button className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
+              {/* <button className="flex flex-row gap-3 py-2 justify-center bg-gray-900 w-full font-custom hover:bg-orange-600 text-white px-3 rounded text-lg focus:outline-none shadow">
                 <img src={googleLogo} className="w-6 h-6" alt="logo google " />
                 or Sign In with Google
-              </button>
+              </button> */}
               <Link to="/login" className="w-full text-left">
                 <span>
                   Sudah punya akun? <b>Login!</b>

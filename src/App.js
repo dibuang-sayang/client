@@ -5,24 +5,23 @@ import {
   Home,
   UserSetting,
   AboutUs,
-  Contact,
   Market,
-  Cart,
   ChatBoard,
   OfficeList,
   Office,
+  Cart
 } from './pages';
-import { Navbar } from './components';
+import { Error404, Loader, Navbar } from './components';
 import { GuardProvider, GuardedRoute } from 'react-router-guards';
 import { requireLogin } from './config';
-import { user } from './query';
+import { user,cart } from './query';
 import { useQuery } from '@apollo/client';
 import React, { useEffect, Fragment } from 'react';
-import { currentUserVar } from './cache';
+import { currentUserVar, checkOutVar } from './cache';
 
 function App() {
   const location = useLocation();
-  const { data: currentLoginUser ,refetch} = useQuery(user.FIND_USER_BY_ID, {
+  const { data: currentLoginUser, loading, error, refetch} = useQuery(user.FIND_USER_BY_ID, {
     context: {
       headers: {
         token: localStorage.getItem('token'),
@@ -33,14 +32,31 @@ function App() {
     },
   });
 
+
+  const { data: cartData} = useQuery(
+    cart.FIND_ALL_CART,
+    {
+      context: {
+        headers: {
+          token: localStorage.getItem('token'),
+        },
+      },
+      onCompleted : () => {
+        checkOutVar(cartData)
+      }
+    }
+  );
+
   useEffect(() => {
     if (currentLoginUser) {
       currentUserVar(currentLoginUser.user);
       console.log(currentLoginUser.user, "ini dari appa");
       refetch()
     } else console.log('tidak ada yang login');
-  }, [currentLoginUser]);
+  }, [currentLoginUser, refetch]);
 
+  if (error) return <Error404 />
+  if (loading) return <Loader />
   return (
     <Fragment>
       {location.pathname !== '/login' && location.pathname !== '/register' && (
@@ -67,7 +83,7 @@ function App() {
             />
             <Route path="/pasar" component={Market} />
             <Route path="/tentang-kami" component={AboutUs} />
-            <GuardedRoute path="/keranjang" component={Cart} />
+            <GuardedRoute path= "/keranjang" component={Cart} /> 
             <GuardedRoute path="/chat/:receiver_id" component={ChatBoard} />
             <GuardedRoute path="/chat" component={ChatBoard} />
             <GuardedRoute path="/user/setting" component={UserSetting} />
