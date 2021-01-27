@@ -84,7 +84,7 @@ export default function Cart() {
               </tr>
             </thead>
             {cartData.carts.map((cart) => {
-              if (cart.status != 'lunas') {
+              if (cart.status !== 'lunas') {
                 totalCheckOutPrice =
                   totalCheckOutPrice + cart.quantity * cart.Product.price;
                 // setTotalPrice(totalCheckOutPrice)

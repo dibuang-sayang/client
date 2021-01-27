@@ -6,34 +6,23 @@ import {
   Popup,
   useMapEvents,
 } from 'react-leaflet';
-import { Hero, ProductHomepage, ChatBox, HeroMarketHome } from '../components';
+import { Hero, HeroMarketHome } from '../components';
 import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
 import { startChat } from '../config/firestore';
 import { useHistory } from 'react-router-dom';
-import { pengepul, pengrajin, anggota } from '../config/utils';
-import { userPositionVar, currentUserVar } from '../cache';
+import { pengepul, pengrajin } from '../config/utils';
+import { userPositionVar } from '../cache';
 
 export default function Home() {
   const [position, setPosition] = useState([6.2088, 106.8456]);
   const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
-  const { data: dataOffices, error, loading, refetch } = useQuery(
+  const { data: dataOffices, loading, refetch } = useQuery(
     office.GET_ALL_OFFICE
   );
   const [localOffices, setLocalOffices] = useState({ offices: [] });
-  // const { data: currentLoginUser, refetch } = useQuery(user.FIND_USER_BY_ID, {
-  //   context: {
-  //     headers: {
-  //       token: localStorage.getItem('token'),
-  //     },
-  //   },
-  //   onCompleted: () => {
-  //     console.log('sukses');
-  //   },
-  // });
-
   useEffect(()=> {
   }, [dataCurrentUser])
 
@@ -44,13 +33,7 @@ export default function Home() {
     }
   }, [dataOffices]);
 
-  // useEffect(() => {
-  //   const currentUserPost = [position.lat, position.lng]
-  //   if(currentUserPost[0]) {
-  //     userPositionVar(currentUserPost)
 
-  //   }
-  // }, [position])
 
   const LocationMarker = () => {
     const map = useMapEvents({
