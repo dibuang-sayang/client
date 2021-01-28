@@ -13,8 +13,10 @@ export default function OfficeTable({ office }) {
   };
 
   const fullName = office.User?.firstName + ' ' + office.User?.lastName;
-  const { address, latitude, longitude, phoneNumber, category } = office;
-  return (
+  const { address, latitude, longitude, phoneNumber, category } = office
+  if (dataCurrentUser.getCurrentUser.email === office.User?.email) {
+    return ''
+  } return (
     <tbody className="bg-white">
       <tr className="accordion border-b border-grey-light hover:bg-gray-100">
         <td className="inline-flex">
@@ -48,7 +50,7 @@ export default function OfficeTable({ office }) {
           </p>
         </td>
         <td className="text-center">
-          <button
+            <button
             onClick={() => {
               chatTriggerHandler(
                 office.User?.email,
