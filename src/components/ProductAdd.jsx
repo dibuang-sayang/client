@@ -10,7 +10,7 @@ export default function ProductAdd() {
     category: '',
     stock: 0,
     picture:
-      'https://dummyimage.com/400x400/059668/e0cce0.jpg&text=Upload+Image',
+      '',
   });
   const [createProduct] = useMutation(product.CREATE_PRODUCT, {
     context: {

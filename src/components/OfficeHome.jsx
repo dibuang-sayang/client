@@ -38,7 +38,7 @@ export default function OfficeHome(props) {
   if (error) return <Error404 />
   return (
     <Fragment>
-      <div className="flex flex-wrap -m-4">
+      <div className="grid grid-cols-4 gap-3">
         {data.office ? (
           data.office.Products.map((Product) => {
             return <ProductCard key={Product.id} product={Product} />;
