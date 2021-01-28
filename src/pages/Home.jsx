@@ -11,13 +11,15 @@ import { FooterBar } from '../components';
 import { useQuery } from '@apollo/client';
 import { office, user } from '../query';
 import { startChat } from '../config/firestore';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { pengepul, pengrajin } from '../config/utils';
 import { userPositionVar } from '../cache';
 
+
 export default function Home() {
+  const location = useLocation()
   const [position, setPosition] = useState([6.2088, 106.8456]);
-  const { data: dataCurrentUser } = useQuery(user.GET_CURRENT_USER);
+  const { data: dataCurrentUser, refetch: refetchCurrentUser } = useQuery(user.GET_CURRENT_USER);
   const history = useHistory();
   const { data: dataOffices, loading, error, refetch } = useQuery(
     office.GET_ALL_OFFICE
@@ -50,6 +52,13 @@ export default function Home() {
     startChat(emailOffice, emailUser);
     history.push(`/chat/${emailOffice}`);
   };
+
+  useEffect( () => {
+    if(location.state?.refetch){
+      console.log(location.state);
+      refetchCurrentUser()
+    }
+  }, [location])
 
   if (loading) {
     return <Loader />;

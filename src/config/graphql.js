@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { currentUserVar, checkOutVar, userPositionVar } from '../cache';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: 'https://server.dibuangsayang.tech',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

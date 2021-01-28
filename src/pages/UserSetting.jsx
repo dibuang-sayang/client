@@ -31,7 +31,9 @@ export default function UserSetting() {
     },
     errorPolicy: 'all',
     onCompleted: () => {
-      history.push('/');
+      console.log(currentLoginUser, 'stamp');
+      currentUserVar(currentLoginUser.user)
+      history.push('/', { refetch: true});
     },
   });
 
@@ -44,8 +46,12 @@ export default function UserSetting() {
           token: localStorage.getItem('token'),
         },
       },
+      onCompleted: () => {
+        console.log(currentLoginUser);
+      }
     }
   );
+
 
   //set current user
   useEffect(() => {

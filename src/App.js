@@ -50,6 +50,13 @@ function App() {
     }
   }, [currentLoginUser, refetch]);
 
+
+  useEffect( () => {
+    if(location.state?.refetch){
+      console.log(location.state);
+      refetch()
+    }
+  }, [location])
   // if (error) return <Error404 />
   // if (loading) return <Loader />;
   return (
